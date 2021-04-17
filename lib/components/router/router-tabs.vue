@@ -1,0 +1,141 @@
+<template>
+  <div class="joyin-router-tabs">
+    <div class="joyin-router-headers">
+      <a-affix
+        :offset-top="0"
+        :target="targetRef"
+      >
+        <a-tabs
+          v-model:activeKey="activeTabKey"
+          hide-add
+          type="editable-card"
+          size="small"
+          @edit="removeTab"
+        >
+          <a-tab-pane
+            v-for="tab in tabs"
+            :key="tab.uuid"
+            :closable="tab.toMeta.closable && tabs.length > 1"
+          >
+            <template #tab>
+              <span style="margin-right: 5px;">
+                {{tab.title}}
+                <RedoOutlined
+                  class="refresh ant-tabs-close-x"
+                  @click="refreshTab"
+                />
+              </span>
+            </template>
+          </a-tab-pane>
+        </a-tabs>
+      </a-affix>
+    </div>
+
+    <div class="joyin-router-container">
+      <joyin-router-alive :key="curTab.key"></joyin-router-alive>
+      <iframe
+        v-for="url in iframes"
+        v-show="url === currentIframe"
+        :key="url"
+        :src="url"
+        :name="url"
+        frameborder="0"
+        class="joyin-router-tab__iframe"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+import { provide, inject } from 'vue'
+import { Tabs, Affix } from 'ant-design-vue'
+import { RedoOutlined } from '@ant-design/icons-vue'
+import JoyinRouterAlive from './router-alive'
+import * as message from '../../api/tools/message'
+import useIframe from './composition/use-iframe'
+import { ROUTER_TABS_SYMBOL, MAIN_LAYOUT_CONTENT } from '../../api/global-symbol'
+
+import useTabs from '@lib/api/composition/use-tabs'
+export default {
+  data() {
+    return {
+      targetRef: null
+    }
+  },
+
+  setup() {
+    provide(ROUTER_TABS_SYMBOL, this)
+    const iframes = useIframe()
+    const tabs = useTabs()
+    const mainLayoutContentInstance = inject(MAIN_LAYOUT_CONTENT, {})
+
+    //删除tab
+    const removeTab = async uuid => {
+      const res = await message.confirm({ content: '确定删除吗？' })
+      if (res) {
+        tabs.deleteTab(uuid)
+      }
+
+    }
+
+    //删除tab
+    const refreshTab = async uuid => {
+      const res = await message.confirm({ content: '确定刷新吗？' })
+      if (res) {
+        console.log('--------------------刷新' + uuid);
+      }
+    }
+
+    return {
+      ...iframes,
+      ...tabs,
+      mainLayoutContentInstance,
+      removeTab,
+      refreshTab
+    }
+  },
+
+  components: {
+    [Tabs.name]: Tabs,
+    [Affix.name]: Affix,
+    [Tabs.TabPane.name]: Tabs.TabPane,
+    'joyin-router-alive': JoyinRouterAlive,
+    RedoOutlined
+
+  },
+
+  created() {
+
+  },
+  mounted() {
+    const mainContentCmp = this.mainLayoutContentInstance()
+    this.targetRef = () => mainContentCmp.vnode.el
+  }
+}
+</script>
+
+<style lang="scss">
+.joyin-router-tabs {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 10px;
+
+  .joyin-router-headers {
+    .ant-tabs-nav .ant-tabs-tab-active {
+      font-weight: normal;
+    }
+    .ant-affix > .ant-tabs-card {
+      background: #fff;
+    }
+    .ant-tabs-bar {
+      margin: 0 0 10px 0;
+    }
+  }
+
+  .joyin-router-container {
+    flex: 1 1 auto;
+  }
+}
+</style>

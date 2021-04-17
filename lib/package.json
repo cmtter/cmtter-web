@@ -1,0 +1,35 @@
+{
+  "name": "cmtter-lib-web",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xiufu.wang",
+  "license": "ISC",
+  "dependencies": {
+    "@ant-design-vue/use": "^0.0.1-alpha.9",
+    "ant-design-vue": "^2.1.0",
+    "axios": "^0.21.1",
+    "core-js": "^2.6.11",
+    "file-saver": "^2.0.5",
+    "normalize.css": "^8.0.1",
+    "qs": "^6.10.1",
+    "vue": "^3.0.7",
+    "vue-router": "4.0.6",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@umijs/babel-preset-umi": "^3.4.7",
+    "@vue/cli": "^4.5.12",
+    "@vue/cli-service-global": "^4.5.12",
+    "@vue/compiler-sfc": "^3.0.10",
+    "art-template": "^4.13.2",
+    "babel-loader": "^8.2.2",
+    "eslint-plugin-vue": "^7.8.0",
+    "fs-jetpack": "^4.1.0",
+    "globby": "^11.0.3",
+    "sass": "^1.26.8",
+    "sass-loader": "^9.0.0"
+  }
+}

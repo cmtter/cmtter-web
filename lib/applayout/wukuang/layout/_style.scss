@@ -1,0 +1,78 @@
+.joyin-app {
+  height: 100%;
+  /* 主题布局样式类 */
+  .main-layout {
+    height: 100%;
+
+    .fixed-header{
+      position: fixed;
+      width: 100%;
+       background: #001529;
+       padding: 0 20px; 
+    }
+    /* header */
+    .header-container{
+      display: flex;
+      height: 100%;
+
+      .logo{
+        min-width: 120px;
+        color: rgba(255, 255, 255, 0.65);
+        font-weight: 400;
+        font-size: 16px;
+        border-right: 1px solid rgb(95 86 86);
+
+        img{
+          height: 31px;
+          width: 31px;
+        }
+        .title{
+          vertical-align: middle;
+          margin: 0 20px;
+        }
+      }
+
+      .menus-container{
+        flex: 1 1 auto;
+        overflow: hidden;
+      }
+
+      .right-container{
+        min-width: 140px;
+        text-align: right;
+        border-left: 1px solid rgb(95 86 86);
+
+        .message{
+          margin-right: 20px;
+          display: inline-block;
+        }
+        .user{
+          font-size: 14px;
+          display: inline-block;
+          color: rgba(255, 255, 255, 0.65);
+          span{
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+
+    .sider-container{
+      display:flex;
+      flex-direction: column;
+      height:100%;
+
+      .menu-list{
+        flex: 1 1 0%; 
+        overflow: hidden auto;
+      }
+    }
+    .ant-layout-sider-trigger {
+      border-top: 1px solid #f0f0f0;
+      background: #fff;
+      color: rgba(0, 0, 0, 0.85)
+    }
+  }
+
+  /* 抽屉 */
+}
