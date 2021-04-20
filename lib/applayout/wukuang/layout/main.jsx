@@ -1,7 +1,7 @@
 import { defineComponent, computed } from 'vue'
 import omit from 'omit.js';
 import VueTypes from 'vue-types'
-import { Layout } from 'ant-design-vue'
+import { Layout, Spin } from 'ant-design-vue'
 import { getOptionProps } from 'ant-design-vue/es/_util/props-util'
 import LayoutHeader  from './header'
 import LayoutSider  from './sider'
@@ -53,7 +53,11 @@ export default defineComponent({
     props = omit(props, ['class'])
     const topMenus = this.topMenus
     const subMenus = this.subMenus || []
-    const loading = (<div style="text-align:center;"> 初始化数据... </div>)
+    const loading = (
+      <div style="display: flex;flex-direction: column;height: 100%;align-items: center;justify-content: center;">
+        <Spin tip="加载数据...."></Spin>
+      </div>
+    )
 
     return (
       topMenus === null ? loading : (

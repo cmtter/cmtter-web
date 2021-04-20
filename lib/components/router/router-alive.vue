@@ -15,7 +15,7 @@
 import VueTypes from 'vue-types'
 import useTabs from '@lib/api/composition/use-tabs'
 import RouterAliveExt from '../vue/router-alive-ext'
-import { computed, watch, getCurrentInstance } from 'vue'
+import { computed } from 'vue'
 /**
  * router-alive
  */
@@ -28,13 +28,8 @@ export default {
   },
   setup() {
     const { tabs } = useTabs()
-    const instance = getCurrentInstance()
     const keepAliveInclude = computed(() => {
       return tabs.value.map(r => r.uuid)
-    })
-    //清楚对于的tabkeep-alive缓存
-    watch(keepAliveInclude, () => {
-      console.log('----------', instance.ctx.$refs.keepAlive);
     })
     return {
       keepAliveInclude
@@ -50,4 +45,6 @@ export default {
 </script>
 
 <style lang="sass">
+.joyin-router-alive
+  height: 100%
 </style>

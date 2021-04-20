@@ -1,8 +1,12 @@
 import { defineComponent, shallowRef, createVNode, computed, getCurrentInstance } from 'vue'
-
+import {Spin } from 'ant-design-vue'
 const loadingComponent = defineComponent({
   render(){
-    return <div  style="text-align:center;"> 加载模块....</div>
+    return (
+      <div style="display: flex;flex-direction: column;height: 100%;align-items: center;justify-content: center;">
+        <Spin tip="加载模块...."></Spin>
+      </div>
+    )
   }
 })
 const errorComponent = defineComponent({
