@@ -32,7 +32,7 @@
     </div>
 
     <div class="joyin-router-container">
-      <joyin-router-alive :key="curTab.key"></joyin-router-alive>
+      <joyin-router-alive :pkey="curTab.uuid"></joyin-router-alive>
       <iframe
         v-for="url in iframes"
         v-show="url === currentIframe"
@@ -75,10 +75,9 @@ export default {
       if (res) {
         tabs.deleteTab(uuid)
       }
-
     }
 
-    //删除tab
+    // 刷新tab
     const refreshTab = async uuid => {
       const res = await message.confirm({ content: '确定刷新吗？' })
       if (res) {

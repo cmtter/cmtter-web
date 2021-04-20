@@ -2,10 +2,14 @@
 //PUBLIC_PATH: 该属性会影响所有的静态资源输入
 export default {
   /**
-   * 环境变量
+   * 环境变量 https://webpack.js.org/plugins/define-plugin/
    */
   envs: {
-    PUBLIC_PATH: '/wabbasedev'
+    PUBLIC_PATH: '/wabbasedev',
+    /**
+     * api/tools/http/request.js
+     */
+    VUE_APP_API_PATH: '/mock'
   },
   /**
    * 主布局
@@ -16,7 +20,7 @@ export default {
 
   /** 配置 */
   devServer: {
-    port: 8088,
+    port: 8080,
     open: false,
     proxy: {
       '/appws': {

@@ -27,14 +27,12 @@ export default defineComponent({
   },
   
   setup() {
-    console.log('---------------',hook);
     const menusS = hook.useState('menus')
     //const headerS = useState('header')
     const store = hook.useStore()
 
     const topMenus = computed(() => menusS.topMenus)
     const subMenus = computed(() => menusS.subMenus)
-
     return {
       topMenus,
       subMenus,
@@ -54,15 +52,16 @@ export default defineComponent({
     let props = { ...getOptionProps(this), ...this.$attrs };
     props = omit(props, ['class'])
     const topMenus = this.topMenus
-    const loading = (<div> 加载中... </div>)
+    const subMenus = this.subMenus || []
+    const loading = (<div style="text-align:center;"> 初始化数据... </div>)
 
     return (
       topMenus === null ? loading : (
       <ALayout {...props} class={_classes}>
         <LayoutHeader topMenus={topMenus}></LayoutHeader>
         <ALayout style={{marginTop: '64px'}}>
-          <LayoutSider  {...props}></LayoutSider>
-          <LayoutContent  {...props}>
+          <LayoutSider subMenus={subMenus} ></LayoutSider>
+          <LayoutContent>
               <RouerTab></RouerTab>
           </LayoutContent>
         </ALayout>

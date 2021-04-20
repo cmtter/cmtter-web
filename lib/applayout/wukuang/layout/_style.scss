@@ -74,5 +74,18 @@
     }
   }
 
+  /* sider 菜单为空的时候隐藏  */
+  .side-empty-sub-menus{
+    max-width: 0px !important;
+    min-width: 0px !important;
+  }
   /* 抽屉 */
 }
+
+ /* 侧边条折叠时文本标题无法隐藏 */
+ .ant-menu-inline-collapsed .submenu-title-text{
+  display: inline-block;
+  max-width: 0;
+  opacity: 0;
+ }
+
