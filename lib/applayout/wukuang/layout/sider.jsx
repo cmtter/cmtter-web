@@ -11,8 +11,8 @@ const AsubMenu = Amenu.SubMenu
 
 /**   */
 const siderProps = {
-  logo: VueTypes.string.isRequired,
-  title: VueTypes.string.isRequired,
+  logo: VueTypes.string,
+  title: VueTypes.string,
   subMenus: Array
 };
 

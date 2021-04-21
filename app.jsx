@@ -8,4 +8,3 @@ export function getMenus(){
   console.log(http || 'is http api');
   return undefined
 }
-

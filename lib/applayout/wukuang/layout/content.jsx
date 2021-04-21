@@ -9,8 +9,8 @@ import { MAIN_LAYOUT_CONTENT } from '../../../api/global-symbol'
 const ALayoutContent = Layout.Content
 
 const contentProps = {
-  logo: VueTypes.string.isRequired,
-  title: VueTypes.string.isRequired
+  logo: VueTypes.string,
+  title: VueTypes.string
 };
 
 export default defineComponent({

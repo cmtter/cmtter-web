@@ -1,5 +1,15 @@
 .joyin-app {
   height: 100%;
+
+  /* padding loading */
+  .joyin-router-alive > .ant-spin-nested-loading,
+  .joyin-router-alive > .ant-spin-nested-loading > .ant-spin-container,
+  & > .ant-spin-nested-loading,
+  & > .ant-spin-nested-loading > .ant-spin-container
+  {
+    height: 100%;
+  }
+
   /* 主题布局样式类 */
   .main-layout {
     height: 100%;

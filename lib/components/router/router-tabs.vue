@@ -22,6 +22,7 @@
                 {{tab.title}}
                 <RedoOutlined
                   class="refresh ant-tabs-close-x"
+                  v-if="curTab && curTab.uuid === tab.uuid"
                   @click="refreshTab"
                 />
               </span>
@@ -47,7 +48,7 @@
 </template>
 
 <script>
-import { provide, inject } from 'vue'
+import { provide, inject, getCurrentInstance } from 'vue'
 import { Tabs, Affix } from 'ant-design-vue'
 import { RedoOutlined } from '@ant-design/icons-vue'
 import JoyinRouterAlive from './router-alive'
@@ -59,12 +60,18 @@ import useTabs from '@lib/api/composition/use-tabs'
 export default {
   data() {
     return {
-      targetRef: null
+      targetRef: null,
+      currentRouteComp: null
     }
   },
-
+  provide() {
+    return {
+      ROUTER_TABS_SYMBOL: this
+    }
+  },
   setup() {
-    provide(ROUTER_TABS_SYMBOL, this)
+    const instance = getCurrentInstance()
+    provide(ROUTER_TABS_SYMBOL, instance)
     const iframes = useIframe()
     const tabs = useTabs()
     const mainLayoutContentInstance = inject(MAIN_LAYOUT_CONTENT, {})
@@ -80,8 +87,8 @@ export default {
     // 刷新tab
     const refreshTab = async uuid => {
       const res = await message.confirm({ content: '确定刷新吗？' })
-      if (res) {
-        console.log('--------------------刷新' + uuid);
+      if (res && instance.ctx && instance.ctx.currentRouteComp) {
+        instance.ctx.currentRouteComp.refresh(uuid)
       }
     }
 
@@ -109,6 +116,11 @@ export default {
   mounted() {
     const mainContentCmp = this.mainLayoutContentInstance()
     this.targetRef = () => mainContentCmp.vnode.el
+  },
+  methods: {
+    setRouterComp(cmp) {
+      this.currentRouteComp = cmp
+    }
   }
 }
 </script>
