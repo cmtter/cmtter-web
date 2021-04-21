@@ -81,7 +81,7 @@ export default defineComponent({
         <div class="header-container">
           <div class="logo">
             <img src={logoPng}/>
-            <span class="title">信托业务管理平台</span>
+            <span class="title">CMTTER-WEB</span>
           </div>
           <div class="menus-container">
             <Amenu 
