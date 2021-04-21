@@ -1,7 +1,4 @@
 build
 .joyin
-mock
-views
 lib/node_modules
 lib/read.txt
-lib/
