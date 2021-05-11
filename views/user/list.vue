@@ -1,5 +1,5 @@
 <template>
-  <div v-show-overflow-tooltip> 工作台 </div>
+  <div v-show-overflow-tooltip> user/list </div>
 </template>
 
 <script>

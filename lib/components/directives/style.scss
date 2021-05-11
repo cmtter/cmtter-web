@@ -1,0 +1,12 @@
+.show-overflow-tooltip{  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px dotted rgba(0,0,0,0.0); 
+  &:hover {
+    border-bottom: 1px dotted rgba(0,0,0,0.4); 
+    background: #f8f5f5;
+  }
+}
+
+

@@ -140,13 +140,16 @@ export default {
 
     function pruneCacheEntry(key) {
       const cached = cache.get(key)
-      if (!current || cached.type !== current.type) {
+      // if (!current || cached.type !== current.type) {
+      //   unmount(cached)
+      // } else if (current) {
+      //   resetShapeFlag(current)
+      // }
+      // 当tab区域存在模块页面
+      if (current){
         unmount(cached)
-      } else if (current) {
-        // current active instance should no longer be kept-alive.
-        // we can't unmount it now but it might be later, so reset its flag now.
-        resetShapeFlag(current)
       }
+      
       cache.delete(key)
       keys.delete(key)
     }
