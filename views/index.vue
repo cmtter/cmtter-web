@@ -3,8 +3,9 @@
 </template>
 
 <script>
+import { Mixin } from '@lib/components/ui'
 export default {
-
+  mixins: [Mixin]
 }
 </script>
 

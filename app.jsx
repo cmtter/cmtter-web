@@ -5,6 +5,6 @@ import http from '@lib/api/tools/http'
  */
 // 返回菜单
 export function getMenus(){
-  console.log(http || 'is http api');
+  console.log(http && 'is http api');
   return undefined
 }
