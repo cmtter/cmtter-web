@@ -40,7 +40,7 @@ function removeClass(el, className){
 const vcTooltipInstance = createApp({
   data(){
     return {
-      title: '测试'
+      title: ' '
     }
   },
   methods: {
