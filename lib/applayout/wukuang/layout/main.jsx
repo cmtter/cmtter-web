@@ -43,6 +43,7 @@ export default defineComponent({
   created(){
     // 请求菜单
     this.store.dispatch('menus/loadMenus')
+    this.$appconfig.getMenus()
   },
 
   methods: {
