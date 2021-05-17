@@ -1,0 +1,23 @@
+.joyin-app{
+  .ant-form-item{
+    margin-bottom: 0px;
+  }
+  .ant-form-explain, 
+  .ant-form-extra {
+    margin-top: -10px;
+    font-size: 12px;
+  }
+  /* 将异常提示dom改成绝对定位 */
+  .ant-form-explain{
+    position: absolute;
+    top: 100%;
+  }
+
+  /* 修改label大小 */
+  .ant-form label {
+    font-size: 13px;
+  }
+  .ant-form-item-label{
+    line-height: 37.9999px;
+  }
+}

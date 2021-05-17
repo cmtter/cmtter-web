@@ -49,7 +49,7 @@ const resolveComponent = defineComponent({
       prop.loader().catch(() =>{
         loader.value = errorComponent
       }).then((r) => {
-        delay(1000).then(() => {
+        delay(10).then(() => {
           loader.value = r.default ? r.default : r
         })
       })
