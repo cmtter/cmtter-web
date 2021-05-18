@@ -1,5 +1,6 @@
 import UI, { UIConfig } from '@lib/components/ui'
-
+import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons-vue'
+import { createVNode } from 'vue'
 const { DefineRules } = UIConfig
 
 // 表单状态模型
@@ -23,13 +24,36 @@ export const _testFormStateRules = {
 }
 
 //测试组件
+const testInput_prefix = () => <UserOutlined></UserOutlined>
+const testInput_suffix = () => createVNode(InfoCircleOutlined, {}, null)
+// 测试普通输入框
 const testInput = UI.form.input.generate({
   label: '输入框',
-  labelCol: 6,
   placeholder: '请输入名称',
-  wrapperCol: 16,
-  flex: '0 0 300px',
-  rules: _testFormStateRules.cmtter1
+  flex: '0 0 350px',
+  rules: _testFormStateRules.cmtter1,
+  prefix: testInput_prefix,
+  suffix: testInput_suffix
+})
+
+// 测试联系方式
+const testInputPhone = UI.form.input.phone.generate({
+  flex: '0 0 350px'
+})
+
+// 测试邮箱
+const testInputEmail = UI.form.input.email.generate({
+  flex: '0 0 350px'
+})
+
+// 测试数字
+const testInputNumber = UI.form.input.number.generate({
+  flex: '0 0 350px'
+})
+
+// 整数
+const testInputInteger = UI.form.input.integer.generate({
+  flex: '0 0 350px'
 })
 
 const testContaner = UI.contaner.generate({
@@ -39,5 +63,9 @@ const testContaner = UI.contaner.generate({
 
 export default {
   testInput,
-  testContaner
+  testContaner,
+  testInputPhone,
+  testInputEmail,
+  testInputNumber,
+  testInputInteger
 }

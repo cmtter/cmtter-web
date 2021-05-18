@@ -1,0 +1,2 @@
+临时解决方案：借助于ant-design-icons-master\ant-design-icons-master\packages\icons-svg 构建生产的Icon，然后在集成到该Icon中
+（未来优化中可以借鉴该构建逻辑，集成到我们的脚手架中）

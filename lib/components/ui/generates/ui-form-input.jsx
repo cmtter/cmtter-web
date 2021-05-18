@@ -1,4 +1,4 @@
-import { defineComponent, inject, shallowRef, toRaw } from 'vue'
+import { computed, defineComponent, inject, shallowRef, toRaw, watch } from 'vue'
 import UIConfig from './ui-config'
 import { getOptionProps } from 'ant-design-vue/es/_util/props-util'
 import { Input, Form, Col } from 'ant-design-vue'
@@ -11,9 +11,9 @@ function generate(options){
   // 定义属性
   const props = {
     // label宽度比例
-    labelCol: VueTypes.number,
+    labelCol: VueTypes.number.def(6),
     // control宽度比例
-    wrapperCol: VueTypes.number,
+    wrapperCol: VueTypes.number.def(16),
     // 前偏移边距
     beforeOffsetCol: VueTypes.number,
     // 后偏移边距
@@ -29,9 +29,12 @@ function generate(options){
     // value
     value: VueTypes.oneOfType([VueTypes.string, VueTypes.number]),
     //size
-    size: VueTypes.oneOf(['large', 'small']).def('small'),
+    size: VueTypes.oneOf(['large', 'small']),
     //placeholder
     placeholder:VueTypes.string,
+    //prefix
+    prefix: VueTypes.oneOfType([VueTypes.string, VueTypes.object]),
+    suffix: VueTypes.oneOfType([VueTypes.string, VueTypes.object]),
     //偏移单位
     offset:VueTypes.integer.def(0),
     //flex 宽度定位
@@ -40,7 +43,8 @@ function generate(options){
     col: VueTypes.number,
     // ui 定义ui唯一名称
     ui: VueTypes.string,
-    vif: VueTypes.bool
+    vif: VueTypes.bool,
+    inputValidator: VueTypes.func
   }
 
   const defaultValue = (options.value !== undefined && options.value !== null && typeof options.value === 'string') ? options.value : undefined
@@ -49,7 +53,7 @@ function generate(options){
     props: {
       ...(defalutProps(props, options))
     },
-    setup(){
+    setup(props, { emit }){
       const hostComp = inject(UIConfig.UI_HOST_PARENT_CONTEXT_SYMBOL)
       const dyncProps = shallowRef({})
       const parentContaner = inject(UIConfig.UI_CONTANER_SYMBOL, null)
@@ -59,6 +63,16 @@ function generate(options){
           ...newProps
         }
       }
+
+      // 实时监控用户输入是否合法
+      const inputValue = computed(() => props.value)
+      watch(inputValue, (val, preVal) => {
+        if (props.inputValidator && props.inputValidator instanceof Function ){
+          if (props.inputValidator(val, preVal) === false){
+            emit('update:value', preVal)
+          }
+        }
+      })
       return {
         hostComp,
         dyncProps,
