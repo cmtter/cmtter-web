@@ -4056,6 +4056,11 @@ csv-parser@^1.6.0:
     minimist "^1.2.0"
     ndjson "^1.4.0"
 
+currency.js@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.nlark.com/currency.js/download/currency.js-2.0.3.tgz#3f266c241074eabfa4a6a53c3f477fac17c781a7"
+  integrity sha1-PyZsJBB06r+kpqU8P0d/rBfHgac=
+
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/cyclist/download/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"

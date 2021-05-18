@@ -12,6 +12,7 @@
     "ant-design-vue": "^2.1.0",
     "axios": "^0.21.1",
     "core-js": "^2.6.11",
+    "currency.js": "^2.0.3",
     "file-saver": "^2.0.5",
     "normalize.css": "^8.0.1",
     "qs": "^6.10.1",
