@@ -1,0 +1,20 @@
+<meta charset="utf-8">
+<title>sfc-demo-runer demo</title>
+<script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+<script src="/system.js"></script>
+
+
+
+<div id="app">
+  <demo></demo>
+</div>
+
+<script>
+  System.import('./sfc-demo-runer.umd.js').then(function (resp) {
+    Vue.createApp({
+      components: {
+        demo: resp
+      }
+    }).mount('#app')
+  })
+</script>
