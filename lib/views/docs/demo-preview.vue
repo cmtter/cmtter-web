@@ -30,7 +30,11 @@
           class="pane"
           :style="{ flexGrow: 1 }"
         >
-          结果预览
+          <iframe
+            v-if="previewUrl"
+            style="width: 100%; height: 100%;"
+            :src="previewUrl"
+          ></iframe>
         </div>
       </multipane>
     </div>
@@ -48,7 +52,7 @@ import MultipaneResizer from "vue-multipane/src/multipane-resizer";
 import { Button as AButton } from 'ant-design-vue'
 import composition from '@lib/api/composition'
 import { error } from '@lib/api/tools/message'
-// import Systemjs from 'systemjs/dist/system'
+
 export default {
   components: {
     vueCodemirror,
@@ -58,8 +62,8 @@ export default {
   },
   setup() {
     // 定义状态
-    const code = ref("")
-    const previewCompentOption = ref(null)
+    const code = ref('')
+    const previewUrl = ref(null)
     const compilerLoading = ref(false)
     const instance = getCurrentInstance()
 
@@ -73,12 +77,7 @@ export default {
       const _sfcCode = instance.ctx.$refs.codemirror.codemirror.getValue()
       const resp = await http('/mock/sfc/compiler', { code: _sfcCode }).post()
       if (resp.response && resp.response.isOk === true) {
-        const f = resp.response.file.replace('.js', '')
-        __webpack_require__.e('mock/sfc/preview?file=' + f).then((opt) => {
-          console.log('-------------', opt);
-        }).catch(() => {
-          error({ content: '失败: 加载模块失败[' + resp.response.file + ']!!!' })
-        })
+        previewUrl.value = '/sfcpreview/demo.html?file=' + resp.response.file
       } else {
         error({ content: '失败: 检测是语法是否错误!!!' })
       }
@@ -88,7 +87,7 @@ export default {
     return {
       code,
       compilerCode,
-      previewCompentOption,
+      previewUrl,
       compilerLoading
     }
   }

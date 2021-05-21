@@ -1,0 +1,21 @@
+<meta charset="utf-8">
+<title>sfc-demo-runer demo</title>
+<script src="./vue.global.js"></script>
+<script src="./system.js"></script>
+<link rel="stylesheet" type="text/css" href="./antd.css" />
+<div id="app">
+  <demo></demo>
+</div>
+
+<script>
+  var file = new URL(location.href).searchParams.get('file')
+  if (file) {
+    System.import('/mock/sfc/preview?file=' + file).then(function (resp) {
+      Vue.createApp({
+        components: {
+          demo: resp.default
+        }
+      }).mount('#app')
+    })
+  }
+</script>
