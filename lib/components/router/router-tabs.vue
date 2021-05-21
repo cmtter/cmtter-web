@@ -129,7 +129,7 @@ export default {
 .joyin-router-tabs {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 95%;
   box-sizing: border-box;
   margin: 10px;
 

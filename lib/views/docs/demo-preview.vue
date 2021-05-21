@@ -97,7 +97,7 @@ export default {
 <style>
 .vertical-panes {
   width: 90%;
-  height: 600px;
+  height: 550px;
   border: 1px solid #ccc;
 }
 
