@@ -3566,6 +3566,11 @@ code-point-at@^1.0.0:
   resolved "https://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
+codemirror@^5.61.1:
+  version "5.61.1"
+  resolved "https://registry.nlark.com/codemirror/download/codemirror-5.61.1.tgz?cache=0&sync_timestamp=1621501263419&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcodemirror%2Fdownload%2Fcodemirror-5.61.1.tgz#ccfc8a43b8fcfb8b12e8e75b5ffde48d541406e0"
+  integrity sha1-zPyKQ7j8+4sS6OdbX/3kjVQUBuA=
+
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/collection-visit/download/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
@@ -10344,6 +10349,11 @@ symbol-observable@^1.0.4:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/symbol-observable/download/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha1-wiaIrtTqs83C3+rLtWFmBWCgCAQ=
+
+systemjs@^6.9.0:
+  version "6.9.0"
+  resolved "https://registry.nlark.com/systemjs/download/systemjs-6.9.0.tgz#f01a0093d4d70332fff59f2e5ff385de28284ff5"
+  integrity sha1-8BoAk9TXAzL/9Z8uX/OF3igoT/U=
 
 table@^5.2.3:
   version "5.4.6"

@@ -5,7 +5,9 @@
       <a-button
         type="primary"
         style="margin-right: 8px;"
-      > 运行</a-button>
+        @click="compilerCode"
+        :loading="compilerLoading"
+      > {{ compilerLoading ? '正在编译....' : '运行' }}</a-button>
       <a-button>保存</a-button>
     </div>
     <div style="height: 100%;display: flex;justify-content: center;">
@@ -18,16 +20,17 @@
           class="pane"
           :style="{ minWidth: '10%', width: '40%', maxWidth: '95%' }"
         >
-          <div>
-            代码区域
-          </div>
+          <vue-codemirror
+            v-model:code="code"
+            ref="codemirror"
+          ></vue-codemirror>
         </div>
         <multipane-resizer style="left:0px;background: #fff;"></multipane-resizer>
         <div
           class="pane"
           :style="{ flexGrow: 1 }"
         >
-          预览区域
+          结果预览
         </div>
       </multipane>
     </div>
@@ -38,15 +41,56 @@
 /**
  * 参考 https://github.com/yansern/vue-multipane
  */
-// import vueCodemirror from './components/vue-codemirror'
-import { Multipane, MultipaneResizer } from "vue-multipane/src/index";
+import { ref, getCurrentInstance } from 'vue';
+import vueCodemirror from './components/vue-codemirror'
+import Multipane from "vue-multipane/src/multipane.vue";
+import MultipaneResizer from "vue-multipane/src/multipane-resizer";
 import { Button as AButton } from 'ant-design-vue'
+import composition from '@lib/api/composition'
+import { error } from '@lib/api/tools/message'
+// import Systemjs from 'systemjs/dist/system'
 export default {
   components: {
-    //vueCodemirror,
+    vueCodemirror,
     Multipane,
     MultipaneResizer,
     AButton
+  },
+  setup() {
+    // 定义状态
+    const code = ref("")
+    const previewCompentOption = ref(null)
+    const compilerLoading = ref(false)
+    const instance = getCurrentInstance()
+
+    const { http } = composition.useHttp()
+    //编译代码
+    const compilerCode = async () => {
+      if (compilerLoading.value) {
+        return
+      }
+      compilerLoading.value = true
+      const _sfcCode = instance.ctx.$refs.codemirror.codemirror.getValue()
+      const resp = await http('/mock/sfc/compiler', { code: _sfcCode }).post()
+      if (resp.response && resp.response.isOk === true) {
+        const f = resp.response.file.replace('.js', '')
+        __webpack_require__.e('mock/sfc/preview?file=' + f).then((opt) => {
+          console.log('-------------', opt);
+        }).catch(() => {
+          error({ content: '失败: 加载模块失败[' + resp.response.file + ']!!!' })
+        })
+      } else {
+        error({ content: '失败: 检测是语法是否错误!!!' })
+      }
+      compilerLoading.value = false
+    }
+
+    return {
+      code,
+      compilerCode,
+      previewCompentOption,
+      compilerLoading
+    }
   }
 }
 </script>
@@ -54,7 +98,7 @@ export default {
 <style>
 .vertical-panes {
   width: 90%;
-  height: 650px;
+  height: 600px;
   border: 1px solid #ccc;
 }
 
@@ -81,5 +125,9 @@ export default {
   margin-left: -1.5px;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
+}
+
+.online-preview .multipane-resizer:hover:before {
+  border-color: rgb(202, 51, 51);
 }
 </style>

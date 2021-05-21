@@ -152,7 +152,7 @@ export default function(dyncComp){
           if (this._loader){
             this._loader.isForRefresh = true
           }
-        }, 500)
+        }, 200)
       },
       applyThisToRouterTab(){
         if (this[ROUTER_TABS_SYMBOL]){

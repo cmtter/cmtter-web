@@ -23,6 +23,10 @@ export default {
     port: 8080,
     open: false,
     proxy: {
+      '/wabbasedev/js/mock': {
+        target: 'http://localhost:8080/',
+        pathRewrite: { '^/wabbasedev/js': '' },
+      },
       '/appws': {
         target: 'http://www.baidu.com/',
         pathRewrite: { '^/appws': '' },
