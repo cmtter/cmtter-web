@@ -7,15 +7,14 @@
  import JoyinNumberFilled from '../../icon/JoyinNumberFilled'
  import { createVNode } from 'vue'
  const { DefineRules } = UIConfig
-
+ const NUMBER_REG = /^-?\d*(\.\d*)?$/
  function defaultInputValidator(val){
-    if ((!isNaN(+val) && NUMBER_REG.test(val)) || val === '' || val === '-') {
+    if ((val ==null || val === undefined || !isNaN(+val) && NUMBER_REG.test(val)) || val === '' || val === '-') {
       return true
     } else {
       return false
     }
  }
- const NUMBER_REG = /^-?\d*(\.\d*)?$/
 
  function generate(options){
    options = options || {}
@@ -23,9 +22,9 @@
    return baseInput.generate({
      label: '数字',
      placeholder: '请输入数字',
+     prefix: () => createVNode(JoyinNumberFilled , {}, null),
      ...options,
      rules,
-     prefix: () => createVNode(JoyinNumberFilled , {}, null),
      inputValidator: (val) => {
         if (options.inputValidator){
             return options.inputValidator(val)

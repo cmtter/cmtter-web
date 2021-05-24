@@ -29,9 +29,24 @@
         name="cmtter5"
       ></test-input-integer>
 
+      <test-input-currency
+        v-model:value="testFormState.cmtter6"
+        name="cmtter6"
+      ></test-input-currency>
+
+      <test-input-currency-wanyuan
+        v-model:value="testFormState.cmtter7"
+        name="cmtter7"
+      ></test-input-currency-wanyuan>
+
+      <test-input-percentage
+        v-model:value="testFormState.cmtter8"
+        name="cmtter8"
+      ></test-input-percentage>
+
     </test-contaner>
     <br /><br /><br /><br />
-    <div> 你输入的值: {{testFormState.cmtter1}}
+    <div> 你输入的值: {{testFormState.cmtter8}}
 
     </div>
     <div>图标 <JoyinNumberFilled></JoyinNumberFilled>
@@ -69,7 +84,7 @@ export default {
   },
   methods: {
     testHandler() {
-      console.log(this.$refs.form);
+      console.log(this.$refs.form, this.testFormState.cmtter7);
     }
   }
 }

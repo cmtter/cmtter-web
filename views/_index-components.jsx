@@ -11,7 +11,7 @@ export const _testFormState = {
   cmtter4: null,
   cmtter5: null,
   cmtter6: null,
-  cmtter7: null,
+  cmtter7: 1211223,
   cmtter8: null
 }
 
@@ -56,10 +56,28 @@ const testInputInteger = UI.form.input.integer.generate({
   flex: '0 0 350px'
 })
 
+//测试币种
+const testInputCurrency = UI.form.input.currency.generate({
+  flex: '0 0 350px'
+})
+
+//测试币种-万元
+const testInputCurrencyWanyuan = UI.form.input.currency.generate({
+  flex: '0 0 350px',
+  ...(UIConfig.units['万元'])
+})
+
+//百分比
+const testInputPercentage = UI.form.input.percentage.generate({
+  flex: '0 0 350px'
+})
+
 const testContaner = UI.contaner.generate({
   columnCount: 3,
   justify: 'start'
 })
+
+
 
 export default {
   testInput,
@@ -67,5 +85,8 @@ export default {
   testInputPhone,
   testInputEmail,
   testInputNumber,
-  testInputInteger
+  testInputInteger,
+  testInputCurrency,
+  testInputCurrencyWanyuan,
+  testInputPercentage
 }

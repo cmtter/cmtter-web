@@ -1,7 +1,7 @@
-import { computed, defineComponent, inject, shallowRef, toRaw, watch } from 'vue'
+import { computed, defineComponent, inject, shallowRef, toRaw, watch, ref } from 'vue'
 import UIConfig from './ui-config'
 import { getOptionProps } from 'ant-design-vue/es/_util/props-util'
-import { Input, Form, Col } from 'ant-design-vue'
+import { Input, Form } from 'ant-design-vue'
 import omit from 'omit.js';
 import { defalutProps } from '../utils'
 import VueTypes from  'vue-types'
@@ -35,25 +35,27 @@ function generate(options){
     //prefix
     prefix: VueTypes.oneOfType([VueTypes.string, VueTypes.object]),
     suffix: VueTypes.oneOfType([VueTypes.string, VueTypes.object]),
-    //偏移单位
-    offset:VueTypes.integer.def(0),
-    //flex 宽度定位
-    flex: VueTypes.string,
-    // col
-    col: VueTypes.number,
-    // ui 定义ui唯一名称
-    ui: VueTypes.string,
-    vif: VueTypes.bool,
-    inputValidator: VueTypes.func
+    inputValidator: VueTypes.func,
+    //内容显示格式化
+    formatter: VueTypes.func.def(() => false),
+    // 显示内容=>格式化到值
+    parser: VueTypes.func.def(() => false),
+    
+    ...(UIConfig.UI_MIXINS.props)
   }
 
   const defaultValue = (options.value !== undefined && options.value !== null && typeof options.value === 'string') ? options.value : undefined
 
   const _formControl = {
+    mixins: [UIConfig.UI_MIXINS],
     props: {
       ...(defalutProps(props, options))
     },
+    data(){
+     return {}
+    },
     setup(props, { emit }){
+      const constomerInputValue = ref(null)
       const hostComp = inject(UIConfig.UI_HOST_PARENT_CONTEXT_SYMBOL)
       const dyncProps = shallowRef({})
       const parentContaner = inject(UIConfig.UI_CONTANER_SYMBOL, null)
@@ -70,63 +72,97 @@ function generate(options){
         if (props.inputValidator && props.inputValidator instanceof Function ){
           if (props.inputValidator(val, preVal) === false){
             emit('update:value', preVal)
+            return
           }
         }
       })
+
+      // 显示格式化：例如单位的转换
+      const formatterInputValue = computed(() => {
+        if (constomerInputValue.value !== null){
+          return constomerInputValue.value
+        }
+        if(typeof props.formatter !== 'function' || props.formatter(inputValue.value) === false){
+          return inputValue.value
+        } else {
+          return props.formatter(inputValue.value)
+        }
+      })
+
+      //保存用户正在的输入内容
+      const saveConstomerInputValue = (v) => {
+        constomerInputValue.value = v
+      }
+
+      // 格式化constomerInputValue
+      watch(constomerInputValue, (val, preVal) => {
+        if (props.inputValidator && props.inputValidator instanceof Function ){
+          if (props.inputValidator(val, preVal) === false){
+            constomerInputValue.value = preVal
+          }
+        }
+      })
+
       return {
         hostComp,
         dyncProps,
         updateDyncProps,
-        parentContaner
+        parentContaner,
+        inputValue,
+        formatterInputValue,
+        constomerInputValue,
+        saveConstomerInputValue
       }
     },
-    created(){
-      if (this.hostComp && this.hostComp.registerUI && this.ui){
-        this.hostComp.registerUI(this.ui, this)
-      }
-    },
-    beforeUnmount(){
-      if (this.hostComp && this.hostComp.registerUI && this.ui){
-        this.hostComp.removeUI(this.ui)
-      }
-    },
-   
     methods: {
-      renderColWapper(children){
-        if (this.parentContaner && (this.parentContaner.columnCount || this.offset || this.flex || this.col)){
-          const { flex, offset } = this
-          const columnCount = this.parentContaner.columnCount
-          let colProps = null
-          // flex优先级最高
-          if (flex){
-            colProps = {offset, flex}
-          }
-          if (!colProps){
-            const col = (this.col) ? this.col : ((columnCount) ? (24 / columnCount) : null)
-            colProps = {
-              offset,
-              ...(col ? {span: col} : {})
-  
+      // 用户完成输入后,进行格式化
+      handerCompleteInput(e){
+        const props = { ...getOptionProps(this), ...this.$attrs, ...this.dyncProps };
+        if (props.onBlur){
+          props.onBlur(e)
+        }
+        
+        if (props.formatter && typeof props.formatter === 'function'){
+            const v = props.formatter(this.value)
+            if (v !== false){
+              this.saveConstomerInputValue(v)
+            }
+        }
+      },
+
+      // 处理用户正在输入
+      handerInputing(e){
+        this.saveConstomerInputValue(e.target.value)
+      },
+
+      parserValue(v){
+        const props = { ...getOptionProps(this), ...this.$attrs, ...this.dyncProps };
+        if (props.inputValidator && props.inputValidator instanceof Function ){
+          if (props.inputValidator(v, v) === false){
+            this.$emit('update:value', null)
+          } else {
+            if(typeof props.parser !== 'function' || props.parser(v) === false){
+              this.$emit('update:value', v)
+            } else {
+              this.$emit('update:value', props.parser(v))
             }
           }
-          return (<Col {...colProps}>{children}</Col>)
         }
-        return children
       }
     },
 
     render(){
-      if (this.vif === false){
-        return null
-      }
-
       let allProps =  { ...getOptionProps(this), ...this.$attrs, ...this.dyncProps };
 
       const inputProps = {
-        ...omit(allProps, ['ui', 'vif']),
+        ...omit(allProps, ['ui', 'vif', 'value']),
         ...(defaultValue ? {defaultValue} : {}),
         allowClear: true,
-        autocomplete: 'off'
+        autocomplete: 'off',
+        value: this.formatterInputValue,
+        onBlur: this.handerCompleteInput,
+        onInput:  this.handerInputing,
+        'onUpdate:value': this.parserValue
       }
 
       const formItemProps = {
@@ -138,9 +174,9 @@ function generate(options){
         validateFirst: true
       }
 
-      const content = (<FormItem {...formItemProps}><Input {...inputProps}></Input></FormItem>)
+      const content = (<FormItem {...formItemProps}><Input {...inputProps} ></Input></FormItem>)
 
-      return this.renderColWapper(content)
+      return this.renderVif(this.renderColWapper(content))
     } 
   }
   return defineComponent(_formControl)
