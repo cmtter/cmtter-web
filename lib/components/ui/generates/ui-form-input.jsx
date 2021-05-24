@@ -1,7 +1,7 @@
 import { computed, defineComponent, inject, shallowRef, toRaw, watch, ref } from 'vue'
 import UIConfig from './ui-config'
 import { getOptionProps } from 'ant-design-vue/es/_util/props-util'
-import { Input, Form } from 'ant-design-vue'
+import { Input, Form, DatePicker } from 'ant-design-vue'
 import omit from 'omit.js';
 import { defalutProps } from '../utils'
 import VueTypes from  'vue-types'
@@ -27,7 +27,7 @@ function generate(options){
     // disabled
     disabled: VueTypes.bool.def(false),
     // value
-    value: VueTypes.oneOfType([VueTypes.string, VueTypes.number]),
+    value: VueTypes.oneOfType([VueTypes.string, VueTypes.number]).def(null),
     //size
     size: VueTypes.oneOf(['large', 'small']),
     //placeholder
@@ -40,8 +40,13 @@ function generate(options){
     formatter: VueTypes.func.def(() => false),
     // 显示内容=>格式化到值
     parser: VueTypes.func.def(() => false),
-    
-    ...(UIConfig.UI_MIXINS.props)
+    ...(UIConfig.UI_MIXINS.props),
+    // 输入类型
+    inputType: VueTypes.oneOf(['text', 'date', 'datetime']).def('text'),
+    // 国际化
+    locale: VueTypes.object,
+    // 日期格式化
+    dateValueFormat: VueTypes.string
   }
 
   const defaultValue = (options.value !== undefined && options.value !== null && typeof options.value === 'string') ? options.value : undefined
@@ -148,23 +153,54 @@ function generate(options){
             }
           }
         }
+      },
+
+      renderTextInput(props){
+        const inputProps = {
+          ...omit(props, ['ui', 'vif', 'value', 'offset', 'flex', 'col', 'inputType']),
+          ...(defaultValue ? {defaultValue} : {}),
+          allowClear: true,
+          autocomplete: 'off',
+          value: this.formatterInputValue,
+          onBlur: this.handerCompleteInput,
+          onInput:  this.handerInputing,
+          'onUpdate:value': this.parserValue
+        }
+        return <Input {...inputProps} ></Input>
+      },
+      renderDateInput(props){
+        const dateProps = {
+          ...props,
+          valueFormat: props.dateValueFormat
+        }
+        return <DatePicker {...dateProps}></DatePicker>
+      },
+      renderDateTimeInput(props){
+        const dateTimeProps = {
+          ...props,
+          valueFormat: props.dateValueFormat,
+          showTime: true
+        }
+        return <DatePicker {...dateTimeProps}></DatePicker>
+      },
+      renderFormController(props){
+        if (props.inputType === 'text'){
+          return this.renderTextInput(props)
+        }
+        if (props.inputType === 'date'){
+          return this.renderDateInput(props)
+        }
+
+        if (props.inputType === 'datetime'){
+          return this.renderDateTimeInput(props)
+        }
+
+        return null;
       }
     },
 
     render(){
-      let allProps =  { ...getOptionProps(this), ...this.$attrs, ...this.dyncProps };
-
-      const inputProps = {
-        ...omit(allProps, ['ui', 'vif', 'value']),
-        ...(defaultValue ? {defaultValue} : {}),
-        allowClear: true,
-        autocomplete: 'off',
-        value: this.formatterInputValue,
-        onBlur: this.handerCompleteInput,
-        onInput:  this.handerInputing,
-        'onUpdate:value': this.parserValue
-      }
-
+      const allProps =  { ...getOptionProps(this), ...this.$attrs, ...this.dyncProps };
       const formItemProps = {
         label: allProps.label,
         labelCol: {span: allProps.labelCol},
@@ -174,8 +210,7 @@ function generate(options){
         validateFirst: true
       }
 
-      const content = (<FormItem {...formItemProps}><Input {...inputProps} ></Input></FormItem>)
-
+      const content = (<FormItem {...formItemProps}>{this.renderFormController(allProps)}</FormItem>)
       return this.renderVif(this.renderColWapper(content))
     } 
   }

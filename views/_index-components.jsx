@@ -12,7 +12,11 @@ export const _testFormState = {
   cmtter5: null,
   cmtter6: null,
   cmtter7: 1211223,
-  cmtter8: null
+  cmtter8: null,
+  cmtter9: null,
+  cmtter10: null,
+  cmtter11: null,
+  cmtter12: null
 }
 
 // 表单模型状态校验
@@ -72,6 +76,17 @@ const testInputPercentage = UI.form.input.percentage.generate({
   flex: '0 0 350px'
 })
 
+//日期
+const testInputDate = UI.form.input.date.generate({
+  flex: '0 0 350px'
+})
+
+// 日期时间
+const testInputDatetime = UI.form.input.datetime.generate({
+  flex: '0 0 350px'
+})
+
+// 容器
 const testContaner = UI.contaner.generate({
   columnCount: 3,
   justify: 'start'
@@ -88,5 +103,7 @@ export default {
   testInputInteger,
   testInputCurrency,
   testInputCurrencyWanyuan,
-  testInputPercentage
+  testInputPercentage,
+  testInputDate,
+  testInputDatetime
 }

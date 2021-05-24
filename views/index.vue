@@ -44,9 +44,17 @@
         name="cmtter8"
       ></test-input-percentage>
 
+      <test-input-date
+        v-model:value="testFormState.cmtter9"
+        name="cmtter9"
+      ></test-input-date>
+      <test-input-datetime
+        v-model:value="testFormState.cmtter10"
+        name="cmtter10"
+      ></test-input-datetime>
     </test-contaner>
     <br /><br /><br /><br />
-    <div> 你输入的值: {{testFormState.cmtter8}}
+    <div> 你输入的值: {{testFormState.cmtter10}}
 
     </div>
     <div>图标 <JoyinNumberFilled></JoyinNumberFilled>
