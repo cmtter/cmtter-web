@@ -12,6 +12,7 @@
    options = options || {}
    const rules = [DefineRules.isEmail()].concat(options.rules || [])
    return baseInput.generate({
+    uiaxis: 'ui-form-input-email',
      label: '邮箱',
      placeholder: '请输入邮箱',
      ...options,

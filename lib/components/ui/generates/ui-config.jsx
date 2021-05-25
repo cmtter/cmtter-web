@@ -56,7 +56,7 @@ const Conifg = {
     '%':  {...createUnitConver(0.01, 6, {suffix: '%'})}
   },
   // ui mixins
-  UI_MIXINS: {
+  UI_MIXINS: () => ({
     props:{
       //偏移单位
       offset:VueTypes.integer.def(0),
@@ -66,7 +66,8 @@ const Conifg = {
       col: VueTypes.number,
       // ui 定义ui唯一名称
       ui: VueTypes.string,
-      vif: VueTypes.bool
+      vif: VueTypes.bool,
+      onlyRenderControl: VueTypes.bool.def(false)
     },
     created(){
       this.hostComp = inject(Conifg.UI_HOST_PARENT_CONTEXT_SYMBOL)
@@ -84,6 +85,7 @@ const Conifg = {
         return children
       },
       renderColWapper(children){
+
         if (this.parentContaner && (this.parentContaner.columnCount || this.offset || this.flex || this.col)){
           const { flex, offset } = this
           const columnCount = this.parentContaner.columnCount
@@ -108,9 +110,9 @@ const Conifg = {
       if (this.hostComp && this.hostComp.registerUI && this.ui){
         this.hostComp.removeUI(this.ui)
       }
-    },
+    }
 
-  }
+  })
 
 }
 export default Conifg 

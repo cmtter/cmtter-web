@@ -20,6 +20,7 @@
    options = options || {}
    const rules = [DefineRules.isNumber()].concat(options.rules || [])
    return baseInput.generate({
+    uiaxis: 'ui-form-input-number',
      label: '数字',
      placeholder: '请输入数字',
      prefix: () => createVNode(JoyinNumberFilled , {}, null),

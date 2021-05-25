@@ -16,7 +16,14 @@ export const _testFormState = {
   cmtter9: null,
   cmtter10: null,
   cmtter11: null,
-  cmtter12: null
+  cmtter12: null,
+  cmtter13: null,
+  cmtter14: null,
+  cmtter15: null,
+  cmtter16: null,
+  cmtter17: null,
+  cmtter18: null,
+  cmtter19: null,
 }
 
 // 表单模型状态校验
@@ -86,13 +93,91 @@ const testInputDatetime = UI.form.input.datetime.generate({
   flex: '0 0 350px'
 })
 
+// 表单分组
+const testFormGroup = UI.form.group.generate({
+  flex: '0 0 700px',
+  labelCol: 3,
+  showSeparator: true,
+  rules: [
+    DefineRules.isValidator(function(){
+      if (!this.m1 || !this.m2){
+        return Promise.reject(((this.m1 ? '' : '起始时间') || (this.m2 ? '' : '结束时间'))+'不能为空')
+      }
+      if(this.m1 >= this.m2 ){
+        return Promise.reject('结束时间必须大于起始时间')
+      }
+      return Promise.resolve(null)
+    }, undefined, 'change')
+  ],
+  groups: [
+    {vmodel: 'm1', ui: UI.form.input.datetime.generate({col: 11, placeholder: '开始时间'})},
+    {vmodel: 'm2', ui: UI.form.input.datetime.generate({col: 11, placeholder: '结束时间'})}
+  ]
+})
+
+//测试日期段
+const  testFormInputDateRange = UI.form.input.date.range.generate({
+  flex: '0 0 600px',
+  labelCol: 4,
+  sVmodel: 'cmtter11',
+  eVmodel: 'cmtter12',
+  rules: [
+    DefineRules.isValidator(function(){
+      if (!this.cmtter11 || !this.cmtter12){
+        return Promise.reject(((this.cmtter11 ? '' : '起始日期') || (this.cmtter14 ? '' : '结束日期'))+'不能为空')
+      }
+      if(this.cmtter11 >= this.cmtter12 ){
+        return Promise.reject('结束日期必须大于起始日期')
+      }
+      return Promise.resolve(null)
+    }, undefined, 'change')
+  ],
+})
+
+//测试日期时间段
+const testFormInputDatetimeRange = UI.form.input.datetime.range.generate({
+  flex: '0 0 600px',
+  labelCol: 4,
+  sVmodel: 'cmtter13',
+  eVmodel: 'cmtter14',
+  rules: [
+    DefineRules.isValidator(function(){
+      if (!this.cmtter13 || !this.cmtter14){
+        return Promise.reject(((this.cmtter13 ? '' : '起始时间') || (this.cmtter14 ? '' : '结束时间'))+'不能为空')
+      }
+      if(this.cmtter13 >= this.cmtter14 ){
+        return Promise.reject('结束时间必须大于起始时间')
+      }
+      return Promise.resolve(null)
+    }, undefined, 'change')
+  ],
+})
+
+// 测试金额段
+const testFormInputCurrencyRange = UI.form.input.currency.range.generate({
+  flex: '0 0 600px',
+  labelCol: 4,
+  sVmodel: 'cmtter17',
+  eVmodel: 'cmtter18',
+  rules: [
+    DefineRules.isValidator(function(){
+      if (!this.cmtter13 || !this.cmtter14){
+        return Promise.reject(((this.cmtter13 ? '' : '最小金额') || (this.cmtter14 ? '' : '最大金额'))+'不能为空')
+      }
+      if(this.cmtter13 >= this.cmtter14 ){
+        return Promise.reject('最大金额必须大于最小金额')
+      }
+      return Promise.resolve(null)
+    })
+  ],
+
+})
+
 // 容器
 const testContaner = UI.contaner.generate({
   columnCount: 3,
   justify: 'start'
 })
-
-
 
 export default {
   testInput,
@@ -105,5 +190,9 @@ export default {
   testInputCurrencyWanyuan,
   testInputPercentage,
   testInputDate,
-  testInputDatetime
+  testInputDatetime,
+  testFormGroup,
+  testFormInputDateRange,
+  testFormInputDatetimeRange,
+  testFormInputCurrencyRange
 }

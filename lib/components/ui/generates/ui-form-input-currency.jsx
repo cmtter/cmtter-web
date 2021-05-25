@@ -9,6 +9,7 @@
  function generate(options){
 
    return numberInput.generate({
+    uiaxis: 'ui-form-input-currency',
     label: '币种',
     prefix,
     placeholder: '请输入币种',

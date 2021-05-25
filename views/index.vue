@@ -52,11 +52,50 @@
         v-model:value="testFormState.cmtter10"
         name="cmtter10"
       ></test-input-datetime>
+
+      <test-form-group
+        name="dateRange"
+        v-model:m1="testFormState.cmtter11"
+        v-model:m2="testFormState.cmtter12"
+      ></test-form-group>
+
+      <test-form-input-date-range
+        v-model:cmtter11="testFormState.cmtter13"
+        v-model:cmtter12="testFormState.cmtter14"
+      ></test-form-input-date-range>
+
+      <test-form-input-datetime-range
+        v-model:cmtter13="testFormState.cmtter15"
+        v-model:cmtter14="testFormState.cmtter16"
+      >
+      </test-form-input-datetime-range>
+
+      <test-form-input-currency-range
+        v-model:cmtter17="testFormState.cmtter17"
+        v-model:cmtter18="testFormState.cmtter18"
+      >
+      </test-form-input-currency-range>
+
     </test-contaner>
     <br /><br /><br /><br />
-    <div> 你输入的值: {{testFormState.cmtter10}}
-
-    </div>
+    <div> 你输入的值: {{testFormState.cmtter1}}</div>
+    <div> 你输入的值: {{testFormState.cmtter2}}</div>
+    <div> 你输入的值: {{testFormState.cmtter3}}</div>
+    <div> 你输入的值: {{testFormState.cmtter4}}</div>
+    <div> 你输入的值: {{testFormState.cmtter5}}</div>
+    <div> 你输入的值: {{testFormState.cmtter6}}</div>
+    <div> 你输入的值: {{testFormState.cmtter7}}</div>
+    <div> 你输入的值: {{testFormState.cmtter8}}</div>
+    <div> 你输入的值: {{testFormState.cmtter9}}</div>
+    <div> 你输入的值: {{testFormState.cmtter10}}</div>
+    <div> 你输入的值: {{testFormState.cmtter11}}</div>
+    <div> 你输入的值: {{testFormState.cmtter12}}</div>
+    <div> 你输入的值: {{testFormState.cmtter13}}</div>
+    <div> 你输入的值: {{testFormState.cmtter14}}</div>
+    <div> 你输入的值: {{testFormState.cmtter15}}</div>
+    <div> 你输入的值: {{testFormState.cmtter16}}</div>
+    <div> 你输入的值: {{testFormState.cmtter17}}</div>
+    <div> 你输入的值: {{testFormState.cmtter18}}</div>
     <div>图标 <JoyinNumberFilled></JoyinNumberFilled>
     </div>
     <div>

@@ -12,6 +12,7 @@ function generate(options){
   options = options || {}
   const rules = [DefineRules.isPhone()].concat(options.rules || [])
   return baseInput.generate({
+    uiaxis: 'ui-form-input-phone',
     label: '联系方式',
     placeholder: '请输入联系方式',
     ...options,

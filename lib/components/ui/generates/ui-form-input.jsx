@@ -1,6 +1,7 @@
 import { computed, defineComponent, inject, shallowRef, toRaw, watch, ref } from 'vue'
 import UIConfig from './ui-config'
 import { getOptionProps } from 'ant-design-vue/es/_util/props-util'
+import classNames from 'ant-design-vue/es/_util/classNames'
 import { Input, Form, DatePicker } from 'ant-design-vue'
 import omit from 'omit.js';
 import { defalutProps } from '../utils'
@@ -8,16 +9,13 @@ import VueTypes from  'vue-types'
 const FormItem = Form.Item
 
 function generate(options){
+  const uimixins = UIConfig.UI_MIXINS()
   // 定义属性
   const props = {
     // label宽度比例
     labelCol: VueTypes.number.def(6),
     // control宽度比例
     wrapperCol: VueTypes.number.def(16),
-    // 前偏移边距
-    beforeOffsetCol: VueTypes.number,
-    // 后偏移边距
-    afterOffsetCol: VueTypes.number,
     // label
     label: VueTypes.string,
     // rules校验规则
@@ -40,7 +38,7 @@ function generate(options){
     formatter: VueTypes.func.def(() => false),
     // 显示内容=>格式化到值
     parser: VueTypes.func.def(() => false),
-    ...(UIConfig.UI_MIXINS.props),
+    ...(uimixins.props),
     // 输入类型
     inputType: VueTypes.oneOf(['text', 'date', 'datetime']).def('text'),
     // 国际化
@@ -52,7 +50,7 @@ function generate(options){
   const defaultValue = (options.value !== undefined && options.value !== null && typeof options.value === 'string') ? options.value : undefined
 
   const _formControl = {
-    mixins: [UIConfig.UI_MIXINS],
+    mixins: [uimixins],
     props: {
       ...(defalutProps(props, options))
     },
@@ -171,6 +169,7 @@ function generate(options){
       renderDateInput(props){
         const dateProps = {
           ...props,
+          inputReadOnly: true,
           valueFormat: props.dateValueFormat
         }
         return <DatePicker {...dateProps}></DatePicker>
@@ -178,6 +177,7 @@ function generate(options){
       renderDateTimeInput(props){
         const dateTimeProps = {
           ...props,
+          inputReadOnly: true,
           valueFormat: props.dateValueFormat,
           showTime: true
         }
@@ -209,8 +209,8 @@ function generate(options){
         rules: allProps.rules,
         validateFirst: true
       }
-
-      const content = (<FormItem {...formItemProps}>{this.renderFormController(allProps)}</FormItem>)
+      const _class = classNames(formItemProps.class, {[options.uiaxis || 'ui-form-input']: true, ['ui-form']: true})
+      const content = this.onlyRenderControl ? (<div class={_class} style="height: 100%"> {this.renderFormController(allProps)} </div>) : (<FormItem {...formItemProps} class={_class}>{this.renderFormController(allProps)}</FormItem>)
       return this.renderVif(this.renderColWapper(content))
     } 
   }

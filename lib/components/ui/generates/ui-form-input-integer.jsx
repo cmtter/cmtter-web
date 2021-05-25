@@ -6,6 +6,7 @@
  
  function generate(options){
    return numberInput.generate({
+    uiaxis: 'ui-form-input-integer',
     label: '整数',
     placeholder: '请输入整数',
      ...options,
