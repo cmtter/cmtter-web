@@ -122,6 +122,24 @@
       >
         {{testFormState.cmtter27 === null ? '加载中....' : testFormState.cmtter27}}
       </test-contaner>
+
+      <test-contaner
+        flex="0 0 330px"
+        :useEmptyComponent="true"
+      >
+        <test-action
+          :handler="testActionHander"
+          ref="testAction"
+        >
+          <div style="height: 200px;background: #ececec;text-align: center;line-height: 200px;">
+            我是一个操作控件
+            <a-button
+              @click="$refs.testAction.run()"
+              size="small"
+            >点击我,测试一下</a-button>
+          </div>
+        </test-action>
+      </test-contaner>
     </test-contaner>
 
     <br /><br />
@@ -171,7 +189,6 @@ import { UIConfig } from '@lib/components/ui'
 import JoyinNumberFilled from '@lib/components/icon/JoyinNumberFilled'
 import { reactive } from 'vue'
 import { Form, Button } from 'ant-design-vue'
-
 import components, { _testFormState } from './_index-components'
 export default {
   data() {
@@ -200,6 +217,12 @@ export default {
         disabled: this.disabled
       })
       this.disabled = !this.disabled
+    },
+    async testActionHander() {
+      console.log('--------------');
+      return new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      })
     }
   }
 }

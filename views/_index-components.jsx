@@ -217,6 +217,9 @@ const testDatasource = UI.datasource.generate({
   autoLoad: true
 })
 
+//测试操作
+const testAction = UI.action.generate({})
+
 // 容器
 const testContaner = UI.contaner.generate({
   columnCount: 3,
@@ -242,5 +245,6 @@ export default {
   testFormInputNumberRange,
   testFormInputIntegerRange,
   testFormInputPercentageRange,
-  testDatasource
+  testDatasource,
+  testAction
 }

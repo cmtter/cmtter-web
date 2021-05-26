@@ -44,10 +44,6 @@
        const data = ref([])
        const { http } = useHttp()
        
-       const setLoadding = (v) => {
-         loadding.value = v
-       }
- 
        const httpRequest = async () => {
          if(loadding.value === true){
           return
@@ -112,7 +108,6 @@
  
      return {
          loadding,
-         setLoadding,
          state,
          http,
          //httpRequest
