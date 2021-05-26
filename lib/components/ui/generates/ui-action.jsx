@@ -1,10 +1,6 @@
 /**
  * 操作控件，用户配置业务
  */
-
-/**
- * 数据源控件
- */
  import { defineComponent, ref} from 'vue'
  import VueTypes from  'vue-types'
  import { getOptionProps, getSlot } from 'ant-design-vue/es/_util/props-util'
