@@ -7,6 +7,7 @@
       <test-input
         v-model:value="testFormState.cmtter1"
         name="cmtter1"
+        ui="testinputui"
       ></test-input>
 
       <test-input-phone
@@ -89,13 +90,23 @@
       </test-form-input-integer-range>
 
       <test-form-input-percentage-range
+        :disabled="true"
         v-model:cmtter23="testFormState.cmtter23"
         v-model:cmtter24="testFormState.cmtter24"
       >
       </test-form-input-percentage-range>
 
     </test-contaner>
-    <br /><br /><br /><br />
+
+    <br /><br />
+    <div>
+      <a-button
+        @click="testHandler"
+        size="small"
+      >点击我,修改输入框为禁用</a-button>
+
+    </div>
+    <br /><br />
     <div> 你输入的值: {{testFormState.cmtter1}}</div>
     <div> 你输入的值: {{testFormState.cmtter2}}</div>
     <div> 你输入的值: {{testFormState.cmtter3}}</div>
@@ -125,13 +136,7 @@
     <div> 你输入的值: {{testFormState.cmtter26}}</div>
     <div>图标 <JoyinNumberFilled></JoyinNumberFilled>
     </div>
-    <div>
-      <a-button
-        @click="testHandler"
-        size="small"
-      >提交</a-button>
 
-    </div>
   </el-form>
 </template>
 
@@ -143,6 +148,11 @@ import { Form, Button } from 'ant-design-vue'
 
 import components, { _testFormState } from './_index-components'
 export default {
+  data() {
+    return {
+      disabled: true
+    }
+  },
   components: {
     elForm: Form,
     ...components,
@@ -158,7 +168,11 @@ export default {
   },
   methods: {
     testHandler() {
-      console.log(this.$refs.form, this.testFormState.cmtter7);
+      //测试利用ui修改testInput属性
+      this.applyUI('testinputui', {
+        disabled: this.disabled
+      })
+      this.disabled = !this.disabled
     }
   }
 }

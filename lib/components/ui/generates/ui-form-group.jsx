@@ -149,7 +149,7 @@ function generate(options){
           }
           return {
             ...r,
-            hostComp: that
+            host: that.hostComp
           }
         })
         const formItemProps = {

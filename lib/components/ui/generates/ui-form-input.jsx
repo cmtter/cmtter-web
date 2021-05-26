@@ -197,19 +197,20 @@ function generate(options){
         if (props.inputType === 'datetime'){
           return this.renderDateTimeInput(props)
         }
-
         return null;
       }
     },
 
     render(){
       const allProps =  { ...getOptionProps(this), ...this.$attrs, ...this.dyncProps };
+      //根据rule注入host宿主组件
+      const rules = allProps.rules.map(m => ({...m, host: this.hostComp}))
       const formItemProps = {
         label: allProps.label,
         labelCol: {span: allProps.labelCol},
         wrapperCol:  {span: allProps.wrapperCol},
         name: allProps.name,
-        rules: allProps.rules,
+        rules: rules,
         validateFirst: true
       }
       const _class = classNames(formItemProps.class, {[options.uiaxis || 'ui-form-input']: true, ['ui-form']: true})
