@@ -32,7 +32,6 @@ function generate(options){
     memo.props[ui.vmodel] = VueTypes.oneOfType([VueTypes.string, VueTypes.number]).def(null)
     return memo
   },{props: {}})
-
   //定义属性
   const props = {
     // label宽度比例
@@ -59,6 +58,8 @@ function generate(options){
     // 动态生成双向绑定属性
     ...(vmodelProps.props)
   }
+  // 布局容器
+  const UIContaner = createVNode(UiContaner.generate({col: 24}),{}, [])
 
   const _formControl = {
     mixins: [uimixins],
@@ -81,13 +82,14 @@ function generate(options){
     methods: {
       renderFormControllers(props){
         const groups = props.groups || []
-        const goupChildrens = groups.map(r => {
+        const goupChildrens = groups.map((r) => {
           const vmodel = r.vmodel
           const ui = r.ui
           let children
           // 定义表单控件配置
           const uiProps = {
             //组件属性
+            disabled: props.disabled,
             ...omit(r, ['vmodel', 'ui']),
             //双向绑定属性
             ...(vmodel ? {
@@ -113,7 +115,7 @@ function generate(options){
           if (isVNode(ui)){
             children = cloneVNode(ui, uiProps, false)
           } else {
-            children = createVNode(ui, uiProps, null)
+            children = <ui {...uiProps}></ui>
           }
           return children
         })
@@ -159,7 +161,7 @@ function generate(options){
           validateFirst: true,
           ref: 'formitem'
         }
-       const contaner = createVNode(UiContaner.generate({col: 24}), {}, this.renderFormControllers(props))
+       const contaner =  <UIContaner>{this.renderFormControllers(props)}</UIContaner>
        return (<FormItem {...formItemProps} class={classNames(props.class, {[options.uiaxis || 'ui-form-group']: true})}>{ contaner}</FormItem>)
       }
     },

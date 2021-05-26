@@ -24,6 +24,14 @@ export const _testFormState = {
   cmtter17: null,
   cmtter18: null,
   cmtter19: null,
+
+  cmtter20: null,
+  cmtter21: null,
+  cmtter22: null,
+  cmtter23: null,
+  cmtter24: null,
+  cmtter25: null,
+  cmtter26: null,
 }
 
 // 表单模型状态校验
@@ -136,7 +144,7 @@ const  testFormInputDateRange = UI.form.input.date.range.generate({
 
 //测试日期时间段
 const testFormInputDatetimeRange = UI.form.input.datetime.range.generate({
-  flex: '0 0 600px',
+  flex: '0 0 650px',
   labelCol: 4,
   sVmodel: 'cmtter13',
   eVmodel: 'cmtter14',
@@ -161,17 +169,44 @@ const testFormInputCurrencyRange = UI.form.input.currency.range.generate({
   eVmodel: 'cmtter18',
   rules: [
     DefineRules.isValidator(function(){
-      if (!this.cmtter13 || !this.cmtter14){
-        return Promise.reject(((this.cmtter13 ? '' : '最小金额') || (this.cmtter14 ? '' : '最大金额'))+'不能为空')
+      if (!this.cmtter17 || !this.cmtter18){
+        return Promise.reject(((this.cmtter17 ? '' : '最小金额') || (this.cmtter18 ? '' : '最大金额'))+'不能为空')
       }
-      if(this.cmtter13 >= this.cmtter14 ){
+      if(this.cmtter17 >= this.cmtter18 ){
         return Promise.reject('最大金额必须大于最小金额')
       }
       return Promise.resolve(null)
-    })
+    },undefined, 'change')
   ],
-
 })
+
+// 测试数字段
+const testFormInputNumberRange = UI.form.input.number.range.generate({
+  flex: '0 0 600px',
+  labelCol: 4,
+  sVmodel: 'cmtter19',
+  eVmodel: 'cmtter20',
+  rules: [],
+})
+
+// 测试整数段
+const testFormInputIntegerRange = UI.form.input.integer.range.generate({
+  flex: '0 0 600px',
+  labelCol: 4,
+  sVmodel: 'cmtter21',
+  eVmodel: 'cmtter22',
+  rules: [],
+})
+
+// 测试百分比段
+const testFormInputPercentageRange = UI.form.input.percentage.range.generate({
+  flex: '0 0 600px',
+  labelCol: 4,
+  sVmodel: 'cmtter23',
+  eVmodel: 'cmtter24',
+  rules: [],
+})
+
 
 // 容器
 const testContaner = UI.contaner.generate({
@@ -194,5 +229,8 @@ export default {
   testFormGroup,
   testFormInputDateRange,
   testFormInputDatetimeRange,
-  testFormInputCurrencyRange
+  testFormInputCurrencyRange,
+  testFormInputNumberRange,
+  testFormInputIntegerRange,
+  testFormInputPercentageRange
 }

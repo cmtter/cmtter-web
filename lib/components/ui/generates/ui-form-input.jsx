@@ -57,6 +57,9 @@ function generate(options){
     data(){
      return {}
     },
+    created(){
+      console.log('---------------重新创建');
+    },
     setup(props, { emit }){
       const constomerInputValue = ref(null)
       const hostComp = inject(UIConfig.UI_HOST_PARENT_CONTEXT_SYMBOL)

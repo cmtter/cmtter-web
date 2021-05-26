@@ -76,6 +76,24 @@
       >
       </test-form-input-currency-range>
 
+      <test-form-input-number-range
+        v-model:cmtter19="testFormState.cmtter19"
+        v-model:cmtter20="testFormState.cmtter20"
+      >
+      </test-form-input-number-range>
+
+      <test-form-input-integer-range
+        v-model:cmtter21="testFormState.cmtter21"
+        v-model:cmtter22="testFormState.cmtter22"
+      >
+      </test-form-input-integer-range>
+
+      <test-form-input-percentage-range
+        v-model:cmtter23="testFormState.cmtter23"
+        v-model:cmtter24="testFormState.cmtter24"
+      >
+      </test-form-input-percentage-range>
+
     </test-contaner>
     <br /><br /><br /><br />
     <div> 你输入的值: {{testFormState.cmtter1}}</div>
@@ -96,6 +114,15 @@
     <div> 你输入的值: {{testFormState.cmtter16}}</div>
     <div> 你输入的值: {{testFormState.cmtter17}}</div>
     <div> 你输入的值: {{testFormState.cmtter18}}</div>
+
+    <div> 你输入的值: {{testFormState.cmtter19}}</div>
+    <div> 你输入的值: {{testFormState.cmtter20}}</div>
+    <div> 你输入的值: {{testFormState.cmtter21}}</div>
+    <div> 你输入的值: {{testFormState.cmtter22}}</div>
+    <div> 你输入的值: {{testFormState.cmtter23}}</div>
+    <div> 你输入的值: {{testFormState.cmtter24}}</div>
+    <div> 你输入的值: {{testFormState.cmtter25}}</div>
+    <div> 你输入的值: {{testFormState.cmtter26}}</div>
     <div>图标 <JoyinNumberFilled></JoyinNumberFilled>
     </div>
     <div>
