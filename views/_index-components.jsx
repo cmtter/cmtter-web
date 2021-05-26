@@ -32,6 +32,8 @@ export const _testFormState = {
   cmtter24: null,
   cmtter25: null,
   cmtter26: null,
+  cmtter27: null,
+  cmtter28: null,
 }
 
 // 表单模型状态校验
@@ -207,6 +209,13 @@ const testFormInputPercentageRange = UI.form.input.percentage.range.generate({
   rules: [],
 })
 
+//测试数据源
+const testDatasource = UI.datasource.generate({
+  url: '/mock/base/getUserInfo',
+  method: 'POST',
+  showLoadding: true,
+  autoLoad: true
+})
 
 // 容器
 const testContaner = UI.contaner.generate({
@@ -232,5 +241,6 @@ export default {
   testFormInputCurrencyRange,
   testFormInputNumberRange,
   testFormInputIntegerRange,
-  testFormInputPercentageRange
+  testFormInputPercentageRange,
+  testDatasource
 }

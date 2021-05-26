@@ -14,11 +14,14 @@ function generate(options){
     gutter: VueTypes.array.def([4,4]),
     // 定义一行多少列 该优先级低于子元素的flex
     columnCount: VueTypes.integer.def(0),
+    //不会显示 Row
+    useEmptyComponent: VueTypes.bool.def(false),
     // 水平对齐方式
     justify: VueTypes.oneOf(['start', 'center', 'end', 'space-between', 'space-around']),
     // 垂直对齐方式
     align: VueTypes.oneOf(['top', 'middle', 'bottom']),
-    ...(uimixins.props)
+    ...(uimixins.props),
+ 
   }
 
   const _formControl = {
@@ -50,7 +53,7 @@ function generate(options){
       const rowProps = omit(allProps, ['offset', 'flex', 'columnCount'])
       // 样式
       const children = getSlot(this);
-      return this.renderVif(this.renderColWapper((<Row {...rowProps} class={classNames(rowProps.class, {'ui-contaner': true})}>{children}</Row>)))
+      return this.renderVif(this.renderColWapper((this.useEmptyComponent === true ? children :  <Row {...rowProps} class={classNames(rowProps.class, {'ui-contaner': true})}>{children}</Row>)))
     }
   }
 

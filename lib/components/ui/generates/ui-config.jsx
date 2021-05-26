@@ -66,7 +66,7 @@ const Conifg = {
       col: VueTypes.number,
       // ui 定义ui唯一名称
       ui: VueTypes.string,
-      vif: VueTypes.bool,
+      vif: VueTypes.bool.def(true),
       onlyRenderControl: VueTypes.bool.def(false)
     },
     created(){

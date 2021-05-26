@@ -96,6 +96,32 @@
       >
       </test-form-input-percentage-range>
 
+      <test-contaner
+        flex="0 0 330px"
+        :useEmptyComponent="true"
+      >
+        <test-datasource
+          v-model:value="testFormState.cmtter27"
+          dataFieldPath='data.res'
+          :params="params"
+        >
+          <div style="height: 200px;background: #ececec;text-align: center;line-height: 200px;">
+            我是一个数据源控件
+            <a-button
+              @click="params = {}"
+              size="small"
+            >点击我,刷新数据</a-button>
+          </div>
+        </test-datasource>
+
+      </test-contaner>
+      <test-contaner
+        flex="1 1 300px"
+        style="padding-top: 40px"
+        :useEmptyComponent="true"
+      >
+        {{testFormState.cmtter27 === null ? '加载中....' : testFormState.cmtter27}}
+      </test-contaner>
     </test-contaner>
 
     <br /><br />
@@ -150,7 +176,8 @@ import components, { _testFormState } from './_index-components'
 export default {
   data() {
     return {
-      disabled: true
+      disabled: true,
+      params: {}
     }
   },
   components: {
