@@ -1,5 +1,6 @@
 import UI, { UIConfig } from '@lib/components/ui'
 import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons-vue'
+import { Card, Button } from 'ant-design-vue'
 import { createVNode } from 'vue'
 const { DefineRules } = UIConfig
 
@@ -226,6 +227,21 @@ const testContaner = UI.contaner.generate({
   justify: 'start'
 })
 
+//测试通用组件创建--Card
+const testCard = UI.component.generate({
+  col: 12,
+  component: Card,
+  props: {
+    title: '标题',
+    size: 'small'
+  },
+  slots:{
+    default: (hostComp) => {
+      return <div> hello! 我是基于UI.component.generate创建的控件, 访问宿主环境变量 [{hostComp.hostVar}] <Button onClick={hostComp.updateHostVar}>点击我更改宿主环境变量</Button></div>
+    }
+  }
+})
+
 export default {
   testInput,
   testContaner,
@@ -246,5 +262,6 @@ export default {
   testFormInputIntegerRange,
   testFormInputPercentageRange,
   testDatasource,
-  testAction
+  testAction,
+  testCard
 }

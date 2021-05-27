@@ -67,6 +67,9 @@ const Conifg = {
       // ui 定义ui唯一名称
       ui: VueTypes.string,
       vif: VueTypes.bool.def(true),
+      //是否忽略布局
+      ignoreLayout: VueTypes.bool.def(false),
+      //仅显示
       onlyRenderControl: VueTypes.bool.def(false)
     },
     created(){
@@ -85,7 +88,9 @@ const Conifg = {
         return children
       },
       renderColWapper(children){
-
+        if(this.ignoreLayout === true){
+          return children
+        }
         if (this.parentContaner && (this.parentContaner.columnCount || this.offset || this.flex || this.col)){
           const { flex, offset } = this
           const columnCount = this.parentContaner.columnCount

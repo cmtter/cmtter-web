@@ -140,6 +140,9 @@
           </div>
         </test-action>
       </test-contaner>
+
+      <testCard></testCard>
+
     </test-contaner>
 
     <br /><br />
@@ -190,11 +193,13 @@ import JoyinNumberFilled from '@lib/components/icon/JoyinNumberFilled'
 import { reactive } from 'vue'
 import { Form, Button } from 'ant-design-vue'
 import components, { _testFormState } from './_index-components'
+let uuid = 1
 export default {
   data() {
     return {
       disabled: true,
-      params: {}
+      params: {},
+      hostVar: '我来自于宿主环境'
     }
   },
   components: {
@@ -223,6 +228,9 @@ export default {
       return new Promise((resolve) => {
         setTimeout(resolve, 2000);
       })
+    },
+    updateHostVar() {
+      this.hostVar = this.hostVar + (++uuid)
     }
   }
 }
