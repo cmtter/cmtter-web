@@ -143,6 +143,25 @@
 
       <testCard></testCard>
 
+      <test-simple-select
+        v-model:value="testFormState.cmtter29"
+        name="cmtter29"
+      ></test-simple-select>
+
+      <test-multiple-simple-select
+        v-model:value="testFormState.cmtter30"
+        name="cmtter30"
+      ></test-multiple-simple-select>
+
+      <test-autocomplete-select
+        v-model:value="testFormState.cmtter31"
+        name="cmtter31"
+      ></test-autocomplete-select>
+
+      <test-multiple-autocomplete-select
+        v-model:value="testFormState.cmtter32"
+        name="cmtter32"
+      ></test-multiple-autocomplete-select>
     </test-contaner>
 
     <br /><br />
@@ -153,7 +172,11 @@
       >点击我,修改输入框为禁用</a-button>
 
     </div>
-    <br /><br />
+    <br />
+    <div> 简单选择: {{testFormState.cmtter29}}</div>
+    <div> 简单多选: {{testFormState.cmtter30}}</div>
+    <div> 自动补全: {{testFormState.cmtter31}}</div>
+    <div> 自动补全多选: {{testFormState.cmtter32}}</div>
     <div> 你输入的值: {{testFormState.cmtter1}}</div>
     <div> 你输入的值: {{testFormState.cmtter2}}</div>
     <div> 你输入的值: {{testFormState.cmtter3}}</div>
@@ -181,6 +204,7 @@
     <div> 你输入的值: {{testFormState.cmtter24}}</div>
     <div> 你输入的值: {{testFormState.cmtter25}}</div>
     <div> 你输入的值: {{testFormState.cmtter26}}</div>
+
     <div>图标 <JoyinNumberFilled></JoyinNumberFilled>
     </div>
 

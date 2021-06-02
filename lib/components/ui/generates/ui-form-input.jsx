@@ -210,7 +210,7 @@ function generate(options){
         rules: rules,
         validateFirst: true
       }
-      const _class = classNames(formItemProps.class, {[options.uiaxis || 'ui-form-input']: true, ['ui-form']: true})
+      const _class = classNames(allProps.class, {[options.uiaxis || 'ui-form-input']: true, ['ui-form']: true})
       const content = this.onlyRenderControl ? (<div class={_class} style="height: 100%"> {this.renderFormController(allProps)} </div>) : (<FormItem {...formItemProps} class={_class}>{this.renderFormController(allProps)}</FormItem>)
       return this.renderVif(this.renderColWapper(content))
     } 

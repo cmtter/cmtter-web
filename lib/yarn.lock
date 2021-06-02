@@ -10350,11 +10350,6 @@ symbol-observable@^1.0.4:
   resolved "https://registry.npm.taobao.org/symbol-observable/download/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha1-wiaIrtTqs83C3+rLtWFmBWCgCAQ=
 
-systemjs@^6.9.0:
-  version "6.9.0"
-  resolved "https://registry.nlark.com/systemjs/download/systemjs-6.9.0.tgz#f01a0093d4d70332fff59f2e5ff385de28284ff5"
-  integrity sha1-8BoAk9TXAzL/9Z8uX/OF3igoT/U=
-
 table@^5.2.3:
   version "5.4.6"
   resolved "https://registry.npm.taobao.org/table/download/table-5.4.6.tgz#1292d19500ce3f86053b05f0e8e7e4a3bb21079e"
@@ -11053,6 +11048,11 @@ vue-multipane@^0.9.5:
   version "0.9.5"
   resolved "https://registry.nlark.com/vue-multipane/download/vue-multipane-0.9.5.tgz#10ddaf9092e0a9e761edfd0d1f1db8bbb54b3e9c"
   integrity sha1-EN2vkJLgqedh7f0NHx24u7VLPpw=
+
+vue-request@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.nlark.com/vue-request/download/vue-request-1.2.0.tgz#ed4dd7d8657f03bd125a530e331c0243cdecc60f"
+  integrity sha1-7U3X2GV/A70SWlMOMxwCQ83sxg8=
 
 vue-router@4.0.6:
   version "4.0.6"

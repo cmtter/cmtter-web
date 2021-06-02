@@ -23,6 +23,7 @@
     "sqlite3": "^5.0.2",
     "vue": "^3.0.7",
     "vue-multipane": "^0.9.5",
+    "vue-request": "^1.2.0",
     "vue-router": "4.0.6",
     "vuex": "^4.0.0"
   },

@@ -35,6 +35,11 @@ export const _testFormState = {
   cmtter26: null,
   cmtter27: null,
   cmtter28: null,
+  cmtter29:  { "value": 11, "label": "否11", "key": 11 },
+  cmtter30: null,
+  cmtter31: null,
+  cmtter32: null,
+  cmtter33: null,
 }
 
 // 表单模型状态校验
@@ -242,6 +247,80 @@ const testCard = UI.component.generate({
   }
 })
 
+// 创建简单的select
+const testSimpleSelect = UI.form.select.simple.generate({
+  flex: '0 0 350px',
+  datas: [
+    {v: 1, l: '是1', a: '123'},
+    {v: 2, l: '否2', a: '123'},
+    {v: 3, l: '否3', a: '123'},
+    {v: 4, l: '否4', a: '123'},
+    {v: 5, l: '否5', a: '123'},
+    {v: 6, l: '否6', a: '123'},
+    {v: 7, l: '否7', a: '123'},
+    {v: 8, l: '否8', a: '123'},
+    {v: 9, l: '否9', a: '123'},
+    {v: 10, l: '否10', a: '123'},
+    {v: 11, l: '否11', a: '123'},
+    {v: 12, l: '否12', a: '123'},
+    {v: 13, l: '否13', a: '123'},
+    {v: 14, l: '否14', a: '123'}
+  ],
+  fields: ['v', 'l']
+})
+
+const testMultipleSimpleSelect = UI.form.select.multiple.simple.generate({
+  flex: '0 0 550px',
+  label: '2万条(多选)',
+  loadDatas: function(){
+    // this 访问数组环境
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(Array.from({length: 20000}).map((r, index) => ({
+          v: index + (r || '_id'),
+          l: '选项' + (index + 1)
+        })))
+      }, 100);
+    })
+  },
+  fields: ['v', 'l']
+})
+
+let uuid = 1
+const testAutocompleteSelect = UI.form.select.autocomplete.generate({
+  flex: '0 0 550px',
+  loadDatasAsync: function(text){
+    //this 是host宿主环境
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(Array.from({length: 10}).map((r, index) => ({
+          v: (++uuid) + (r || ''),
+          l: (text || '选项') + (index + 1)
+        })))
+      }, 100);
+    })
+
+  },
+  fields: ['v', 'l']
+})
+
+const testMultipleAutocompleteSelect = UI.form.select.multiple.autocomplete.generate({
+  flex: '0 0 550px',
+  loadDatasAsync: function(text){
+    //this 是host宿主环境
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(Array.from({length: 10}).map((r, index) => ({
+          v: (++uuid) + (r || ''),
+          l: (text || '选项') + (index + 1)
+        })))
+      }, 100);
+    })
+
+  },
+  fields: ['v', 'l']
+})
+
 export default {
   testInput,
   testContaner,
@@ -263,5 +342,9 @@ export default {
   testFormInputPercentageRange,
   testDatasource,
   testAction,
-  testCard
+  testCard,
+  testSimpleSelect,
+  testMultipleSimpleSelect,
+  testAutocompleteSelect,
+  testMultipleAutocompleteSelect
 }
