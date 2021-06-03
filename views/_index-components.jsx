@@ -40,6 +40,19 @@ export const _testFormState = {
   cmtter31: null,
   cmtter32: null,
   cmtter33: null,
+  cmtter34: null,
+  cmtter35: null,
+  cmtter36: null,
+  cmtter37: null,
+  cmtter38: null,
+
+  cmtter39: null,
+  cmtter40: null,
+  cmtter41: null,
+  cmtter42: null,
+  cmtter43: null,
+  cmtter44: null,
+  cmtter45: null
 }
 
 // 表单模型状态校验
@@ -248,8 +261,16 @@ const testCard = UI.component.generate({
 })
 
 // 创建简单的select
-const testSimpleSelect = UI.form.select.simple.generate({
-  flex: '0 0 350px',
+const testSimpleSelect = UI.form.select.generate({
+  flex: '0 0 550px',
+  rules:[DefineRules.isValidator(function(v, options){
+    //v.host  宿主
+    if (v && options && options.value){
+      return Promise.resolve()
+    }
+    //不能返回undefined
+    return Promise.reject(false)
+  } ,'必填项', 'change')],
   datas: [
     {v: 1, l: '是1', a: '123'},
     {v: 2, l: '否2', a: '123'},
@@ -269,9 +290,17 @@ const testSimpleSelect = UI.form.select.simple.generate({
   fields: ['v', 'l']
 })
 
-const testMultipleSimpleSelect = UI.form.select.multiple.simple.generate({
+const testMultipleSimpleSelect = UI.form.select.multiple.generate({
   flex: '0 0 550px',
   label: '2万条(多选)',
+  rules:[DefineRules.isValidator(function(v, options){
+    //v.host  宿主
+    if (v && options && options.length >= 3){
+      return Promise.resolve()
+    }
+    //不能返回undefined
+    return Promise.reject(false)
+  } ,'必填项，且必须至少选择3个', 'change')],
   loadDatas: function(){
     // this 访问数组环境
     return new Promise((resolve) => {
@@ -321,6 +350,127 @@ const testMultipleAutocompleteSelect = UI.form.select.multiple.autocomplete.gene
   fields: ['v', 'l']
 })
 
+
+//创建tree数据
+function createTreeData(level, childrenCount, total, rootCount){
+   if (level === 0 || level < total){
+    return Array.from({length: level === 0 ? rootCount : childrenCount}).map((r, index ) => ({
+      value: '节点id-' + (r || index) + '-' + level + '' +(++uuid),
+      label: '节点label-' +  (r || index) + '-' + level,
+      uuid: ++uuid,
+      ...(total === 0 ? {} : {children: createTreeData(level+1, childrenCount, total, rootCount)})
+    }))
+   } else{
+    return Array.from({length: childrenCount}).map((r, index ) => ({
+      value: '节点id-' + (r || index) + '-' + level + '' +(++uuid),
+      label: '节点label-' +  (r || index) + '-' + level,
+      uuid: ++uuid
+    }))
+   }
+}
+// 测试下拉树
+const testTreeSelect = UI.form.tree.select.generate({
+  label: '静态数据(单)',
+  flex: '0 0 750px',
+  datas: createTreeData(0, 2, 1, 4),
+  // canSelectParent: true,
+  // loadDatas: function(){
+  //   // this 代表宿主
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve(createTreeData(0, 1, 1, 3))
+  //     }, 5000);
+  //   })
+  // }
+  // /**
+  //  * 异步模式下 isLeaf需要手动维护
+  //  * @param {*} treenode 
+  //  * @param {*} params 
+  //  * @returns 
+  //  */
+  // loadDatasAsync: function(treenode, params){
+  //   // this 宿主
+  //   console.log(treenode, params);
+  //   return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve(createTreeData(0, 1, 0, 3).map(r => ({...r, isLeaf: r.uuid % 3 === 0})))
+  //   }, 1000);
+  //   })
+  // }
+})
+
+const testTreeSelect1 = UI.form.tree.select.generate({
+  flex: '0 0 750px',
+  label: '父节点不可选',
+  datas: createTreeData(0, 2, 1, 4),
+  canSelectParent: false
+})
+
+const testTreeSelect2 = UI.form.tree.select.generate({
+  flex: '0 0 750px',
+  label: '接口获取数据',
+  loadDatas: function(){
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(createTreeData(0, 2, 1, 4),)
+      }, 5000);
+    })
+  }
+})
+
+const testTreeSelect3 = UI.form.tree.select.generate({
+  flex: '0 0 750px',
+  label: '按需加载',
+  loadDatasAsync: function(){ // function(treenode, params){
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(createTreeData(0, 1, 0, 3).map(r => ({...r, isLeaf: r.uuid % 3 === 0})))
+      }, 1000);
+    })
+  }
+})
+
+
+
+// tree多选
+const testTreeMultipleSelect = UI.form.tree.select.multiple.generate({
+  flex: '0 0 750px',
+  label: '静态数据(多)',
+  datas: createTreeData(0, 3, 1, 5),
+})
+
+const testTreeMultipleSelect1 = UI.form.tree.select.multiple.generate({
+  flex: '0 0 750px',
+  label: '父节点不可选(多)',
+  datas: createTreeData(0, 3, 1, 5),
+  canSelectParent: false
+})
+
+const testTreeMultipleSelect2 = UI.form.tree.select.multiple.generate({
+  flex: '0 0 750px',
+  label: '父节点不可选(多)',
+  loadDatas: function(){
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(createTreeData(0, 2, 1, 4),)
+      }, 5000);
+    })
+  }
+})
+
+
+const testTreeMultipleSelect3 = UI.form.tree.select.multiple.generate({
+  flex: '0 0 750px',
+  label: '按需加载(多)',
+  loadDatasAsync: function(){ //function(treenode, params){
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(createTreeData(0, 1, 0, 3).map(r => ({...r, isLeaf: r.uuid % 3 === 0})))
+      }, 1000);
+    })
+  }
+})
+
 export default {
   testInput,
   testContaner,
@@ -346,5 +496,14 @@ export default {
   testSimpleSelect,
   testMultipleSimpleSelect,
   testAutocompleteSelect,
-  testMultipleAutocompleteSelect
+  testMultipleAutocompleteSelect,
+  testTreeSelect,
+  testTreeMultipleSelect,
+  testTreeSelect1,
+  testTreeMultipleSelect1,
+  testTreeMultipleSelect2,
+  testTreeMultipleSelect3,
+
+  testTreeSelect2,
+  testTreeSelect3
 }

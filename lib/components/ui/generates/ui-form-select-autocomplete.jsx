@@ -6,7 +6,7 @@
  * 
  * @author xiufu.wang
  */
- import selectSimple, {NULL_FUNCTION, NULL_ARRAY } from './ui-form-select-simple'
+ import selectSimple, {NULL_FUNCTION, NULL_ARRAY } from './ui-form-select'
 
  function generate(options){
    options = options || {}

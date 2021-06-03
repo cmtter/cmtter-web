@@ -142,7 +142,10 @@
       </test-contaner>
 
       <testCard></testCard>
-
+    </test-contaner>
+    <br /><br />
+    <div style="background: gainsboro;">选择框</div>
+    <test-contaner>
       <test-simple-select
         v-model:value="testFormState.cmtter29"
         name="cmtter29"
@@ -163,7 +166,49 @@
         name="cmtter32"
       ></test-multiple-autocomplete-select>
     </test-contaner>
+    <br />
+    <br />
+    <div style="background: gainsboro;">Tree选择框</div>
+    <test-contaner>
+      <test-tree-select
+        v-model:value="testFormState.cmtter33"
+        name="cmtter33"
+      ></test-tree-select>
+      <test-tree-multiple-select
+        v-model:value="testFormState.cmtter34"
+        name="cmtter34"
+      ></test-tree-multiple-select>
+      <test-tree-select1
+        v-model:value="testFormState.cmtter35"
+        name="cmtter35"
+      ></test-tree-select1>
 
+      <test-tree-multiple-select1
+        v-model:value="testFormState.cmtter36"
+        name="cmtter36"
+      ></test-tree-multiple-select1>
+
+      <test-tree-multiple-select2
+        v-model:value="testFormState.cmtter37"
+        name="cmtter37"
+      >
+      </test-tree-multiple-select2>
+
+      <test-tree-multiple-select3
+        v-model:value="testFormState.cmtter38"
+        name="cmtter38"
+      ></test-tree-multiple-select3>
+
+      <test-tree-select2
+        v-model:value="testFormState.cmtter39"
+        name="cmtter39"
+      ></test-tree-select2>
+
+      <test-tree-select3
+        v-model:value="testFormState.cmtter40"
+        name="cmtter40"
+      ></test-tree-select3>
+    </test-contaner>
     <br /><br />
     <div>
       <a-button
@@ -177,6 +222,7 @@
     <div> 简单多选: {{testFormState.cmtter30}}</div>
     <div> 自动补全: {{testFormState.cmtter31}}</div>
     <div> 自动补全多选: {{testFormState.cmtter32}}</div>
+    <div> 树选择: {{testFormState.cmtter33}}</div>
     <div> 你输入的值: {{testFormState.cmtter1}}</div>
     <div> 你输入的值: {{testFormState.cmtter2}}</div>
     <div> 你输入的值: {{testFormState.cmtter3}}</div>

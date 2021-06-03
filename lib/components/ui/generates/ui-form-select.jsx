@@ -10,7 +10,7 @@ import VueTypes from  'vue-types'
 import UIConfig from './ui-config'
 import { defalutProps } from '../utils'
 import { Select, Form, spin } from 'ant-design-vue'
-import { debounce } from 'lodash-es';
+import debounce from 'lodash-es/debounce';
 const FormItem = Form.Item
 
 export const NULL_FUNCTION = () => {}
@@ -121,7 +121,6 @@ function generate(options){
         emit('update:value', v)
       }
 
-      //异步查询
       const onSearch = computed(() => {
         if (hasLoadDatasAsync.value){
           return debounce(async function(text){
@@ -152,6 +151,14 @@ function generate(options){
         }
       })
 
+      const dyncProps = shallowRef({})
+      const updateDyncProps = (newProps = {}) => {
+        dyncProps.value = {
+          ...(toRaw(dyncProps.value)),
+          ...newProps
+        }
+      }
+
       return {
         mergeDatas,
         showSearch,
@@ -160,7 +167,9 @@ function generate(options){
         onSelect,
         loading,
         onSearch,
-        hasLoadDatasAsync
+        hasLoadDatasAsync,
+        dyncProps,
+        updateDyncProps
       }
     },
     // 渲染
@@ -203,7 +212,7 @@ function generate(options){
         onSearch: onSearch,
         notFoundContent
       }
-      const _class = classNames(allProps.class, {[options.uiaxis || 'ui-form-select-simple']: true, ['ui-form']: true})
+      const _class = classNames(allProps.class, {[options.uiaxis || 'ui-form-select']: true, ['ui-form']: true})
       const formController = <Select {...selectProps} v-slots={this.$slots}></Select>
       const content = this.onlyRenderControl ? (<div class={_class} style="height: 100%"> {formController} </div>) : (<FormItem {...formItemProps} class={_class}>{formController}</FormItem>)
       return this.renderVif(this.renderColWapper(content))
@@ -213,4 +222,4 @@ function generate(options){
   return defineComponent(_formControl)
 }
 
-export default {name: 'form.select.simple', generate: generate}
+export default {name: 'form.select', generate: generate}

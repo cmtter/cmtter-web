@@ -105,11 +105,11 @@
       if (props.autoLoad === true || props.params){
          httpRequest()
       }
- 
+      
      return {
          loadding,
          state,
-         http,
+         http
          //httpRequest
        }
      },

@@ -2,12 +2,12 @@
  * 简单多选
  * @author xiufu.wang
  */
- import selectSimple from './ui-form-select-simple'
+ import selectSimple from './ui-form-select'
 
  function generate(options){
    options = options || {}
    return selectSimple.generate({
-    uiaxis: 'ui-form-select-multiple-simple',
+    uiaxis: 'ui-form-select-multiple',
     label: '简单多选',
     placeholder: '请选择',
     ...options,
@@ -17,4 +17,4 @@
    })
  }
  
- export default {name: 'form.select.multiple.simple', generate: generate}
+ export default {name: 'form.select.multiple', generate: generate}
