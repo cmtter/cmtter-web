@@ -87,7 +87,7 @@ const Conifg = {
         }
         return children
       },
-      renderColWapper(children){
+      renderColWapper(children, colStyle = {}){
         if(this.ignoreLayout === true){
           return children
         }
@@ -97,13 +97,14 @@ const Conifg = {
           let colProps = null
           // flex优先级最高
           if (flex){
-            colProps = {offset, flex}
+            colProps = {offset, flex, ...(colStyle || {})}
           }
           if (!colProps){
             const col = (this.col) ? this.col : ((columnCount) ? (24 / columnCount) : null)
             colProps = {
               offset,
-              ...(col ? {span: col} : {})
+              ...(col ? {span: col} : {}),
+              ...(colStyle || {})
             }
           }
           return (<Col {...colProps}>{children}</Col>)

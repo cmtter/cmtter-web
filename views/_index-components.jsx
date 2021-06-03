@@ -474,7 +474,8 @@ const testTreeMultipleSelect3 = UI.form.tree.select.multiple.generate({
 // 工具条
 const testToolbar = UI.toolbar.generate({
   flex: 'auto',
-  actions:  Array.from({length: 20}).map(() => ({
+  max: 4,
+  actions:  Array.from({length: 10}).map(() => ({
     action: 'acttion-' + (++uuid),
     text: '新增操作' + (++uuid) 
   })) 

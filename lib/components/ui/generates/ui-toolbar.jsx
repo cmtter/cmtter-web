@@ -15,9 +15,10 @@ function generate(options){
   const uimixins = UIConfig.UI_MIXINS()
   const props = {
     // 居中方式,
-    align: VueTypes.oneOf(['center', 'left', 'right']),
+    align: VueTypes.oneOf(['center', 'left', 'right']).def('right'),
     //按钮
     actions: VueTypes.oneOfType([VueTypes.object, VueTypes.array]),
+    max: VueTypes.number.def(0),
     // max width
     maxWidth: VueTypes.string,
     ...(uimixins.props)
@@ -46,7 +47,7 @@ function generate(options){
       })
 
       const updateMaxCount = m => {
-        maxCount.value = m
+        maxCount.value =  props.max > 0 ? Math.min(m, props.max) : m
       }
 
       const resetMaxCount = () =>{
@@ -97,7 +98,8 @@ function generate(options){
       const {actionList, maxCount} = this
       const _style = {
         overflow: 'hidden',
-        maxWidth: allProps.maxWidth
+        maxWidth: allProps.maxWidth,
+        textAlign: allProps.align
       }
 
       const butList = actionList.length > 0 ? actionList.slice(0, (maxCount === 0 ? actionList.length : maxCount)).map(
@@ -133,7 +135,11 @@ function generate(options){
         </Dropdown>
       )
 
-      const context = (<Row type="flex" justify="start"><Col flex="auto" style={_style} ref="rootRef">
+      const rowProps = {
+        type: 'flex'
+      }
+      console.log(rowProps);
+      const context = (<Row {...rowProps}><Col flex='auto' style={_style} ref="rootRef">
           <Space size={5} ref="contanerRef">
             {
               butList
@@ -142,7 +148,7 @@ function generate(options){
           </Space>
          </Col> </Row>)
       
-      return this.renderVif(this.renderColWapper(context))
+      return this.renderVif(this.renderColWapper(context, {style: {overflow: 'hidden'}}))
     }
   }
 
