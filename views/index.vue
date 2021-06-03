@@ -209,6 +209,29 @@
         name="cmtter40"
       ></test-tree-select3>
     </test-contaner>
+    <br />
+    <br />
+    <div style="background: gainsboro;">工具条</div>
+    <br />
+    <test-contaner>
+      <test-toolbar></test-toolbar>
+    </test-contaner>
+
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格</div>
+    <br />
+    <test-contaner>
+    </test-contaner>
+
+    <div style="background: gainsboro;padding: 10px 0px;  margin: 10px 0px;">卡片</div>
+    <br />
+    <test-contaner>
+    </test-contaner>
+
+    <div style="background: gainsboro;padding: 10px 0px;  margin: 10px 0px;">内容</div>
+    <br />
+    <test-contaner>
+    </test-contaner>
+
     <br /><br />
     <div>
       <a-button
@@ -218,39 +241,40 @@
 
     </div>
     <br />
-    <div> 简单选择: {{testFormState.cmtter29}}</div>
-    <div> 简单多选: {{testFormState.cmtter30}}</div>
-    <div> 自动补全: {{testFormState.cmtter31}}</div>
-    <div> 自动补全多选: {{testFormState.cmtter32}}</div>
-    <div> 树选择: {{testFormState.cmtter33}}</div>
-    <div> 你输入的值: {{testFormState.cmtter1}}</div>
-    <div> 你输入的值: {{testFormState.cmtter2}}</div>
-    <div> 你输入的值: {{testFormState.cmtter3}}</div>
-    <div> 你输入的值: {{testFormState.cmtter4}}</div>
-    <div> 你输入的值: {{testFormState.cmtter5}}</div>
-    <div> 你输入的值: {{testFormState.cmtter6}}</div>
-    <div> 你输入的值: {{testFormState.cmtter7}}</div>
-    <div> 你输入的值: {{testFormState.cmtter8}}</div>
-    <div> 你输入的值: {{testFormState.cmtter9}}</div>
-    <div> 你输入的值: {{testFormState.cmtter10}}</div>
-    <div> 你输入的值: {{testFormState.cmtter11}}</div>
-    <div> 你输入的值: {{testFormState.cmtter12}}</div>
-    <div> 你输入的值: {{testFormState.cmtter13}}</div>
-    <div> 你输入的值: {{testFormState.cmtter14}}</div>
-    <div> 你输入的值: {{testFormState.cmtter15}}</div>
-    <div> 你输入的值: {{testFormState.cmtter16}}</div>
-    <div> 你输入的值: {{testFormState.cmtter17}}</div>
-    <div> 你输入的值: {{testFormState.cmtter18}}</div>
+    <div>
+      <div> 简单选择: {{testFormState.cmtter29}}</div>
+      <div> 简单多选: {{testFormState.cmtter30}}</div>
+      <div> 自动补全: {{testFormState.cmtter31}}</div>
+      <div> 自动补全多选: {{testFormState.cmtter32}}</div>
+      <div> 树选择: {{testFormState.cmtter33}}</div>
+      <div> 你输入的值: {{testFormState.cmtter1}}</div>
+      <div> 你输入的值: {{testFormState.cmtter2}}</div>
+      <div> 你输入的值: {{testFormState.cmtter3}}</div>
+      <div> 你输入的值: {{testFormState.cmtter4}}</div>
+      <div> 你输入的值: {{testFormState.cmtter5}}</div>
+      <div> 你输入的值: {{testFormState.cmtter6}}</div>
+      <div> 你输入的值: {{testFormState.cmtter7}}</div>
+      <div> 你输入的值: {{testFormState.cmtter8}}</div>
+      <div> 你输入的值: {{testFormState.cmtter9}}</div>
+      <div> 你输入的值: {{testFormState.cmtter10}}</div>
+      <div> 你输入的值: {{testFormState.cmtter11}}</div>
+      <div> 你输入的值: {{testFormState.cmtter12}}</div>
+      <div> 你输入的值: {{testFormState.cmtter13}}</div>
+      <div> 你输入的值: {{testFormState.cmtter14}}</div>
+      <div> 你输入的值: {{testFormState.cmtter15}}</div>
+      <div> 你输入的值: {{testFormState.cmtter16}}</div>
+      <div> 你输入的值: {{testFormState.cmtter17}}</div>
+      <div> 你输入的值: {{testFormState.cmtter18}}</div>
 
-    <div> 你输入的值: {{testFormState.cmtter19}}</div>
-    <div> 你输入的值: {{testFormState.cmtter20}}</div>
-    <div> 你输入的值: {{testFormState.cmtter21}}</div>
-    <div> 你输入的值: {{testFormState.cmtter22}}</div>
-    <div> 你输入的值: {{testFormState.cmtter23}}</div>
-    <div> 你输入的值: {{testFormState.cmtter24}}</div>
-    <div> 你输入的值: {{testFormState.cmtter25}}</div>
-    <div> 你输入的值: {{testFormState.cmtter26}}</div>
-
+      <div> 你输入的值: {{testFormState.cmtter19}}</div>
+      <div> 你输入的值: {{testFormState.cmtter20}}</div>
+      <div> 你输入的值: {{testFormState.cmtter21}}</div>
+      <div> 你输入的值: {{testFormState.cmtter22}}</div>
+      <div> 你输入的值: {{testFormState.cmtter23}}</div>
+      <div> 你输入的值: {{testFormState.cmtter24}}</div>
+      <div> 你输入的值: {{testFormState.cmtter25}}</div>
+      <div> 你输入的值: {{testFormState.cmtter26}}</div>
+    </div>
     <div>图标 <JoyinNumberFilled></JoyinNumberFilled>
     </div>
 

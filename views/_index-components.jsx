@@ -471,6 +471,15 @@ const testTreeMultipleSelect3 = UI.form.tree.select.multiple.generate({
   }
 })
 
+// 工具条
+const testToolbar = UI.toolbar.generate({
+  flex: 'auto',
+  actions:  Array.from({length: 20}).map(() => ({
+    action: 'acttion-' + (++uuid),
+    text: '新增操作' + (++uuid) 
+  })) 
+})
+
 export default {
   testInput,
   testContaner,
@@ -505,5 +514,6 @@ export default {
   testTreeMultipleSelect3,
 
   testTreeSelect2,
-  testTreeSelect3
+  testTreeSelect3,
+  testToolbar
 }
