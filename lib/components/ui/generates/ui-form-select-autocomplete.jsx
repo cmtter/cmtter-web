@@ -18,9 +18,9 @@
     maxTagCount: 3,
     //使用场景
     scene: 'autoComplete',
+    loadDatas: NULL_FUNCTION,
     ...options,
-    datas: NULL_ARRAY,
-    loadDatas: NULL_FUNCTION
+    datas: NULL_ARRAY
    })
  }
  

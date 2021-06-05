@@ -4,6 +4,16 @@
     ref="form"
   >
     <test-contaner>
+      <wk-seach-user-role-form-contrl
+        v-model:value="searchForm.value5"
+        name="value5"
+      ></wk-seach-user-role-form-contrl>
+
+      <wk-seach-user-name-form-contrl
+        v-model:value="searchForm.value6"
+        name="value6"
+      ></wk-seach-user-name-form-contrl>
+
       <test-input
         v-model:value="testFormState.cmtter1"
         name="cmtter1"
@@ -144,7 +154,7 @@
       <testCard></testCard>
     </test-contaner>
     <br /><br />
-    <div style="background: gainsboro;">选择框</div>
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">选择框</div>
     <test-contaner>
       <test-simple-select
         v-model:value="testFormState.cmtter29"
@@ -168,7 +178,7 @@
     </test-contaner>
     <br />
     <br />
-    <div style="background: gainsboro;">Tree选择框</div>
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">Tree选择框</div>
     <test-contaner>
       <test-tree-select
         v-model:value="testFormState.cmtter33"
@@ -211,10 +221,12 @@
     </test-contaner>
     <br />
     <br />
-    <div style="background: gainsboro;">工具条</div>
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">工具条</div>
     <br />
     <test-contaner>
-      <test-toolbar></test-toolbar>
+      <test-toolbar style="background: #ececec"></test-toolbar>
+      <test-toolbar1 style="background: #ececec; margin-top: 5px;"></test-toolbar1>
+      <test-toolbar2 style="background: #ececec; margin-top: 5px;"></test-toolbar2>
     </test-contaner>
 
     <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格</div>

@@ -430,8 +430,6 @@ const testTreeSelect3 = UI.form.tree.select.generate({
   }
 })
 
-
-
 // tree多选
 const testTreeMultipleSelect = UI.form.tree.select.multiple.generate({
   flex: '0 0 750px',
@@ -473,7 +471,27 @@ const testTreeMultipleSelect3 = UI.form.tree.select.multiple.generate({
 
 // 工具条
 const testToolbar = UI.toolbar.generate({
-  flex: 'auto',
+  col: 24,
+  max: 4,
+  actions:  Array.from({length: 10}).map(() => ({
+    action: 'acttion-' + (++uuid),
+    text: '新增操作' + (++uuid) 
+  })) 
+})
+
+const testToolbar1 = UI.toolbar.generate({
+  col: 24,
+  align: 'left',
+  max: 2,
+  actions:  Array.from({length: 10}).map(() => ({
+    action: 'acttion-' + (++uuid),
+    text: '新增操作' + (++uuid) 
+  })) 
+})
+
+const testToolbar2 = UI.toolbar.generate({
+  col: 24,
+  align: 'center',
   max: 4,
   actions:  Array.from({length: 10}).map(() => ({
     action: 'acttion-' + (++uuid),
@@ -516,5 +534,7 @@ export default {
 
   testTreeSelect2,
   testTreeSelect3,
-  testToolbar
+  testToolbar,
+  testToolbar1,
+  testToolbar2
 }

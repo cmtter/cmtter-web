@@ -104,8 +104,16 @@ function generate(options){
       // 是否显示搜索
       const showSearch  = computed(() => mergeDatas.value.length > 10 || hasLoadDatasAsync.value)
 
+      const setBindSearchValue = debounce((inputValue) => {
+        inputValue = (inputValue || '').trim()
+        emit('update:value', inputValue ? {value: inputValue, label: inputValue} : null)
+      }, 200)
+
       // 过滤
       const filterOption = (inputValue, option) => {
+        if (props.scene === 'autoComplete' && inputValue){
+          setBindSearchValue(inputValue)
+        }
         return !inputValue || option.label.indexOf(inputValue) > -1
       }
 
@@ -134,7 +142,7 @@ function generate(options){
             loadDatas(null, res)
             return res
           }, 500)
-        }
+        } 
         return null
       })
 

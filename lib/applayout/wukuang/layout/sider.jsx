@@ -84,7 +84,7 @@ export default defineComponent({
       <AlayoutSider style={{background: '#fff'}} {...siderProps}>
           <div class="sider-container">
               <div class="joyin-scrollbar-default menu-list">
-                <Amenu mode="inline">
+                <Amenu mode="inline" style="height: 100%">
                   {menusList}  
                 </Amenu>
               </div>

@@ -42,7 +42,7 @@ function generate(options){
       }
 
       const actionList = computed(() => {
-        const a = props.actions || []
+        const a = dyncProps.value.actions || props.actions || []
         return Array.isArray(a) ? a : [a]
       })
 
@@ -77,7 +77,7 @@ function generate(options){
         }).length
         this.updateMaxCount(count > 4 ? count-1 : 1)
       }
-    }, 
+    },
     mounted(){
       this.doLayout()
       // 监控
