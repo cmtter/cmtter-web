@@ -1,8 +1,9 @@
 import UI, { UIConfig } from '@lib/components/ui'
 import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons-vue'
-import { Card, Button } from 'ant-design-vue'
+import { Card, Button, Descriptions } from 'ant-design-vue'
 import { createVNode } from 'vue'
 const { DefineRules } = UIConfig
+const DescriptionsItem = Descriptions.Item
 
 // 表单状态模型
 export const _testFormState = {
@@ -499,7 +500,302 @@ const testToolbar2 = UI.toolbar.generate({
   })) 
 })
 
+//表格
+const testTable = UI.datatable.generate({
+ flex: 'auto',
+ columns: [
+  {
+   // title: '姓名',
+    dataIndex: 'name',
+    key: 'name',
+    //统一设置为true，这样可以在@change 事件中对数据进行排序
+    sorter: true,
+    colSpan: 2
+  },
+  {
+    title: '年龄',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: '住址',
+    dataIndex: 'address',
+    key: 'address',
+    colSpan: 0
+  }
+ ],
+ slots:{
+  nameCellSlot: function(a, b){
+    console.log(a, b);
+    return <a>ddddddddddd</a>
+  },
+  ageCellSlot: function(){
+    return <a>ddddddddddd--age</a>
+  },
+  nameHeaderSlot: function(){
+    return <a style="color:red">自定义头</a>
+  },
+  title: function(){
+    return <div style="text-align: right;"> 测试title </div>
+  },
+  footer: function(){
+    return <div style="text-align: right;"> 测试Footer </div>
+  }
+ }
+})
+
+// 头分组
+const testTable1 = UI.datatable.generate({
+  flex: 'auto',
+  columns: [
+   {
+     title: '基本信息',
+     children: [
+      {
+        title: '姓名',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: '学历',
+        dataIndex: 'xueli',
+        key: 'xueli',
+      },
+      {
+        title: '生日',
+        dataIndex: 'brs',
+        key: 'brs',
+      },
+     ]
+   },
+   {
+     title: '年龄',
+     dataIndex: 'age',
+     key: 'age',
+   },
+   {
+     title: '住址',
+     dataIndex: 'address',
+     key: 'address'
+   }
+  ]
+ })
+
+ // 行分组
+function createCustomRender(filed){
+  return ({record, text}) => {
+    const rowSpanF = record.rowSpanF || {}
+    return {
+      children: <span>{text}</span>,
+      props:{
+        rowSpan: (filed in rowSpanF) ? rowSpanF[filed] : 1
+      }
+    }
+  }
+}
+const testTable2 = UI.datatable.generate({
+  flex: 'auto',
+  columns: [
+    //  a a2 a21  a22 a211 a212
+    {
+    title: 'a',
+     dataIndex: 'a',
+     customRender: createCustomRender('a')
+    },
+    {
+    title: 'a2',
+     dataIndex: 'a2',
+     customRender: createCustomRender('a2')
+    },
+    {
+      title: 'a21',
+      dataIndex: 'a21',
+      customRender: createCustomRender('a22')
+    },
+    {
+      title: 'a22',
+      dataIndex: 'a22',
+      customRender: createCustomRender('a22')
+    },
+
+
+    {
+      title: 'a211',
+      dataIndex: 'a211',
+      customRender: createCustomRender('a211')
+    },
+    {
+      title: 'a212',
+      dataIndex: 'a212',
+      customRender: createCustomRender('a212')
+    }
+  ]
+})
+
+// const testTreeData = [
+//   {
+//     a: 'a1',
+//     a2: 'a2',
+//     children: [
+//       { a21: 'a21-1', a22: 'a22-1' },
+//       { a21: 'a21-2', a22: 'a22-2' },
+//       {
+//         a21: 'a21-3',
+//         a22: 'a22-3',
+//         children: [
+//           { a211: 'a211-1', a212: 'a212-1' },
+//           { a211: 'a211-2', a212: 'a212-2' },
+//           { a211: 'a211-3', a212: 'a212-3' }
+//         ]
+//       },
+//       { a21: 'a21-4', a22: 'a22-4' }
+//     ]
+//   }
+// ]
+
+//扩展列(应用字段特别多的场景)
+const testTable3 = UI.datatable.generate({
+  flex: 'auto',
+  columns: [
+    { title: 'Name', dataIndex: 'name', key: 'name' },
+    { title: 'Age', dataIndex: 'age', key: 'age' },
+    { title: 'Address', dataIndex: 'address', key: 'address' },
+    { title: 'Action', dataIndex: '', key: 'x', },
+  ],
+  datasource:[
+    {
+      key: 1,
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+      description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
+    },
+    {
+      key: 2,
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+      description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+    },
+    {
+      key: 3,
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+      description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
+    },
+  ],
+  slots: {
+    expandedRowRender: function(hostCmp, {record }){
+      if (hostCmp){
+        
+        return (
+          <Descriptions>
+            {
+              Object.keys(record).map(r => <DescriptionsItem label={r}>{record[r]}</DescriptionsItem>)
+            }
+          </Descriptions>
+
+        )
+      }
+      
+    }
+  }
+})
+
+// tree 表格
+const testTable4 = UI.datatable.generate({
+  flex: 'auto',
+  columns: [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age',
+      width: '12%',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      width: '30%',
+      key: 'address',
+    }
+  ],
+  datasource: [
+    {
+      key: 1,
+      name: 'John Brown sr.',
+      age: 60,
+      address: 'New York No. 1 Lake Park',
+      children: [
+        {
+          key: 11,
+          name: 'John Brown',
+          age: 42,
+          address: 'New York No. 2 Lake Park',
+        },
+        {
+          key: 12,
+          name: 'John Brown jr.',
+          age: 30,
+          address: 'New York No. 3 Lake Park',
+          children: [
+            {
+              key: 121,
+              name: 'Jimmy Brown',
+              age: 16,
+              address: 'New York No. 3 Lake Park',
+            },
+          ],
+        },
+        {
+          key: 13,
+          name: 'Jim Green sr.',
+          age: 72,
+          address: 'London No. 1 Lake Park',
+          children: [
+            {
+              key: 131,
+              name: 'Jim Green',
+              age: 42,
+              address: 'London No. 2 Lake Park',
+              children: [
+                {
+                  key: 1311,
+                  name: 'Jim Green jr.',
+                  age: 25,
+                  address: 'London No. 3 Lake Park',
+                },
+                {
+                  key: 1312,
+                  name: 'Jimmy Green sr.',
+                  age: 18,
+                  address: 'London No. 4 Lake Park',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      key: 2,
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    },
+  ]
+})
+
 export default {
+  testTable4,
+  testTable3,
+  testTable1,
+  testTable2,
   testInput,
   testContaner,
   testInputPhone,
@@ -536,5 +832,6 @@ export default {
   testTreeSelect3,
   testToolbar,
   testToolbar1,
-  testToolbar2
+  testToolbar2,
+  testTable
 }

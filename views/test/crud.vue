@@ -101,7 +101,7 @@
     >
       <template #extra>
         <wk-contaner>
-          <wk-toolbar></wk-toolbar>
+          <wk-toolbar @action="onAction"></wk-toolbar>
         </wk-contaner>
       </template>
       <wk-table
@@ -123,7 +123,7 @@
 <script>
 import { UIConfig } from '@lib/components/ui'
 import { reactive } from 'vue'
-import { Form, Divider, Card, Collapse, Table } from 'ant-design-vue'
+import { Form, Card, Collapse, Table } from 'ant-design-vue'
 import components, { searchFormState } from './-crud-components'
 const CollapsePanel = Collapse.Panel
 export default {
@@ -163,7 +163,6 @@ export default {
   components: {
     WkForm: Form,
     WkCard: Card,
-    WkDivider: Divider,
     WkCollapse: Collapse,
     WkTable: Table,
     WkCollapsePanel: CollapsePanel,
@@ -177,6 +176,17 @@ export default {
     }
   },
   methods: {
+
+    onAction(action) {
+      this[action]()
+
+    },
+    async search() {
+      // const data = this.searchForm
+      // const { response } = await http('/api/searcn', data).post()
+      // this.data = response
+
+    }
 
   }
 }

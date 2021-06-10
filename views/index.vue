@@ -3,17 +3,47 @@
     :model="testFormState"
     ref="form"
   >
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格</div>
+    <br />
     <test-contaner>
-      <wk-seach-user-role-form-contrl
-        v-model:value="searchForm.value5"
-        name="value5"
-      ></wk-seach-user-role-form-contrl>
+      <test-table
+        @change="handleTableChange"
+        :datasource="dataSource"
+        :row-selection="rowSelection"
+        :loading="aloading"
+      ></test-table>
+    </test-contaner>
 
-      <wk-seach-user-name-form-contrl
-        v-model:value="searchForm.value6"
-        name="value6"
-      ></wk-seach-user-name-form-contrl>
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格 Col分组</div>
+    <br />
+    <test-contaner>
+      <test-table1 :datasource="dataSource1"></test-table1>
+    </test-contaner>
 
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格 Row分组</div>
+    <br />
+    <test-contaner>
+      <test-table2 :datasource="dataSource2"></test-table2>
+    </test-contaner>
+
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格 扩展</div>
+    <br />
+    <test-contaner>
+      <test-table3 :row-class-name="(record, index) => (index % 2 === 1 ? 'table-striped' : null)"></test-table3>
+    </test-contaner>
+
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格Tree</div>
+    <br />
+    <test-contaner>
+      <test-table4
+        :row-selection="rowSelection"
+        :row-class-name="(record, index) => (index % 2 === 1 ? 'table-striped' : null)"
+      ></test-table4>
+    </test-contaner>
+
+    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">输入框</div>
+    <br />
+    <test-contaner>
       <test-input
         v-model:value="testFormState.cmtter1"
         name="cmtter1"
@@ -228,12 +258,6 @@
       <test-toolbar1 style="background: #ececec; margin-top: 5px;"></test-toolbar1>
       <test-toolbar2 style="background: #ececec; margin-top: 5px;"></test-toolbar2>
     </test-contaner>
-
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格</div>
-    <br />
-    <test-contaner>
-    </test-contaner>
-
     <div style="background: gainsboro;padding: 10px 0px;  margin: 10px 0px;">卡片</div>
     <br />
     <test-contaner>
@@ -295,17 +319,90 @@
 
 <script>
 import { UIConfig } from '@lib/components/ui'
+import { resolveRowGroupData } from '@lib/components/ui/generates/ui-datatable'
 import JoyinNumberFilled from '@lib/components/icon/JoyinNumberFilled'
 import { reactive } from 'vue'
 import { Form, Button } from 'ant-design-vue'
 import components, { _testFormState } from './_index-components'
 let uuid = 1
+//行分组
+
+const treeData = [
+  {
+    a: 'a1',
+    a2: 'a2',
+    children: [
+      { a21: 'a21-1', a22: 'a22-1' },
+      { a21: 'a21-2', a22: 'a22-2' },
+      {
+        a21: 'a21-3',
+        a22: 'a22-3',
+        children: [
+          { a211: 'a211-1', a212: 'a212-1' },
+          { a211: 'a211-2', a212: 'a212-2' },
+          { a211: 'a211-3', a212: 'a212-3' }
+        ]
+      },
+      { a21: 'a21-4', a22: 'a22-4' }
+    ]
+  }
+]
+
+const rowGroupDatas = resolveRowGroupData(treeData)
+
 export default {
   data() {
     return {
       disabled: true,
       params: {},
-      hostVar: '我来自于宿主环境'
+      hostVar: '我来自于宿主环境',
+      dataSource: {
+        total: 1000,
+        pageSize: 20,
+        current: 1,
+        datas: [
+          {
+            key: '1',
+            name: '胡彦斌',
+            age: 32,
+            address: '西湖区湖底公园1号西湖区湖底公园1号西湖区湖底公园1号西湖区湖底公园1号西湖区湖底公园1号',
+          },
+          {
+            key: '2',
+            name: '胡彦祖',
+            age: 42,
+            address: '西湖区湖底公园1号',
+          }
+        ]
+      },
+      dataSource1: [
+        {
+          key: '1',
+          name: '胡彦斌',
+          xueli: '本科',
+          brs: '1985',
+          age: 32,
+          address: '西湖区湖底公园1号西湖区湖底公园1号西湖区湖底公园1号西湖区湖底公园1号西湖区湖底公园1号',
+        },
+        {
+          key: '2',
+          name: '胡彦祖',
+          xueli: '本科',
+          brs: '1985',
+          age: 32,
+          address: '西湖区湖底公园1号',
+        },
+        {
+          key: '2',
+          name: '王秀夫',
+          xueli: '本科',
+          brs: '1985',
+          age: 32,
+          address: '西湖区湖底公园1号',
+        }
+      ],
+      dataSource2: rowGroupDatas,
+      aloading: false
     }
   },
   components: {
@@ -317,11 +414,32 @@ export default {
   mixins: [UIConfig.HOST_MIXIN],
   setup() {
     const testFormState = reactive({ ..._testFormState })
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      },
+      //禁用选择
+      getCheckboxProps: (record) => ({
+        disabled: record.age === 32, // Column configuration not to be checked
+        name: record.name,
+      }),
+    };
     return {
-      testFormState
+      testFormState,
+      rowSelection
     }
   },
   methods: {
+    handleTableChange(pagination) {
+      this.aloading = true
+      this.dataSource = {
+        ...this.dataSource,
+        ...pagination
+      }
+      setTimeout(() => {
+        this.aloading = false
+      }, 1000);
+    },
     testHandler() {
       //测试利用ui修改testInput属性
       this.applyUI('testinputui', {
@@ -342,5 +460,8 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style>
+.table-striped {
+  background-color: #fafafa;
+}
 </style>
