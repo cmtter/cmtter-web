@@ -3,7 +3,7 @@
     :model="testFormState"
     ref="form"
   >
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格</div>
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">1. 表格</div>
     <br />
     <test-contaner>
       <test-table
@@ -14,25 +14,25 @@
       ></test-table>
     </test-contaner>
 
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格 Col分组</div>
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">2.表格 Col分组</div>
     <br />
     <test-contaner>
       <test-table1 :datasource="dataSource1"></test-table1>
     </test-contaner>
 
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格 Row分组</div>
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">3.表格 Row分组</div>
     <br />
     <test-contaner>
       <test-table2 :datasource="dataSource2"></test-table2>
     </test-contaner>
 
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格 扩展</div>
+    <div style="background: gainsboropadding: 10px 10px; margin: 10px 0px;">4.表格 扩展</div>
     <br />
     <test-contaner>
       <test-table3 :row-class-name="(record, index) => (index % 2 === 1 ? 'table-striped' : null)"></test-table3>
     </test-contaner>
 
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">表格Tree</div>
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">5.表格Tree</div>
     <br />
     <test-contaner>
       <test-table4
@@ -41,7 +41,7 @@
       ></test-table4>
     </test-contaner>
 
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">输入框</div>
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">6.输入框</div>
     <br />
     <test-contaner>
       <test-input
@@ -49,6 +49,11 @@
         name="cmtter1"
         ui="testinputui"
       ></test-input>
+
+      <test-text-area
+        v-model:value="testFormState.cmtter11111"
+        name="cmtter11111"
+      ></test-text-area>
 
       <test-input-phone
         v-model:value="testFormState.cmtter2"
@@ -135,7 +140,12 @@
         v-model:cmtter24="testFormState.cmtter24"
       >
       </test-form-input-percentage-range>
+    </test-contaner>
+    <br /><br />
 
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">7.loading技巧处理</div>
+    <br />
+    <test-contaner>
       <test-contaner
         flex="0 0 330px"
         :useEmptyComponent="true"
@@ -180,11 +190,16 @@
           </div>
         </test-action>
       </test-contaner>
+    </test-contaner>
 
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">8.可以通过UI.component.generate方法将任意组件的配置逻辑代码迁移到页面之外</div>
+    <br />
+    <test-contaner>
       <testCard></testCard>
     </test-contaner>
-    <br /><br />
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">选择框</div>
+
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">9.选择框</div>
+    <br />
     <test-contaner>
       <test-simple-select
         v-model:value="testFormState.cmtter29"
@@ -208,7 +223,8 @@
     </test-contaner>
     <br />
     <br />
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">Tree选择框</div>
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">10.Tree选择框</div>
+    <br />
     <test-contaner>
       <test-tree-select
         v-model:value="testFormState.cmtter33"
@@ -251,22 +267,6 @@
     </test-contaner>
     <br />
     <br />
-    <div style="background: gainsboro;padding: 10px 0px; margin: 10px 0px;">工具条</div>
-    <br />
-    <test-contaner>
-      <test-toolbar style="background: #ececec"></test-toolbar>
-      <test-toolbar1 style="background: #ececec; margin-top: 5px;"></test-toolbar1>
-      <test-toolbar2 style="background: #ececec; margin-top: 5px;"></test-toolbar2>
-    </test-contaner>
-    <div style="background: gainsboro;padding: 10px 0px;  margin: 10px 0px;">卡片</div>
-    <br />
-    <test-contaner>
-    </test-contaner>
-
-    <div style="background: gainsboro;padding: 10px 0px;  margin: 10px 0px;">内容</div>
-    <br />
-    <test-contaner>
-    </test-contaner>
 
     <br /><br />
     <div>
@@ -315,6 +315,10 @@
     </div>
 
   </el-form>
+
+  <div>
+
+  </div>
 </template>
 
 <script>

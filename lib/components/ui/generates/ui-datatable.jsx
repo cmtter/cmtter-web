@@ -11,7 +11,7 @@ function generate(options){
   const uimixins = UIConfig.UI_MIXINS()
   options = options || {}
   const props = {
-    size: VueTypes.oneOf(['large', 'small']).def('small'),
+    size: VueTypes.oneOf(['large', 'small']).def(UIConfig.DEFAULT_TABLE_SIZE),
     /**
      * 列配置自定为每一个列生成slot
      */

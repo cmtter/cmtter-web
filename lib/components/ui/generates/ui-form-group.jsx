@@ -26,7 +26,7 @@ import UiContaner from './ui-contaner'
 
 
 function generate(options){
-  const group_Separator = (<span class="ui-form-group-separator">~</span>)
+  const group_Separator = (<span class="ui-form-group-separator" style="flex: 1 1 auto; text-align:center;">~</span>)
   const uimixins = UIConfig.UI_MIXINS()
   const vmodelProps = options.groups.reduce((memo, ui) => {
     memo.props[ui.vmodel] = VueTypes.oneOfType([VueTypes.string, VueTypes.number]).def(null)

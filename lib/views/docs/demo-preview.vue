@@ -1,6 +1,7 @@
 <template>
   <!--按钮 -->
   <div class="online-preview">
+    <TestMd />
     <div style="width: 95%; text-align: right; padding: 5px 0px;">
       <a-button
         type="primary"
@@ -52,7 +53,6 @@ import MultipaneResizer from "vue-multipane/src/multipane-resizer";
 import { Button as AButton } from 'ant-design-vue'
 import composition from '@lib/api/composition'
 import { error } from '@lib/api/tools/message'
-
 export default {
   components: {
     vueCodemirror,

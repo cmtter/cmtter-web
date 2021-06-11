@@ -2,12 +2,12 @@ import { computed, defineComponent, inject, shallowRef, toRaw, watch, ref } from
 import UIConfig from './ui-config'
 import { getOptionProps } from 'ant-design-vue/es/_util/props-util'
 import classNames from 'ant-design-vue/es/_util/classNames'
-import { Input, Form, DatePicker } from 'ant-design-vue'
+import { Input, Form, DatePicker} from 'ant-design-vue'
 import omit from 'omit.js';
 import { defalutProps } from '../utils'
 import VueTypes from  'vue-types'
 const FormItem = Form.Item
-
+const TextArea = Input.TextArea
 function generate(options){
   const uimixins = UIConfig.UI_MIXINS()
   // 定义属性
@@ -27,7 +27,7 @@ function generate(options){
     // value
     value: VueTypes.oneOfType([VueTypes.string, VueTypes.number]).def(null),
     //size
-    size: VueTypes.oneOf(['large', 'small']),
+    size: VueTypes.oneOf(['large', 'small']).def(UIConfig.DEFAULT_FORM_SIZE),
     //placeholder
     placeholder:VueTypes.string,
     //prefix
@@ -40,7 +40,7 @@ function generate(options){
     parser: VueTypes.func.def(() => false),
     ...(uimixins.props),
     // 输入类型
-    inputType: VueTypes.oneOf(['text', 'date', 'datetime']).def('text'),
+    inputType: VueTypes.oneOf(['text', 'date', 'datetime', 'textarea']).def('text'),
     // 国际化
     locale: VueTypes.object,
     // 日期格式化
@@ -174,6 +174,19 @@ function generate(options){
         }
         return <DatePicker {...dateProps}></DatePicker>
       },
+      renderTextAreaInput(props){
+        const inputProps = {
+          ...omit(props, ['ui', 'vif', 'value', 'offset', 'flex', 'col', 'inputType']),
+          ...(defaultValue ? {defaultValue} : {}),
+          allowClear: true,
+          autocomplete: 'off',
+          value: this.formatterInputValue,
+          onBlur: this.handerCompleteInput,
+          onInput:  this.handerInputing,
+          'onUpdate:value': this.parserValue
+        }
+        return <TextArea {...inputProps} ></TextArea>
+      },
       renderDateTimeInput(props){
         const dateTimeProps = {
           ...props,
@@ -193,6 +206,10 @@ function generate(options){
 
         if (props.inputType === 'datetime'){
           return this.renderDateTimeInput(props)
+        }
+
+        if (props.inputType === 'textarea'){
+          return this.renderTextAreaInput(props)
         }
         return null;
       }

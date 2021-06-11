@@ -47,6 +47,10 @@ const Conifg = {
   // 布局容器provide
   UI_CONTANER_SYMBOL: PolySymbol('UI_CONTANER'),
 
+  DEFAULT_FORM_SIZE: null,
+
+  DEFAULT_TABLE_SIZE: 'small',
+
   // 表单校验规则
   DefineRules: DefineRules,
 
