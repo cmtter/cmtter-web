@@ -1,6 +1,6 @@
 import UI, { UIConfig } from '@lib/components/ui'
 import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons-vue'
-import { Card, Button, Descriptions } from 'ant-design-vue'
+import { Card, Button, Descriptions, Dropdown, Menu} from 'ant-design-vue'
 import { createVNode } from 'vue'
 const { DefineRules } = UIConfig
 const DescriptionsItem = Descriptions.Item
@@ -54,7 +54,8 @@ export const _testFormState = {
   cmtter42: null,
   cmtter43: null,
   cmtter44: null,
-  cmtter45: null
+  cmtter45: null,
+  fileList: []
 }
 
 // 表单模型状态校验
@@ -798,7 +799,40 @@ const testTable4 = UI.datatable.generate({
   ]
 })
 
+// 表单上传
+const testUpload = UI.form.upload.generate({})
+
+//创建 dropdown
+console.log('------Dropdown-----------------', Dropdown);
+const Abutton = UI.component.generate({
+  component: Button
+})
+const MenuItem = Menu.Item
+const testDropdown = createVNode(Dropdown, {}, {
+  overlay: function(){
+    return createVNode(Menu, {}, {
+      default: () => {
+        return (
+            <>
+              <MenuItem key="1">dddddd</MenuItem>
+              <MenuItem key="2">dddddd22</MenuItem>
+            </>
+
+        )
+
+      }
+    })
+  },
+  default: function(){
+    return <Abutton>测试dddddd</Abutton>
+  }
+})
+
+
+
 export default {
+  testDropdown,
+  testUpload,
   testTable4,
   testTable3,
   testTable1,

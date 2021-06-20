@@ -1,11 +1,11 @@
 import { createVNode } from 'vue'
 import { Modal } from 'ant-design-vue'
-import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
+import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 
 const model_defaults = {
   confirm: {
     title: '操作确认',
-    icon: createVNode(ExclamationCircleOutlined),
+    icon: createVNode(QuestionCircleOutlined),
     content: '确定要执行该操作吗?',
     okText:'确认',
     cancelText: '取消',
@@ -37,7 +37,7 @@ function _model(type){
         ...options,
         onOk:() => resolve(true),
         onCancel: () => resolve(false)
-      }) 
+      })
     });
   }
 }

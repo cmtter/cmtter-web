@@ -32,7 +32,8 @@ const Conifg = {
       registerUI(ui, instance) {
         const $uis = this.$uis
         if ($uis[ui]) {
-          throw new Error(`错误!!, ui["${ui}"]名称存在重复`)
+          return
+          //throw new Error(`错误!!, ui["${ui}"]名称存在重复`)
         }
         $uis[ui] = instance
       },

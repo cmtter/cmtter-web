@@ -92,7 +92,7 @@ function generate(options){
       _resolveColumns()
 
       // 配置变化的时候
-      const dataSourceChange = computed(()=> props.dataSource)
+      const dataSourceChange = computed(()=> props.datasource)
       watch(dataSourceChange, ()=>{
         resolveDataSource()
       })

@@ -18,7 +18,6 @@ import { computed, ref } from 'vue'
 import { UIConfig } from '@lib/components/ui'
 import components from './-helper-component'
 import docComponents from './'
-console.log('docComponents----', docComponents);
 export default {
   mixins: [UIConfig.HOST_MIXIN],
   components: {

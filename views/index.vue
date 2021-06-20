@@ -267,8 +267,16 @@
     </test-contaner>
     <br />
     <br />
-
-    <br /><br />
+    <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">附件</div>
+    <br />
+    <test-upload v-model:fileList="testFormState.fileList"></test-upload>
+    <br />
+    <test-dropdown />
+    <br />
+    <br />
+    <br />
+    附件 : {{testFormState.fileList}}
+    <br />
     <div>
       <a-button
         @click="testHandler"
@@ -316,9 +324,6 @@
 
   </el-form>
 
-  <div>
-
-  </div>
 </template>
 
 <script>
