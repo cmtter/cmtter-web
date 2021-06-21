@@ -1,3 +1,18 @@
+/**
+ * 生产代码的规则,
+ * 1. 所有组件，包括div、span都会独立生产到-*component.js中
+ * 2. 所有插槽的函数配置全部为 非箭头函数
+ * 3. 参数包括this、slot(插槽)、item(循环)、event(事件), 为了便于设计模式下代码与代码生成的结果尽可能的保持一致，
+ *    参数不会继承父作用域，如果遇到该场景可以手动更改代码（例如嵌套插槽、嵌套vFor）
+ * 4. 设计模式下字符串特殊标记
+ *    d-* 当前状态  this.*   => <div name={}>
+      s- 插槽参数 slotScope.*
+      e- 事件参数  event.*
+      i- for参数  item.*
+      m-* 方法参数 this.*
+ * 
+ * @author xiufu.wang
+ */
 import { provide, defineComponent, reactive, ref, createVNode, toRaw} from 'vue'
 import VueTypes from  'vue-types'
 import omit from 'omit.js';
@@ -15,38 +30,82 @@ const TextArea = Input.TextArea
  * @param {*} exstr 表达式
  * @param {*} ctx 上下文
  */
-function mapValue(ctx, vforCtx, scopes, value){
-    if (!isNaN(value) || typeof value === 'boolean' || (typeof value === 'string' && !(value = value.trim())) || value === null || value === undefined){
-      return value
-    }
-    if (typeof value === 'string'){
-      return formatterValueExpression(ctx, vforCtx, scopes, value)
-    }
+function mapValue(ctx, params, value){
+  if (!isNaN(value) || typeof value === 'boolean' || (typeof value === 'string' && !(value = value.trim())) || value === null || value === undefined){
+    return value
+  }
 
-    // is array
-    if (Array.isArray(value)){
-      return value.map(r => {
-        return mapValue(ctx, vforCtx, scopes, r)
-      })
-    }
-    // is object
-    value = value || {}
-    return Object.keys(value).reduce((m, k)=>{
-      m[k] = mapValue(ctx, vforCtx, scopes, value[k]) 
-      return m
-    }, {})
+  if (typeof value === 'string'){
+    return formatterValueExpression(ctx, params, value)
+  }
+
+  // is array
+  if (Array.isArray(value)){
+    return value.map(r => {
+      return mapValue(ctx, params, r)
+    })
+  }
+  // is object
+  value = value || {}
+  return Object.keys(value).reduce((m, k)=>{
+    m[k] = mapValue(ctx, params, value[k]) 
+    return m
+  }, {})
 }
 
-function formatterValueExpression(ctx, vforCtx, scopes, valueStr){
+
+function formatterValueExpression(ctx, params, valueStr){
+  const oldV = valueStr
   if (typeof valueStr === 'boolean' || (typeof valueStr === 'string' && !(valueStr = valueStr.trim())) || valueStr === null || valueStr === undefined){
     return valueStr
   }
   valueStr = valueStr || "''"
-  const _v = valueStr.indexOf('//function').length > -1 ? valueStr : `return (${valueStr})`
+  
+  // 作用域处理
+  const _ctx = new Proxy({}, {
+    get: function(obj, prop) {
+      const _state = toRaw(ctx.statesObj)
+      const _methods = toRaw(ctx.methodsObj)
+      if (prop in _state){
+        return ctx.statesObj[prop]
+      }
+      if (prop in _methods){
+        return _methods[prop]
+      }
+      if (prop in ctx){
+        return ctx[prop]
+      }
+      return undefined
+    },
+    set: function(obj, prop, value) {
+      const _state = toRaw(ctx.statesObj)
+      if (prop in _state){
+        ctx.statesObj[prop] = value
+      }
+      if (prop in ctx){
+        ctx[prop] = value
+      }
+      ctx.$forceUpdate()
+    }
+  })
+
+  //:d-name => this.name
+  valueStr = valueStr.replace(/:d-/g, 'this.')
+  //:s-name=> slotScope.name
+  valueStr = valueStr.replace(/:s-/g, 'slotScope.')
+  //:e-name=> event.name
+  valueStr = valueStr.replace(/:e-/g, 'event.')
+  //:i-name=>item.name
+  valueStr = valueStr.replace(/:i-/g, 'item.')
+  //:m-getName => this.getName ; :m-getName(:e-name) => this.getName(event.name)
+  const isMethod = valueStr.indexOf(':m-') > -1
+  valueStr = valueStr.replace(/:m-/g, 'this.')
+  
+  const _v = isMethod ? ` return (event) => { return ${valueStr} } ` : ` return  (${valueStr}) `
   try {
-    const run = new Function('item', 'scopes' , `
+    const run = new Function('item', 'slotScope' , `
       try{
-        ${_v.replace(/(_\$s)/g, 'this._$s').replace(/(_\$m)/g, 'this._$m')}
+        ${_v}
       }catch(e){
         return {
           isError: true
@@ -54,14 +113,14 @@ function formatterValueExpression(ctx, vforCtx, scopes, valueStr){
       }
     `)
     //格式化内容
-    const res = run.call(ctx, vforCtx, scopes)
+    const res = run.call(_ctx, params.item, params.slotScope)
     if (res && res.isError === true){
-      return valueStr
+      return oldV
     }
     return res
   } catch(e) {
     //如果发生异常则返回原始字符串
-    return valueStr
+    return oldV
   }
 }
 
@@ -113,85 +172,95 @@ function vueConfig(options, role){
   return createConfigVNode(options.cmtterDSProtocol, Cmp)
 }
 
-function renderDsConfigNode(componentOption, cache, ctx, vforCtx = {}, scopes=[], role, position) {
-   if (!componentOption){
-    return
-   }
-   // 文本节点: 插槽、子节点
-   if (typeof componentOption === 'string'){
-     //子节点
-    cache.push(vueConfig({cmtterDSProtocol: mapValue(ctx, vforCtx, scopes, componentOption), position: {...position, $:componentOption}}, (role || DS_CHILDREN_SYMBOL)))
-    return
-   }
-   
-   // 格式化 componentOption 为数组
-   componentOption = Array.isArray(componentOption) ? componentOption : [componentOption]
-   
-   for (let i = 0; i < componentOption.length; i++) {
-      const opt = componentOption[i];
-      if (!opt){
-        continue
-      }
+function renderDsConfigNode(componentOption, cache, ctx, params, role, position) {
+  if (!componentOption){
+   return
+  }
+  // 文本节点: 插槽、子节点
+  if (typeof componentOption === 'string'){
+    //子节点
+   cache.push(vueConfig({cmtterDSProtocol: mapValue(ctx, params, componentOption), position: {...position, $:componentOption}}, (role || DS_CHILDREN_SYMBOL)))
+   return
+  }
+  
+  // 格式化 componentOption 为数组
+  componentOption = Array.isArray(componentOption) ? componentOption : [componentOption]
+  
+  for (let i = 0; i < componentOption.length; i++) {
+     const opt = componentOption[i];
+     if (!opt){
+       continue
+     }
 
-      // 渲染文本节点
-      if (typeof opt === 'string'){
-        renderDsConfigNode(opt, cache, ctx, vforCtx, scopes, (role || DS_CHILDREN_SYMBOL), {...position, num: i})
-        continue
-      }
+     // 渲染文本节点
+     if (typeof opt === 'string'){
+       renderDsConfigNode(opt, cache, ctx, params, (role || DS_CHILDREN_SYMBOL), {...position, num: i})
+       continue
+     }
 
-      const vIf = mapValue(ctx, vforCtx, scopes, opt.vIf)
-      const vFor = mapValue(ctx, vforCtx, scopes, opt.vFor)
-      // 类似于v-if的处理方式
-      if(!opt.tag || vIf === false){
-        continue
-      }
+     const vIf = mapValue(ctx, params, opt.vIf)
+     const vFor = mapValue(ctx, params, opt.vFor)
+     // 类似于v-if的处理方式
+     if(!opt.tag || vIf === false){
+       continue
+     }
 
-      // 循环渲染
-      if (Array.isArray(vFor)){
-        vFor.forEach(record => {
-          renderDsConfigNode(omit(opt, ['vFor']), cache, ctx, record, scopes, (role || DS_CHILDREN_SYMBOL), {dsKey: opt.dsKey, num: i})
-        })
-        continue
-      }
+     // 循环渲染
+     if (Array.isArray(vFor)){
+       vFor.forEach(record => {
+         renderDsConfigNode(omit(opt, ['vFor']), cache, ctx, {...params, item: record }, (role || DS_CHILDREN_SYMBOL), {dsKey: opt.dsKey, num: i})
+       })
+       continue
+     }
 
-      const slots = opt.slots || {}
-      const children = opt.children || []
+     const slots = opt.slots || {}
+     const children = opt.children || []
 
-      //创建slots vnode
-      const _slots = Object.keys(slots).reduce((m, name) => {
-          if(!slots[name] || slots[name].length < 1){
-            return m
-          } 
-          m[name] = (...args) => {
-            args = args || []
-            const slotConfig = slots[name]
-            const _scopes = (scopes && scopes.length > 0) ? args.concat(scopes) : args
-            const vnodes = []
-            renderDsConfigNode(slotConfig, vnodes, ctx, vforCtx, _scopes, DS_SLOT_SYMBOL, {dsKey: opt.dsKey, slot: name})
-            return vnodes
-          }
-          return m
-      }, {})
+     //创建slots vnode
+     const _slots = Object.keys(slots).reduce((m, name) => {
+         if(!slots[name] || slots[name].length < 1){
+           return m
+         } 
+         m[name] = (args) => {
+           args = args || {}
+           const slotConfig = slots[name]
+           const vnodes = []
+           renderDsConfigNode(slotConfig, vnodes, ctx, {...params, slotScope: args}, DS_SLOT_SYMBOL, {dsKey: opt.dsKey, slot: name})
+           return vnodes
+         }
+         return m
+     }, {})
 
-      // 渲染子节点 default slot
-      const _children = children.length > 0 ? {
-        default: (...args) => {
-            args = args || []
-            const _scopes = (scopes && scopes.length > 0) ? args.concat(scopes) : args
-            const vnodes = []
-            renderDsConfigNode(children, vnodes, ctx, vforCtx, _scopes, DS_CHILDREN_SYMBOL, {dsKey: opt.dsKey})
-            return vnodes
-        }
-      } : {}
- 
-      cache.push(vueConfig({cmtterDSProtocol: {
-        ...opt,
-        props: mapValue(ctx, vforCtx, scopes, opt.props),
-        slots: _slots,
-        children: _children
-      }, position: {dsKey: opt.dsKey, num: i, ...position, $: opt} }, (role || DS_CHILDREN_SYMBOL)))
-   }
+     // 渲染子节点 default slot
+     const _children = children.length > 0 ? {
+       default: (...args) => {
+           args = args || {}
+           const vnodes = []
+           renderDsConfigNode(children, vnodes, ctx, {...params, slotScope: args}, DS_CHILDREN_SYMBOL, {dsKey: opt.dsKey})
+           return vnodes
+       }
+     } : {}
+
+     //特殊属性处理：格式化onUpdate_
+     let _fprops = toRaw(opt.props || {})
+     _fprops = Object.keys(_fprops).reduce((mm, dd) => {
+       if (dd.indexOf('onUpdate_') > -1){
+        mm[dd.replace('onUpdate_', 'onUpdate:')] = _fprops[dd]
+       } else {
+        mm[dd] = _fprops[dd]
+       }
+       return mm
+     }, {})
+
+     cache.push(vueConfig({cmtterDSProtocol: {
+       ...opt,
+       props: mapValue(ctx, params, _fprops),
+       slots: _slots,
+       children: _children
+     }, position: {dsKey: opt.dsKey, num: i, ...position, $: opt} }, (role || DS_CHILDREN_SYMBOL)))
+  }
 }
+
 
 function findDsDSProtocol(dsKey, datas){
   datas = datas || []
@@ -342,17 +411,17 @@ function _create(options){
     /**
      * 页面元素表达协议
      */
-    cmtterDSProtocol: VueTypes.oneOfType([VueTypes.object, VueTypes.array]),
+    cmtterDSProtocolStr: VueTypes.string.def(JSON.stringify([{tag: 'div', tagText: '页面', dsKey: 99999999, children: []}], null, ' ').replace(/"([^\\"]*)":/g, '$1:')),
 
     /**
      * 状态
      */
-    cmtterStates: VueTypes.object.def({}),
+    cmtterStates: VueTypes.string.def('{}'),
 
      /**
      * 方法
      */
-    cmtterMethods: VueTypes.object.def({})
+    cmtterMethods: VueTypes.string.def('{}'),
   }
 
   return {
@@ -366,30 +435,23 @@ function _create(options){
       ...(defalutProps(props, options))
     },
     setup(props){
-      // 协议--动态
-      const cmtterDSProtocol = ref([...props.cmtterDSProtocol])
-      // 状态--自定义
-      const _$s = reactive({...props.cmtterStates})
-      const _$sStr = ref(JSON.stringify(props.cmtterStates || {}, null, ' ').replace(/"([^\\"]*)":/g, '$1:') )
-      // 方法-- 自定义
-      const _$m = reactive({...props.cmtterMethods})
-      const _$mStr = ref('{}')
-
-      //可允许设计的组件
+      const cmtterDSProtocol = ref([])
+      const cmtterDSProtocolStr = ref(props.cmtterDSProtocolStr)
+      const statesObj = reactive({})
+      const statesObjStr =  ref(props.cmtterStates || '{}')
+      const methodsObj = reactive({})
+      const methodsObjStr = ref(props.cmtterMethods || '{}')
+    
       const allowDsComponentsList = ref([...allowDsComponents])
       const allowDsComponentsTableCols = [
         {key: 'label', dataIndex: 'label', title: '组件名称'},
         {key: 'value', dataIndex: 'value', title: '个数', slots: { customRender: 'countForm' }},
       ]
-      const rowSelectionConfig = reactive({
-        selectedRowKeys: []
-      })
-      
+      const rowSelectionConfig = reactive({selectedRowKeys: []})
       const onChangeSelectedRowKeys = (_selectedRowKeys) => {
         rowSelectionConfig.selectedRowKeys = _selectedRowKeys || []
       }
 
-      
       const visible = ref(false)
       const placement = ref('left')
       const position = ref(null)
@@ -446,20 +508,20 @@ function _create(options){
 
       // 更新状态
       const updateS = (prop, value) => {
-        _$s[prop] = value
+        statesObj[prop] = value
       }
 
       const updateSStre = (arg) => {
-        _$sStr.value = arg.data ? arg.data : arg
+        statesObjStr.value = arg.data ? arg.data : arg
       }
 
       // 更新方法
       const updateM = (prop, value) => {
-        _$m[prop] = value
+        methodsObj[prop] = value
       }
 
       const updateMStre = (arg) => {
-        _$mStr.value = arg.data ? arg.data : arg
+        methodsObjStr.value = arg.data ? arg.data : arg
       }
 
       const updateSelectPropJson = (arg) => {
@@ -471,7 +533,7 @@ function _create(options){
         try {
           const code = `
             try {
-              return ${toRaw(_$sStr.value)}
+              return ${toRaw(statesObjStr.value)}
             }catch(e){
               return {
                 isOk: false
@@ -488,7 +550,7 @@ function _create(options){
           })
 
         } catch (e) {
-            alert(e && '请检测是否语法错误')
+            alert(e && '请检测是否语法错误(页面状态)')
         }
       }
 
@@ -497,7 +559,7 @@ function _create(options){
         try {
           const code = `
             try {
-              return ${toRaw(_$mStr.value)}
+              return ${toRaw(methodsObjStr.value)}
             }catch(e){
               return {
                 isOk: false
@@ -514,7 +576,31 @@ function _create(options){
           })
 
         } catch (e) {
-            alert(e && '请检测是否语法错误')
+            alert(e && '请检测是否语法错误(页面方法)')
+        }
+      }
+
+      // 同步页面协议
+      const syscCmtterDSProtocol = () => {
+        try {
+          const code = `
+            try {
+              return ${toRaw(cmtterDSProtocolStr.value)}
+            }catch(e){
+              return {
+                isOk: false
+              }
+            }
+          `
+          const res = new Function(code)()
+          if (res.isOk === false){
+            throw new Error('error')
+          }
+
+          cmtterDSProtocol.value = res
+
+        } catch (e) {
+            alert(e && '请检测是否语法错误(页面设计配置)')
         }
       }
 
@@ -540,16 +626,19 @@ function _create(options){
             a.children = res.children
             a.props = res.props
             a.slots = res.slots
+            if ('vFor' in res){
+              a.vFor = res.vFor
+            }
+            if ('vIf' in res){
+              a.vIf = res.vIf
+            }
           }
           // 初始化dsKey
           createDsKey(_cmtterDSProtocol)
           cmtterDSProtocol.value = Array.isArray(_cmtterDSProtocol) ? [..._cmtterDSProtocol] : {..._cmtterDSProtocol}
-
-          console.log('----', res, a);
         } catch (e) {
-            alert(e && '请检测是否语法错误')
+            alert(e && '请检测是否语法错误(配置)')
         }
-
       }
 
       // 删除
@@ -605,14 +694,17 @@ function _create(options){
        }
       }
 
+      syncDsStates()
+      syscDsMethods()
+      syscCmtterDSProtocol()
       return {
         removeComp,
         sortComp,
         cmtterDSProtocol,
-        _$s,
-        _$sStr,
-        _$m,
-        _$mStr,
+        statesObj,
+        statesObjStr,
+        methodsObj,
+        methodsObjStr,
         updateSStre,
         updateMStre,
         updateS,
@@ -658,8 +750,6 @@ function _create(options){
         let selectComps = _clone(allowDsComponentsList).filter(r => selKeys.indexOf(r.value) > -1).reduce(
           (m, r) => {
             if (r.count && !isNaN(r.count)){
-              const aaaa = vueComponents
-              console.log(aaaa, r);
               return m.concat(Array.from({length: r.count}).map(() => JSON.parse(JSON.stringify(vueComponents[r.value].design))))
             }
             return m
@@ -754,7 +844,6 @@ function _create(options){
           this.showDesinState = v
         }
       }
-
       return (
        <>
        <div style="text-align: center;position: absolute;top: -35px;width: 100%;" ><Switch checkedChildren="预览" unCheckedChildren="设计" checked={this.showDesinState} {...switchProps}/></div>
@@ -766,10 +855,10 @@ function _create(options){
               <TextArea {...textAearProps} value={this.selectPropJson} {...propsTab}></TextArea>
             </TabPane>
             <TabPane tab="页面方法" key="2" forceRender={true}> 
-            <TextArea {...textAearProps} value={this._$mStr} {...methodTab}></TextArea>
+            <TextArea {...textAearProps} value={this.methodsObjStr} {...methodTab}></TextArea>
             </TabPane>
             <TabPane tab="页面状态"  key="3" forceRender={true}>
-            <TextArea {...textAearProps} value={this._$sStr} {...stateTab}></TextArea>
+            <TextArea {...textAearProps} value={this.statesObjStr} {...stateTab}></TextArea>
             </TabPane>
             <TabPane tab="数据源快捷处理"  key="4" forceRender={true}>
             <TextArea {...textAearProps}></TextArea>
@@ -823,60 +912,4 @@ function _create(options){
   }
 }
 
-export default UI.component.generate({component: defineComponent(_create({
-  cmtterStates:{
-    showTitle: true,
-    title: '我是按钮',
-    buts: [{title: 'button1', key:1}, {title: 'button2', key:2}, {title: 'button3', key: 3}]
-  },
-  cmtterDSProtocol: [{
-    tag: 'div',
-    dsKey: 99999999,
-    children: [
-      // {
-      //   //组件key,全局唯一
-      //   dsKey: 1,
-      //   // html or vue component tag
-      //   tag: 'ACard',
-      //   // 属性
-      //   props: {
-      //     size:'small'
-      //   },
-      //   // 插槽 非default slot
-      //   slots: {
-      //     title: [
-      //       {
-      //         dsKey: 3,
-      //         tag: 'ATabs',
-      //         props: {
-      //           size:'small',
-      //         },
-      //         children: [{
-      //           dsKey: 4,
-      //           vFor: '_$s.buts',
-      //           tag: 'ATabs.TabPane',
-      //           props: {
-      //             tab: 'item.title',
-      //             key:'item.key'
-      //           },
-      //           children: []
-      //         }]
-      //       }
-      //     ],
-      //     extra: [
-      //       {
-      //         dsKey: 5,
-      //         tag: 'abutton',
-      //         props: {
-      //           ignoreLayout: true
-      //         },
-      //         children: ['删除', '我的']
-      //       }
-      //     ]
-      //   },
-      //   // default slot
-      //   children: []
-      // }
-    ]
-  }]
-}))})
+export default UI.component.generate({component: defineComponent(_create({}))})

@@ -134,8 +134,14 @@ function generate(options){
       //绑定插槽作用域
       const _slotsOptions = Object.keys(slotsOptions).reduce((s, slotName) => {
         if (slotsOptions[slotName] && typeof slotsOptions[slotName] === 'function'){
-          s[slotName] = function(...args){
-            return slotsOptions[slotName](hostComp, ...args)
+          s[slotName] = function(arg){
+            if (arg === null || arg === undefined){
+              return slotsOptions[slotName]({hostComp})
+            }
+            if (typeof arg !== 'object' && (typeof arg === 'string' || typeof arg === 'boolean' || !isNaN(arg))){
+              return slotsOptions[slotName]({arg, hostComp})
+            }
+            return slotsOptions[slotName]({...arg, hostComp})
           }
         }
         return s

@@ -53,7 +53,7 @@ function _create(options, role){
           <Dropdown overlay={
             () => {
               return <Menu style="width: 150px;" onClick={this.handlerClick}>
-                <MenuItem key="title">当前:{this.cmtterDSProtocol.tag}</MenuItem>
+                <MenuItem key="title">当前:{(this.cmtterDSProtocol.tagText || this.cmtterDSProtocol.tag)}</MenuItem>
                 <SubMenu title={
                   () => {
                     return <><PlusOutlined />添加组件</>
@@ -97,7 +97,7 @@ function _create(options, role){
         /**
          * 由于影响布局的问题将设计元素的display 设置为inline-block
          */
-        return <span class="ds-config-action" style={{display: 'inline-block'}}>{dd}</span>
+        return <span class="ds-config-action" style={{display: 'inline'}}>{dd}</span>
       },
       async handlerClick({key}){
        if (key.indexOf && key.indexOf('config') > -1){

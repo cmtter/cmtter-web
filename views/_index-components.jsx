@@ -264,7 +264,7 @@ const testCard = UI.component.generate({
     size: 'small'
   },
   slots: {
-    default: (hostComp) => {
+    default: ({hostComp}) => {
       return <div> hello! 我是基于UI.component.generate创建的控件, 访问宿主环境变量 [{hostComp.hostVar}] <Button onClick={hostComp.updateHostVar}>点击我更改宿主环境变量</Button></div>
     }
   }
@@ -694,8 +694,8 @@ const testTable3 = UI.datatable.generate({
     },
   ],
   slots: {
-    expandedRowRender: function (hostCmp, { record }) {
-      if (hostCmp) {
+    expandedRowRender: function ({record, hostComp}) {
+      if (hostComp) {
 
         return (
           <Descriptions>

@@ -88,8 +88,14 @@ function generate(options){
       Object.keys(slots).forEach(r => {
         if(typeof slots[r] === 'function'){
           const _o = slots[r]
-          slots[r] = function(...orgparams){
-            return  _o.apply(this, [hostComp, ...orgparams])
+          slots[r] = function(arg){
+            if (arg === null || arg === undefined){
+              return  _o.call(this, {hostComp})
+            }
+            if (typeof arg !== 'object' && (typeof arg === 'string' || typeof arg === 'boolean' || !isNaN(arg))){
+              return  _o.call(this, {arg, hostComp})
+            }
+            return  _o.call(this, {...arg, hostComp})
           }
         }
       })
