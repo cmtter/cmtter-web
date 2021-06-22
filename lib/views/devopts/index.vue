@@ -18,13 +18,30 @@
 <script>
 import components from './index-state-def.jsx'
 import DsWorker from './_design/ds-worker-01.jsx'
+import composition from '@lib/api/composition'
+import { ref } from 'vue'
+import { UIConfig } from '@lib/components/ui'
 export default {
+  mixins: [UIConfig.HOST_MIXIN],
   components: {
     ...components,
     DsWorker
   },
   setup() {
+    const treeData = ref([])
+    const { http } = composition.useHttp()
+    const loadTreeData = async () => {
+      const { response } = await http('/mock/design/getDesigns', {}).get()
+      treeData.value = response.data
+    }
 
+    // 加载数据
+    loadTreeData()
+
+    return {
+      treeData,
+      loadTreeData
+    }
   }
 }
 </script>
