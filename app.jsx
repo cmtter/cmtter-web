@@ -8,3 +8,22 @@ export function getMenus(){
   console.log(http && 'is http api');
   return undefined
 }
+
+export function resovleHomePath(){
+  return {
+    path: '/dashboard'
+  }
+}
+
+
+/**
+ * 路由跳转拦截处理
+ * https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html
+ */
+export function beforeEach(to, from, next){
+  if (to.name === '404'){
+    next(resovleHomePath())
+  }else{
+    next()
+  }
+}
