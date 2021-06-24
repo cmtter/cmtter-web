@@ -10,6 +10,8 @@
         class="joyin-ds-worker"
         style="margin: 40px 0px;"
         flex="auto"
+        :copyMod="copyMod"
+        :selectModule="selectModule"
       ></DsWorker>
     </Contaner>
     <wk-modal
@@ -50,7 +52,14 @@ import DsWorker from './_design/ds-worker.jsx'
 import composition from '@lib/api/composition'
 import { ref, reactive, toRaw } from 'vue'
 import { UIConfig } from '@lib/components/ui'
-import { confirm } from '@lib/api/tools/message'
+import { confirm, warning } from '@lib/api/tools/message'
+
+const DEFAULT_PROPS = {
+  cmtterDSProtocolStr: JSON.stringify([{ tag: 'div', tagText: '页面', dsKey: 99999999, children: [] }], null, ' ').replace(/"([^\\"]*)":/g, '$1:'),
+  cmtterStates: '{}',
+  cmtterMethods: '{}'
+}
+
 export default {
   mixins: [UIConfig.HOST_MIXIN],
   components: {
@@ -60,7 +69,9 @@ export default {
   data() {
     return {
       visible: false,
-      drawerVisible: false
+      drawerVisible: false,
+      selectModule: null,
+      copyMod: null
     }
   },
   setup() {
@@ -95,6 +106,34 @@ export default {
     }
   },
   methods: {
+    async genCodes() {
+      alert('待实现')
+    },
+    //复制
+    async copyModule() {
+      if (!(this.checkedKeys && this.checkedKeys.length === 1)) {
+        warning({ content: '请选择一个模块' })
+        return
+      }
+      const { response } = await this.http('/mock/design/getDesigns?id=' + this.checkedKeys[0], {}).get()
+      const data = response.data[0]
+      if (!data.cmtterDSProtocolStr) {
+        warning({ content: '无法复制, 因为当前模块不存在内容' })
+        return
+      }
+      const isOk = await confirm({ content: '该操作不可逆, 确定该操作吗?' })
+      if (!isOk) {
+        return
+      }
+
+      const p = {
+        cmtterDSProtocolStr: data.cmtterDSProtocolStr,
+        cmtterStates: (data.cmtterStates || DEFAULT_PROPS.cmtterStates),
+        cmtterMethods: (data.cmtterMethods || DEFAULT_PROPS.cmtterMethods)
+
+      }
+      this.copyMod = p
+    },
     onChageVisible(v) {
       this.visible = v
       this.state.moduleState = {}
@@ -121,6 +160,25 @@ export default {
         }).post()
         this.loadTreeData()
       }
+    },
+    // 
+    async onSelectTree(keys, selectedNodes) {
+      if (!keys || keys.length === 0) {
+        return
+      }
+      const { response } = await this.http('/mock/design/getDesigns?id=' + keys[0], {}).get()
+      const data = response.data[0]
+      if (!data.PID || (selectedNodes.children && selectedNodes.children.length > 0)) {
+        return
+      }
+      const p = {
+        ...data,
+        cmtterDSProtocolStr: (data.cmtterDSProtocolStr || DEFAULT_PROPS.cmtterDSProtocolStr),
+        cmtterStates: (data.cmtterStates || DEFAULT_PROPS.cmtterStates),
+        cmtterMethods: (data.cmtterMethods || DEFAULT_PROPS.cmtterMethods)
+
+      }
+      this.selectModule = p
     }
   }
 }

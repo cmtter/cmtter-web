@@ -13,9 +13,9 @@
  * 
  * @author xiufu.wang ClearOutlined
  */
-import { provide, defineComponent, reactive, ref, createVNode, toRaw, inject, computed} from 'vue'
+import { provide, defineComponent, reactive, ref, createVNode, toRaw, inject, computed, watch} from 'vue'
 import { ClearOutlined, PlusCircleOutlined ,SaveOutlined } from '@ant-design/icons-vue'
-import { confirm } from '@lib/api/tools/message'
+import { confirm, success, error } from '@lib/api/tools/message'
 import VueTypes from  'vue-types'
 import omit from 'omit.js';
 import { Drawer, Tabs, Input,Button, Table, InputNumber,Switch } from 'ant-design-vue'
@@ -409,7 +409,7 @@ function _clone(data){
 
 function _create(options){
 
-  const props = {
+  const _props = {
    
     /**
      * 页面元素表达协议
@@ -425,6 +425,11 @@ function _create(options){
      * 方法
      */
     cmtterMethods: VueTypes.string.def('{}'),
+
+    selectModule: VueTypes.object.def({}),
+
+    //复制模块
+    copyMod: null
   }
 
   return {
@@ -435,7 +440,7 @@ function _create(options){
       }
     },
     props: {
-      ...(defalutProps(props, options))
+      ...(defalutProps(_props, options))
     },
     setup(props){
       const cmtterDSProtocol = ref([])
@@ -444,7 +449,7 @@ function _create(options){
       const statesObjStr =  ref(props.cmtterStates || '{}')
       const methodsObj = reactive({})
       const methodsObjStr = ref(props.cmtterMethods || '{}')
-    
+      
       const allowDsComponentsList = ref([...allowDsComponents])
       const allowDsComponentsTableCols = [
         {key: 'label', dataIndex: 'label', title: '组件名称'},
@@ -709,11 +714,35 @@ function _create(options){
       const changecmtterDSProtocol = () => {
         cmtterDSProtocol.value = [...(toRaw(cmtterDSProtocol.value))]
       }
+      const selectModuleChange = computed(() => props.selectModule)
+      watch(selectModuleChange, () => {
+        statesObjStr.value = props.selectModule.cmtterStates || '{}'
+        methodsObjStr.value = props.selectModule.cmtterMethods || '{}'
+        cmtterDSProtocolStr.value = props.selectModule.cmtterDSProtocolStr || (JSON.stringify([{tag: 'div', tagText: '页面', dsKey: 99999999, children: []}], null, ' ').replace(/"([^\\"]*)":/g, '$1:'))
+        syncDsStates()
+        syscDsMethods()
+        syscCmtterDSProtocol()
 
+      })
 
+      const copyModChange = computed(() => props.copyMod)
+      watch(copyModChange, () => {
+        if (!copyModChange.value){
+          return
+        }
+        statesObjStr.value = copyModChange.value.cmtterStates || '{}'
+        methodsObjStr.value = copyModChange.value.cmtterMethods || '{}'
+        cmtterDSProtocolStr.value = copyModChange.value.cmtterDSProtocolStr || (JSON.stringify([{tag: 'div', tagText: '页面', dsKey: 99999999, children: []}], null, ' ').replace(/"([^\\"]*)":/g, '$1:'))
+
+        syncDsStates()
+        syscDsMethods()
+        syscCmtterDSProtocol()
+
+      })
       syncDsStates()
       syscDsMethods()
       syscCmtterDSProtocol()
+
       return {
         changecmtterDSProtocol,
         removeComp,
@@ -823,7 +852,7 @@ function _create(options){
         }
         return (
           <div style="height: 400px;text-align: center;line-height: 400px;">
-            <Button size="large"  onClick={this.addFirstElement}><PlusCircleOutlined /> 添加第一个元素 </Button>
+            <Button size="large"  onClick={this.addFirstElement} style="font-size: 40px;height: 80px;"><PlusCircleOutlined /> 添加第一个元素 </Button>
           </div>
         )
       },
@@ -844,8 +873,24 @@ function _create(options){
           role: DS_CHILDREN_SYMBOL
         })
       },
-      saveCode(){
-        alert('保存代码')
+
+      async saveCode(){
+        const cmtterDSProtocolStr = JSON.stringify(this.cmtterDSProtocol).replace(/"([^\\"]*)":/g, '$1:')
+        const cmtterStates = JSON.stringify(this.statesObj).replace(/"([^\\"]*)":/g, '$1:')
+        const cmtterMethods = JSON.stringify(this.methodsObj).replace(/"([^\\"]*)":/g, '$1:')
+
+        const { response } = await this.hostComp.http('/mock/design/update', {
+          id: this.selectModule.ID,
+          cmtterDSProtocolStr: cmtterDSProtocolStr,
+          cmtterStates: cmtterStates,
+          cmtterMethods: cmtterMethods
+        }).post()
+        console.log(response, ':', (response.isOK === true));
+        if (response.isOk === true){
+          success({content: '保存成功'})  
+        } else {
+          error({content: '保存失败'})  
+        }
       }
     },
     created(){
@@ -912,8 +957,11 @@ function _create(options){
        <div style="text-align: center;position: absolute;top: -38px;width: 100%;" >
          <Button type="primary" onClick={() => {this.hostComp.drawerVisible = true}} style="float: right;">资源库管理</Button>
          <Button disabled={this.isEmptyDesign}  onClick={this.clearAll} style="float: right;margin-right: 5px;"><ClearOutlined />擦除</Button>
-         <Button disabled={this.isEmptyDesign}  onClick={this.saveCode} style="float: right;margin-right: 5px;"><SaveOutlined />保存</Button>
-         <Switch checkedChildren="预览" unCheckedChildren="设计" checked={this.showDesinState} {...switchProps}/>
+         <Button disabled={(this.isEmptyDesign || !this.selectModule || !this.selectModule.ID || !this.selectModule.PID)}  onClick={this.saveCode} style="float: right;margin-right: 5px;"><SaveOutlined />保存</Button>
+         <span> <span style="vertical-align: middle;">
+           {(this.selectModule ? ('【当前模块:' + this.selectModule.TITLE + '】') : '')} 
+           </span>
+          <Switch checkedChildren="预览" unCheckedChildren="设计" checked={this.showDesinState} {...switchProps}/> </span>
        </div>
        <div class="cmtter-ds-worker">
         {this.renderDsConfigNode()}

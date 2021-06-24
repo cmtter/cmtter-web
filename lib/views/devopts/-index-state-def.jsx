@@ -1,6 +1,6 @@
 import UI, {UIConfig} from '@lib/components/ui'
 import { Card, Button, Tooltip, Tree,Tabs, Modal, Form, Drawer  } from 'ant-design-vue'
-import { PlusSquareOutlined, MinusSquareOutlined, FileTextOutlined } from '@ant-design/icons-vue'
+import { PlusSquareOutlined, MinusSquareOutlined, CopyOutlined, CodeOutlined   } from '@ant-design/icons-vue'
 const { DefineRules } = UIConfig
 const TabPane = Tabs.TabPane
 const Contaner = UI.contaner.generate({
@@ -32,7 +32,15 @@ const MudoleMenuCard = UI.component.generate({
         <>
          <Tooltip title="新增模块"><Button type="link" onClick={() => hostComp.onChageVisible(true)} style="font-size: 18px;padding: 0 2px;"><PlusSquareOutlined /></Button></Tooltip>
          <Tooltip title="删除模块"><Button onClick={() => hostComp.removeModule()}  disabled={(!isDelete)} type="link" style="font-size: 18px;padding: 0 2px;"><MinusSquareOutlined /></Button></Tooltip>
-         <Tooltip title="生产文件代码"><Button type="link" disabled={(!isDelete)} style="font-size: 18px;padding: 0 2px;"><FileTextOutlined /></Button></Tooltip>
+         <Tooltip title="复制代码至当前模块"><Button onClick={() => hostComp.copyModule()} type="link" disabled={(!isDelete)} style="font-size: 18px;padding: 0 2px;"><CopyOutlined /></Button></Tooltip>
+        </>
+      )
+    },
+    extra: ({hostComp}) => {
+      const isDelete = hostComp.checkedKeys && hostComp.checkedKeys.length > 0
+      return (
+        <>
+           <Tooltip title="批量生产工程代码"><Button onClick={() => hostComp.genCodes()} type="link" disabled={(!isDelete)}><CodeOutlined />批量生产工程代码</Button></Tooltip>
         </>
       )
     },
@@ -43,6 +51,7 @@ const MudoleMenuCard = UI.component.generate({
         treeData: hostComp.treeData,
         checkedKeys: hostComp.checkedKeys,
         'onUpdate:checkedKeys': hostComp.updateCheckedKeys,
+        onSelect: hostComp.onSelectTree
       }
       return (
         <ModuleMenuTree {...p}/>
