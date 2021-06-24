@@ -158,7 +158,6 @@ function generate(options){
           wrapperCol:  {span: props.wrapperCol},
           name: props.name,
           rules: rules,
-          validateFirst: true,
           ref: 'formitem'
         }
        const contaner =  <UIContaner>{this.renderFormControllers(props)}</UIContaner>

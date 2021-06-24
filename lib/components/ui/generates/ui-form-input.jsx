@@ -78,17 +78,19 @@ function generate(options){
             return
           }
         }
+        constomerInputValue.value = val
       })
 
       // 显示格式化：例如单位的转换
       const formatterInputValue = computed(() => {
+        const value =  inputValue.value
         if (constomerInputValue.value !== null){
           return constomerInputValue.value
         }
-        if(typeof props.formatter !== 'function' || props.formatter(inputValue.value) === false){
-          return inputValue.value
+        if(typeof props.formatter !== 'function' || props.formatter(value) === false){
+          return value
         } else {
-          return props.formatter(inputValue.value)
+          return props.formatter(value)
         }
       })
 
@@ -224,8 +226,7 @@ function generate(options){
         labelCol: {span: allProps.labelCol},
         wrapperCol:  {span: allProps.wrapperCol},
         name: allProps.name,
-        rules: rules,
-        validateFirst: true
+        rules: rules
       }
       const _class = classNames(allProps.class, {[options.uiaxis || 'ui-form-input']: true, ['ui-form']: true})
       const content = this.onlyRenderControl ? (<div class={_class} style="height: 100%"> {this.renderFormController(allProps)} </div>) : (<FormItem {...formItemProps} class={_class}>{this.renderFormController(allProps)}</FormItem>)

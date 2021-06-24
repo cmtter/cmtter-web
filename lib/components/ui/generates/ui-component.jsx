@@ -99,7 +99,7 @@ function generate(options){
           }
         }
       })
-      const content = <UIComponent {...componentProp} v-slots={slots}></UIComponent>
+      const content = <UIComponent {...componentProp} v-slots={slots} ref="compRef"></UIComponent>
       return this.renderVif(this.renderColWapper(content))
     }
   }

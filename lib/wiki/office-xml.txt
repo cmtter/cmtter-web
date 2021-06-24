@@ -1,0 +1,5 @@
+http://www.ericwhite.com/blog/open-xml-sdk-for-javascript/
+
+//处理 docs模板方案
+https://docxtemplater.readthedocs.io/en/latest/generate.html
+https://github.com/open-xml-templating/docxtemplater/tree/master/es6

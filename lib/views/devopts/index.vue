@@ -1,46 +1,126 @@
 <template>
 
-  <Contaner style="flex-wrap: nowrap;">
-    <mudoleMenuCard flex="0 0 200px" />
+  <div>
+
     <Contaner
       :columnCount="1"
       flex="auto"
     >
       <DsWorker
         class="joyin-ds-worker"
-        style="margin: 30px 0px;"
+        style="margin: 40px 0px;"
         flex="auto"
       ></DsWorker>
     </Contaner>
-  </Contaner>
+    <wk-modal
+      v-model:visible="visible"
+      @ok="save"
+    >
+      <wk-form
+        :model="state.moduleState"
+        ref="moduleForm"
+      >
+        <Contaner :columnCount="1">
+          <wkCodeInput
+            v-model:value="state.moduleState.name"
+            name="name"
+          ></wkCodeInput>
+          <wkCodeInputLabel
+            v-model:value="state.moduleState.title"
+            name="title"
+          ></wkCodeInputLabel>
+        </Contaner>
 
+      </wk-form>
+    </wk-modal>
+    <Drawer
+      v-model:visible="drawerVisible"
+      wrapClassName="ds-main"
+      width="500"
+      placement="left"
+      title="模块列表"
+    >
+      <MudoleMenuCard />
+    </Drawer>
+  </div>
 </template>
 <script>
-import components from './index-state-def.jsx'
-import DsWorker from './_design/ds-worker-01.jsx'
+import components, { stateDefs } from './-index-state-def.jsx'
+import DsWorker from './_design/ds-worker.jsx'
 import composition from '@lib/api/composition'
-import { ref } from 'vue'
+import { ref, reactive, toRaw } from 'vue'
 import { UIConfig } from '@lib/components/ui'
+import { confirm } from '@lib/api/tools/message'
 export default {
   mixins: [UIConfig.HOST_MIXIN],
   components: {
     ...components,
     DsWorker
   },
+  data() {
+    return {
+      visible: false,
+      drawerVisible: false
+    }
+  },
   setup() {
+    const state = reactive({ ...stateDefs })
     const treeData = ref([])
+    const selectedKeys = ref([])
+    const checkedKeys = ref([])
     const { http } = composition.useHttp()
     const loadTreeData = async () => {
       const { response } = await http('/mock/design/getDesigns', {}).get()
       treeData.value = response.data
     }
 
+    const updateselectedKeys = (v) => {
+      selectedKeys.value = v
+    }
+    const updateCheckedKeys = (v) => {
+      checkedKeys.value = v
+    }
+
     // 加载数据
     loadTreeData()
-
     return {
       treeData,
-      loadTreeData
+      loadTreeData,
+      state,
+      http,
+      updateselectedKeys,
+      selectedKeys,
+      updateCheckedKeys,
+      checkedKeys
+    }
+  },
+  methods: {
+    onChageVisible(v) {
+      this.visible = v
+      this.state.moduleState = {}
+    },
+    async save() {
+      try {
+        await this.$refs.moduleForm.$refs.compRef.validate()
+        await this.http('/mock/design/save', {
+          ...toRaw(this.state.moduleState),
+          pid: (this.selectedKeys && this.selectedKeys.length > 0) ? this.selectedKeys[0] : null
+        }).post()
+        this.loadTreeData()
+        this.visible = false
+      } catch (e) {
+        this.visible = false
+      }
+
+    },
+    async removeModule() {
+      const isOk = await confirm({ content: '该操作不可恢复, 确定要删除吗?' })
+      if (isOk) {
+        await this.http('/mock/design/remove', {
+          id: this.checkedKeys
+        }).post()
+        this.loadTreeData()
+      }
     }
   }
 }
@@ -64,8 +144,9 @@ export default {
 
 .joyin-ds-worker {
   margin: 15px;
-  border: 1px solid #efdede;
+  border: 1px dashed #efdede;
   position: relative;
+  min-height: 50px;
 }
 
 .ds-worker-drawer .ant-drawer-mask {
@@ -76,5 +157,9 @@ export default {
 }
 .ds-worker-drawer {
   z-index: 99999;
+}
+.ds-worker-drawer .ant-drawer-body,
+.ds-main .ant-drawer-body {
+  padding: 0px;
 }
 </style>

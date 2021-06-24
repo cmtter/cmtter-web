@@ -218,8 +218,7 @@ function generate(options){
         labelCol: {span: allProps.labelCol},
         wrapperCol:  {span: allProps.wrapperCol},
         name: allProps.name,
-        rules: rules,
-        validateFirst: true
+        rules: rules
       }
       
       const notFoundContent = loading && mergeDatas.length === 0 ? <div style="text-align:center;"><Spin size="small" /></div> : null

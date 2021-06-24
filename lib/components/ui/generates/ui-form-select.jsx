@@ -191,8 +191,7 @@ function generate(options){
         labelCol: {span: allProps.labelCol},
         wrapperCol:  {span: allProps.wrapperCol},
         name: allProps.name,
-        rules: rules,
-        validateFirst: true
+        rules: rules
       }
       
       //

@@ -4,6 +4,7 @@ import VueTypes from  'vue-types'
 import { Dropdown, Menu,Button } from 'ant-design-vue'
 import { defalutProps } from '../../../components/ui/utils'
 import { DS_WORKER_SYMBOL } from './ds-constant'
+import { vueComponents} from './ds-defineui'
 import { confirm } from '../../../api/tools/message'
 import omit from 'omit.js';
 import { getSlot, getOptionProps } from 'ant-design-vue/es/_util/props-util'
@@ -49,11 +50,12 @@ function _create(options, role){
         if (this.dsWorker.showDesinState !== false || this.cmtterDSProtocol.dsConfig === false){
           return null
         }
+        const title = vueComponents[this.cmtterDSProtocol.tag] ? vueComponents[this.cmtterDSProtocol.tag].title : this.cmtterDSProtocol.tag
         const dd = (
           <Dropdown overlay={
             () => {
               return <Menu style="width: 150px;" onClick={this.handlerClick}>
-                <MenuItem key="title">当前:{(this.cmtterDSProtocol.tagText || this.cmtterDSProtocol.tag)}</MenuItem>
+                <MenuItem key="title">当前:【{title}】</MenuItem>
                 <SubMenu title={
                   () => {
                     return <><PlusOutlined />添加组件</>
@@ -61,8 +63,8 @@ function _create(options, role){
                 }> 
                     <MenuItem key="addchildren-left"><PicRightOutlined />添加子节点(左)</MenuItem>
                     <MenuItem key="addchildren-right"><PicRightOutlined />添加子节点(右)</MenuItem>
-                    <MenuItem key="addbrother-left"><PicLeftOutlined />添加兄弟节点(左)</MenuItem>
-                    <MenuItem key="addbrother-right"><PicLeftOutlined />添加兄弟节点(右)</MenuItem>
+                    <MenuItem key="addbrother-left" disabled={this.position.$.dsKey === 99999999}><PicLeftOutlined />添加兄弟节点(左)</MenuItem>
+                    <MenuItem key="addbrother-right" disabled={this.position.$.dsKey === 99999999}><PicLeftOutlined />添加兄弟节点(右)</MenuItem>
                 </SubMenu>
                 <SubMenu title={
                   () => {
@@ -74,7 +76,7 @@ function _create(options, role){
                 </SubMenu>
                 
                 <MenuItem  key="delete" disabled={this.position.$.dsKey === 99999999}><DeleteOutlined/>删除</MenuItem>
-                <SubMenu title={
+                <SubMenu disabled={this.position.$.dsKey === 99999999} title={
                   () => {
                     return (
                       <>
@@ -84,8 +86,8 @@ function _create(options, role){
                     )
                   }
                 }>  
-                <MenuItem  key="sort-up"><SortAscendingOutlined />往前</MenuItem>
-                <MenuItem  key="sort-down"><SortDescendingOutlined />往后</MenuItem>
+                <MenuItem disabled={this.position.$.dsKey === 99999999}  key="sort-up"><SortAscendingOutlined />往前</MenuItem>
+                <MenuItem disabled={this.position.$.dsKey === 99999999}  key="sort-down"><SortDescendingOutlined />往后</MenuItem>
                 </SubMenu>
               </Menu>
             }
@@ -100,6 +102,7 @@ function _create(options, role){
         return <span class="ds-config-action" style={{display: 'inline'}}>{dd}</span>
       },
       async handlerClick({key}){
+       
        if (key.indexOf && key.indexOf('config') > -1){
         this.dsWorker.updateVisible(true, key.split('-')[1],{
           position: this.position,
@@ -119,7 +122,8 @@ function _create(options, role){
         })
         return
        }
-       
+       const aaaa = this
+       console.log(aaaa);
        if (key.indexOf('addbrother') > -1){
         this.dsWorker.updateDsuivisible(true, key.split('-')[1],{
           position: this.position,
