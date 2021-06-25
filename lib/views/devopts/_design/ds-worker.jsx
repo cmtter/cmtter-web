@@ -13,9 +13,10 @@
  * 
  * @author xiufu.wang ClearOutlined
  */
-import { provide, defineComponent, reactive, ref, createVNode, toRaw, inject, computed, watch} from 'vue'
+import { provide, defineComponent, reactive, ref, createVNode, toRaw, inject, computed, watch, getCurrentInstance} from 'vue'
 import { ClearOutlined, PlusCircleOutlined ,SaveOutlined } from '@ant-design/icons-vue'
-import { confirm, success, error } from '@lib/api/tools/message'
+import { useRouter, useRoute } from 'vue-router'
+import { confirm, success, error, warning, info } from '@lib/api/tools/message'
 import VueTypes from  'vue-types'
 import omit from 'omit.js';
 import { Drawer, Tabs, Input,Button, Table, InputNumber,Switch } from 'ant-design-vue'
@@ -23,6 +24,7 @@ import { DS_WORKER_SYMBOL, DS_CHILDREN_SYMBOL, DS_SLOT_SYMBOL, DS_CONFIG_STRATEG
 import { vueComponents, allowDsComponents } from './ds-defineui'
 import createConfigComp from './ds-configs'
 import UI from '@lib/components/ui'
+import composition from '@lib/api/composition'
 import { UIConfig } from '@lib/components/ui'
 import { defalutProps } from '../../../components/ui/utils'
 import Conifg from '../../../components/ui/generates/ui-config'
@@ -89,8 +91,18 @@ function formatterValueExpression(ctx, params, valueStr){
         ctx[prop] = value
       }
       ctx.$forceUpdate()
+      return value
     }
   })
+
+  //是否初始化
+  if (_ctx._inited === false && typeof _ctx.initData === 'function'){
+    _ctx.initData()
+    _ctx._inited = true
+    console.log('-----------初始化数据');
+  } else {
+    console.log('-----------数据已经初始化');
+  }
 
   //:d-name => this.name
   valueStr = valueStr.replace(/:d-/g, 'this.')
@@ -182,7 +194,10 @@ function renderDsConfigNode(componentOption, cache, ctx, params, role, position)
   // 文本节点: 插槽、子节点
   if (typeof componentOption === 'string'){
     //子节点
-   cache.push(vueConfig({cmtterDSProtocol: mapValue(ctx, params, componentOption), position: {...position, $:componentOption}}, (role || DS_CHILDREN_SYMBOL)))
+   const _cmtterDSProtocol = mapValue(ctx, params, componentOption)
+   if (_cmtterDSProtocol !== undefined && _cmtterDSProtocol !== null){
+    cache.push(vueConfig({cmtterDSProtocol: _cmtterDSProtocol, position: {...position, $:componentOption}}, (role || DS_CHILDREN_SYMBOL)))
+   }
    return
   }
   
@@ -443,6 +458,11 @@ function _create(options){
       ...(defalutProps(_props, options))
     },
     setup(props){
+      const instance = getCurrentInstance()
+      instance.ctx._inited = false
+      const router = useRouter()
+      const { http } = composition.useHttp()
+      const route = useRoute()
       const cmtterDSProtocol = ref([])
       const cmtterDSProtocolStr = ref(props.cmtterDSProtocolStr)
       const statesObj = reactive({})
@@ -533,7 +553,12 @@ function _create(options){
       }
 
       const updateMStre = (arg) => {
-        methodsObjStr.value = arg.data ? arg.data : arg
+        const str = arg.data ? arg.data : arg
+        //判断是否需要初始化数据
+        if (methodsObjStr.value !== str){
+          instance.ctx._inited = false
+        }
+        methodsObjStr.value =str
       }
 
       const updateSelectPropJson = (arg) => {
@@ -578,6 +603,7 @@ function _create(options){
               }
             }
           `
+          
           const res = new Function(code)()
           if (res.isOk === false){
             throw new Error('error')
@@ -586,7 +612,6 @@ function _create(options){
           Object.keys(res).forEach(r => {
             updateM(r, res[r])
           })
-
         } catch (e) {
             alert(e && '请检测是否语法错误(页面方法)')
         }
@@ -775,7 +800,15 @@ function _create(options){
         onChangeSelectedRowKeys,
         userAction,
         setCmtterDSProtocolStr,
-        isEmptyDesign
+        isEmptyDesign,
+        router,
+        route,
+        http,
+        confirm,
+        success,
+        error,
+        warning,
+        info
       }
     },
     methods: {
