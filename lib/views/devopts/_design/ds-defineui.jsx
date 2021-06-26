@@ -255,6 +255,16 @@ antvComps['aupload'] = {
   design: designElemets.aupload.design
 }
 
+//详情列表
+antvComps['adescriptions'] = {
+  def: UI.component.generate({
+    component: antdv.Descriptions
+  }),
+  title: designElemets.adescriptions.title,
+  design: designElemets.adescriptions.design
+}
+
+
 /**
  * 定义vue组件
  */
@@ -278,6 +288,7 @@ export const allowDsComponents = [
   {key: 'atable',value: 'atable', label:  antvComps['atable'].title},
   {key: 'atabs',value: 'atabs', label:  antvComps['atabs'].title},
   {key: 'atree',value: 'atree', label:  antvComps['atree'].title},
-  {key: 'aupload',value: 'aupload', label:  antvComps['aupload'].title}
+  {key: 'aupload',value: 'aupload', label:  antvComps['aupload'].title},
+  {key: 'adescriptions',value: 'adescriptions', label:  antvComps['adescriptions'].title}
 ]
 

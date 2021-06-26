@@ -31,6 +31,24 @@ import Conifg from '../../../components/ui/generates/ui-config'
 const TabPane = Tabs.TabPane
 const TextArea = Input.TextArea
 
+function isEmpty(v){
+  if (typeof v !== 'number' && typeof v !== 'boolean' && !v){
+    return true
+  }
+
+  if (Array.isArray(v)){
+     for (let i = 0; i < v.length; i++) {
+      return isEmpty(v[i])
+     }
+  }
+
+  if (typeof v === 'object' && Object.keys(v).length === 0){
+    return true
+  }
+  
+  return false
+}
+
 /**
  * @param {*} exstr 表达式
  * @param {*} ctx 上下文
@@ -99,9 +117,6 @@ function formatterValueExpression(ctx, params, valueStr){
   if (_ctx._inited === false && typeof _ctx.initData === 'function'){
     _ctx.initData()
     _ctx._inited = true
-    console.log('-----------初始化数据');
-  } else {
-    console.log('-----------数据已经初始化');
   }
 
   //:d-name => this.name
@@ -240,10 +255,18 @@ function renderDsConfigNode(componentOption, cache, ctx, params, role, position)
            return m
          } 
          m[name] = (args) => {
-           args = args || {}
            const slotConfig = slots[name]
            const vnodes = []
-           renderDsConfigNode(slotConfig, vnodes, ctx, {...params, slotScope: args}, DS_SLOT_SYMBOL, {dsKey: opt.dsKey, slot: name})
+           const {hostComp, ...others} = (args || {})
+           renderDsConfigNode(slotConfig, vnodes, ctx, {
+            ...params, 
+            ...(
+              isEmpty(hostComp) ? {} : {hostComp: hostComp} 
+            ),
+            ...(
+              isEmpty(others) ? {} : {slotScope: others} 
+            )
+           }, DS_SLOT_SYMBOL, {dsKey: opt.dsKey, slot: name})
            return vnodes
          }
          return m
@@ -251,10 +274,19 @@ function renderDsConfigNode(componentOption, cache, ctx, params, role, position)
 
      // 渲染子节点 default slot
      const _children = children.length > 0 ? {
-       default: (...args) => {
-           args = args || {}
+       default: (args) => {
            const vnodes = []
-           renderDsConfigNode(children, vnodes, ctx, {...params, slotScope: args}, DS_CHILDREN_SYMBOL, {dsKey: opt.dsKey})
+           const {hostComp, ...others} = (args || {})
+           renderDsConfigNode(children, vnodes, ctx, {
+            ...params,
+            ...(
+              isEmpty(hostComp) ? {} : {hostComp: hostComp} 
+            ),
+            ...(
+              isEmpty(others) ? {} : {slotScope: others} 
+            )
+
+           }, DS_CHILDREN_SYMBOL, {dsKey: opt.dsKey})
            return vnodes
        }
      } : {}
@@ -581,7 +613,7 @@ function _create(options){
           if (res.isOk === false){
             throw new Error('error')
           }
-
+          statesObj.value = {}
           Object.keys(res).forEach(r => {
             updateS(r, res[r])
           })
@@ -603,7 +635,7 @@ function _create(options){
               }
             }
           `
-          
+          methodsObj.value = {}
           const res = new Function(code)()
           if (res.isOk === false){
             throw new Error('error')
@@ -909,8 +941,8 @@ function _create(options){
 
       async saveCode(){
         const cmtterDSProtocolStr = JSON.stringify(this.cmtterDSProtocol).replace(/"([^\\"]*)":/g, '$1:')
-        const cmtterStates = JSON.stringify(this.statesObj).replace(/"([^\\"]*)":/g, '$1:')
-        const cmtterMethods = JSON.stringify(this.methodsObj).replace(/"([^\\"]*)":/g, '$1:')
+        const cmtterStates = this.statesObjStr
+        const cmtterMethods = this.methodsObjStr
 
         const { response } = await this.hostComp.http('/mock/design/update', {
           id: this.selectModule.ID,
