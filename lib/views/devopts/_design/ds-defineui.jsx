@@ -8,7 +8,7 @@ import designElemets from './components'
 const antvComps = {}
 antdv.install({use: function(cmp){
   if (cmp && cmp.name){
-    antvComps[cmp.name.toLocaleLowerCase()] = {def: cmp, title: cmp.name, defaultProps: {}}
+    antvComps[cmp.name.toLocaleLowerCase()] = {def: cmp, title: cmp.name, exportName: cmp.name.slice(1), defaultProps: {}}
     antvComps[cmp.name] = antvComps[cmp.name.toLocaleLowerCase()]
   }
 }, config: {globalProperties: {}}})
@@ -89,6 +89,7 @@ antvComps['span'] = antvComps['SPAN'] = antvComps['Span'] = {
 
 //按钮
 antvComps['abutton'] = {
+  exportName: 'Button',
   def: UI.component.generate({component: antdv.Button}),
   title: designElemets.abutton.title,
   design: designElemets.abutton.design
@@ -96,6 +97,7 @@ antvComps['abutton'] = {
 
 //卡片
 antvComps['acard'] = {
+  exportName: 'Card',
   def: UI.component.generate({component: antdv.Card}),
   title: designElemets.acard.title,
   design: designElemets.acard.design
@@ -110,6 +112,7 @@ antvComps['contaner'] = antvComps['CONTANER'] = antvComps['Contaner'] = {
 
 // 下来按钮
 antvComps['adropdown'] = {
+  exportName: 'Dropdown',
   def: UI.component.generate({component: antdv.Dropdown}),
   title: designElemets.adropdown.title,
   design: designElemets.adropdown.design
@@ -117,6 +120,7 @@ antvComps['adropdown'] = {
 
 // Form
 antvComps['aform']  = {
+  exportName: 'Form',
   def: UI.component.generate({component: antdv.Form}),
   title: designElemets.aform.title,
   design: designElemets.aform.design
@@ -165,6 +169,7 @@ antvComps['input'] = {
 
 // 对话框
 antvComps['amodal']  = {
+  exportName: 'Modal',
   def: UI.component.generate({component: antdv.Modal}),
   title: designElemets.amodal.title,
   design: designElemets.amodal.design
@@ -232,6 +237,7 @@ antvComps['atable'] = {
 // 标签页
 
 antvComps['atabs'] = {
+  exportName: 'Tabs',
   def: UI.component.generate({
     component: antdv.Tabs
   }),
@@ -241,6 +247,7 @@ antvComps['atabs'] = {
 
 // 树
 antvComps['atree'] = {
+  exportName: 'Tree',
   def: UI.component.generate({
     component: antdv.Tree
   }),
@@ -257,6 +264,7 @@ antvComps['aupload'] = {
 
 //详情列表
 antvComps['adescriptions'] = {
+  exportName: 'Descriptions',
   def: UI.component.generate({
     component: antdv.Descriptions
   }),
@@ -264,6 +272,26 @@ antvComps['adescriptions'] = {
   design: designElemets.adescriptions.design
 }
 
+
+//详情列表
+antvComps['adescriptions'] = {
+  exportName: 'Descriptions',
+  def: UI.component.generate({
+    component: antdv.Descriptions
+  }),
+  title: designElemets.adescriptions.title,
+  design: designElemets.adescriptions.design
+}
+
+// 步骤条
+antvComps['asteps'] = {
+  exportName: 'Descriptions',
+  def: UI.component.generate({
+    component: antdv.asteps
+  }),
+  title: designElemets.asteps.title,
+  design: designElemets.asteps.design
+}
 
 /**
  * 定义vue组件
@@ -289,6 +317,7 @@ export const allowDsComponents = [
   {key: 'atabs',value: 'atabs', label:  antvComps['atabs'].title},
   {key: 'atree',value: 'atree', label:  antvComps['atree'].title},
   {key: 'aupload',value: 'aupload', label:  antvComps['aupload'].title},
-  {key: 'adescriptions',value: 'adescriptions', label:  antvComps['adescriptions'].title}
+  {key: 'adescriptions',value: 'adescriptions', label:  antvComps['adescriptions'].title},
+  {key: 'asteps',value: 'asteps', label:  antvComps['asteps'].title}
 ]
 
