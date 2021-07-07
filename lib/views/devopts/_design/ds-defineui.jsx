@@ -287,7 +287,7 @@ antvComps['adescriptions'] = {
 antvComps['asteps'] = {
   exportName: 'Descriptions',
   def: UI.component.generate({
-    component: antdv.asteps
+    component: antdv.Steps
   }),
   title: designElemets.asteps.title,
   design: designElemets.asteps.design
