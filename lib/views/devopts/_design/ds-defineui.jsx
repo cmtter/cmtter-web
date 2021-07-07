@@ -293,6 +293,16 @@ antvComps['asteps'] = {
   design: designElemets.asteps.design
 }
 
+// 复选框
+antvComps['acheckboxGroup'] = {
+  exportName: 'Checkbox.Group',
+  def: UI.component.generate({
+    component: antdv.Checkbox.Group
+  }),
+  title: designElemets.acheckboxGroup.title,
+  design: designElemets.acheckboxGroup.design
+}
+
 /**
  * 定义vue组件
  */
@@ -318,6 +328,7 @@ export const allowDsComponents = [
   {key: 'atree',value: 'atree', label:  antvComps['atree'].title},
   {key: 'aupload',value: 'aupload', label:  antvComps['aupload'].title},
   {key: 'adescriptions',value: 'adescriptions', label:  antvComps['adescriptions'].title},
-  {key: 'asteps',value: 'asteps', label:  antvComps['asteps'].title}
+  {key: 'asteps',value: 'asteps', label:  antvComps['asteps'].title},
+  {key: 'acheckboxGroup',value: 'acheckboxGroup', label:  antvComps['acheckboxGroup'].title}
 ]
 
