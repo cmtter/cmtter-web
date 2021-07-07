@@ -12,7 +12,7 @@ const slots = {}
 
 const tag = 'span'
 
-const tagText = '行内元素'
+const tagText = 'span行内元素'
 
 export default {
   tag,

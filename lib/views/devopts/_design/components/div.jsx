@@ -12,7 +12,7 @@ const slots = {}
 
 const tag = 'div'
 
-const tagText = '块元素'
+const tagText = 'div块元素'
 
 export default {
   tag,

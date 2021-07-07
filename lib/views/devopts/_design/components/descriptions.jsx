@@ -70,7 +70,7 @@ const tag = 'adescriptions'
 /**
  * 标题
  */
-const tagText = '详情列表'
+const tagText = 'descriptions详情列表'
 
 export default {
   tag,

@@ -12,7 +12,7 @@ const slots = {}
 
 const tag = 'aupload'
 
-const tagText = '上传控件'
+const tagText = 'upload上传控件'
 
 export default {
   tag,

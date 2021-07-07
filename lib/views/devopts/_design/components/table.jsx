@@ -92,7 +92,7 @@ const slots = {
 
 const tag = 'atable'
 
-const tagText = '表格'
+const tagText = 'table表格'
 
 export default {
   tag,

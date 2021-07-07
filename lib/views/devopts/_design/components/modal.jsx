@@ -15,7 +15,7 @@ const slots = {}
 
 const tag = 'amodal'
 
-const tagText = '对话框'
+const tagText = 'Modal对话框'
 
 export default {
   tag,

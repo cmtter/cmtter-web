@@ -12,7 +12,7 @@ const slots = {}
 
 const tag = 'input'
 
-const tagText = '输入框'
+const tagText = 'input输入框'
 
 export default {
   tag,

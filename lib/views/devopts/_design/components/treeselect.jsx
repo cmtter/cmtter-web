@@ -41,7 +41,7 @@ const slots = {}
 
 const tag = 'treeselect'
 
-const tagText = '树选择框'
+const tagText = 'treeselect树选择框'
 
 export default {
   tag,

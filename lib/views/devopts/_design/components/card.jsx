@@ -46,7 +46,7 @@ const tag = 'acard'
 /**
  * 标题
  */
-const tagText = '卡片'
+const tagText = 'card卡片'
 
 export default {
   tag,

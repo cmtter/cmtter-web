@@ -15,7 +15,7 @@ const slots = {}
 
 const tag = 'select'
 
-const tagText = '选择框'
+const tagText = 'select选择框'
 
 export default {
   tag,

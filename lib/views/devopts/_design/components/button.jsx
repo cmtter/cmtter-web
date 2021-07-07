@@ -13,7 +13,7 @@ const slots = {}
 
 const tag = 'abutton'
 
-const tagText = '按钮'
+const tagText = 'button按钮'
 
 export default {
   tag,

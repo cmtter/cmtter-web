@@ -14,7 +14,7 @@ const slots = {}
 
 const tag = 'acheckboxGroup'
 
-const tagText = '复选框组'
+const tagText = 'checkbox-group复选框组'
 
 export default {
   tag,

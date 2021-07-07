@@ -43,7 +43,7 @@ const slots = {
 
 const tag = 'atabs'
 
-const tagText = '标签页'
+const tagText = 'tabs标签页'
 
 export default {
   tag,

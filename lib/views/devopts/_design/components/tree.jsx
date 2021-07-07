@@ -34,7 +34,7 @@ const slots = {
 
 const tag = 'atree'
 
-const tagText = '树控件'
+const tagText = 'tree树控件'
 
 export default {
   tag,

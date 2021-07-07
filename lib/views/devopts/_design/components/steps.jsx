@@ -54,7 +54,7 @@ const slots = {}
 
 const tag = 'asteps'
 
-const tagText = '步骤条'
+const tagText = 'steps步骤条'
 
 export default {
   tag,

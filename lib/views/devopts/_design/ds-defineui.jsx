@@ -303,6 +303,16 @@ antvComps['acheckboxGroup'] = {
   design: designElemets.acheckboxGroup.design
 }
 
+// 进度条
+antvComps['aprogress'] = {
+  exportName: 'Progress',
+  def: UI.component.generate({
+    component: antdv.Progress
+  }),
+  title: designElemets.aprogress.title,
+  design: designElemets.aprogress.design
+}
+
 /**
  * 定义vue组件
  */
@@ -329,6 +339,7 @@ export const allowDsComponents = [
   {key: 'aupload',value: 'aupload', label:  antvComps['aupload'].title},
   {key: 'adescriptions',value: 'adescriptions', label:  antvComps['adescriptions'].title},
   {key: 'asteps',value: 'asteps', label:  antvComps['asteps'].title},
-  {key: 'acheckboxGroup',value: 'acheckboxGroup', label:  antvComps['acheckboxGroup'].title}
+  {key: 'acheckboxGroup',value: 'acheckboxGroup', label:  antvComps['acheckboxGroup'].title},
+  {key: 'aprogress',value: 'aprogress', label:  antvComps['aprogress'].title}
 ]
 

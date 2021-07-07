@@ -67,7 +67,7 @@ const slots = {
 
 const tag = 'adropdown'
 
-const tagText = '下拉菜单'
+const tagText = 'dropdown下拉菜单'
 
 export default {
   tag,
