@@ -2,7 +2,7 @@ import * as antdv from 'ant-design-vue/lib/index'
 import {defineComponent} from 'vue'
 import { getSlot, getOptionProps } from 'ant-design-vue/es/_util/props-util'
 import {DownOutlined} from '@ant-design/icons-vue'
-import UI from '@lib/components/ui'
+import UI, {Treesteps} from '@lib/components/ui'
 import designElemets from './components'
 
 const antvComps = {}
@@ -313,6 +313,17 @@ antvComps['aprogress'] = {
   design: designElemets.aprogress.design
 }
 
+// 扩展--------------------------------开始----------------------------------------------------------
+// 项目周期导航
+antvComps['treesteps'] = {
+  def: UI.component.generate({
+    component: Treesteps
+  }),
+  title: designElemets.treesteps.title,
+  design: designElemets.treesteps.design
+}
+
+// 扩展--------------------------------结束--------------------------------------------------------
 /**
  * 定义vue组件
  */
@@ -340,6 +351,7 @@ export const allowDsComponents = [
   {key: 'adescriptions',value: 'adescriptions', label:  antvComps['adescriptions'].title},
   {key: 'asteps',value: 'asteps', label:  antvComps['asteps'].title},
   {key: 'acheckboxGroup',value: 'acheckboxGroup', label:  antvComps['acheckboxGroup'].title},
-  {key: 'aprogress',value: 'aprogress', label:  antvComps['aprogress'].title}
+  {key: 'aprogress',value: 'aprogress', label:  antvComps['aprogress'].title},
+  {key: 'treesteps',value: 'treesteps', label:  antvComps['treesteps'].title}
 ]
 

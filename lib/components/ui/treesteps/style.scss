@@ -1,0 +1,263 @@
+.tree-steps{
+  .ant-row {
+    background: #fff;
+    transition: all .3s;
+  }
+
+  /** 忽略第一个元素的开始线和最后一个元素的结束线 */
+  .tree-steps-firstitem > .ant-row{
+    &:first-child{
+      & > .tree-steps-item:first-child {
+        &::before{
+          border-top: none !important;
+        }
+      }
+      
+    }
+    
+  }
+
+  .tree-steps-lastitem > .ant-row{
+    &:first-child{
+      & > .tree-steps-item:first-child {
+        &::after{
+          border-top: none !important;
+        }
+      } 
+    }
+  }
+
+  .tree-steps-group{
+    border: 1px dashed #d3c3c3 ;
+    padding: 0px 0px !important;
+    margin-right: 60px;
+    position: relative;
+  }
+
+  .no-border{
+    border: 0px dashed #d3c3c3 !important;
+  }
+  
+  .tree-steps-item{
+    background-color: rgba(228, 228, 228, 1);
+    height: 42px;
+    min-width: 20px;
+    padding: 10px 20px;
+    margin: 10px;
+    &.haschildren{
+      margin-right: 25px;
+    }
+
+    &.do{
+      background-color: #b6edb6;
+      font-weight: 500;
+    }
+
+    &.undo{
+      font-weight: 500;
+      background-color: #f5f5f5;
+    }
+
+    &.doing{
+      background-color: #1890ff;
+      color: #fff;
+      font-weight: 500;
+    }
+  }
+
+
+  .haschildren.tree-steps-item,
+  .tree-steps-children .tree-steps-item.first.multle,
+  .tree-steps-children .tree-steps-item.laster.multle,
+  .tree-steps-children .tree-steps-item.multle
+  {
+    &::after{
+      display: inline-block;
+      content: "";
+      position: absolute;
+      right: -30px;
+      border-top: 1px solid  #d3c3c3;
+      height: 50%;
+      width: 30px;
+      top: 50%;
+    }
+    & .temp-line{
+      display: inline-block;
+      content: "";
+      position: absolute;
+      height:150%;
+      right: -30px;
+      width: 30px;
+      top: 0px;
+      border-right: 1px solid  #d3c3c3;
+    }
+
+    &::before{
+      display: inline-block;
+      content: "";
+      position: absolute;
+      left: -10px;
+      border-top: 1px solid  #d3c3c3;
+      height: 50%;
+      width: 10px;
+      top: 50%;
+    }
+
+    & .before-temp-line{
+      display: inline-block;
+      position: absolute;
+      height:150%;
+      left: -10px;
+      width: 10px;
+      top: 0px;
+      border-left: 1px solid  #d3c3c3;
+    }
+  }
+
+  .tree-steps-children .tree-steps-item.laster.multle{
+    &::after{
+      border-right: 1px solid  #d3c3c3;
+      border-bottom: 1px solid  #d3c3c3;
+      border-top: none;
+      top: -50%;
+      height: 100%;
+    }
+
+    &::before{
+      border-left: 1px solid  #d3c3c3;
+      border-bottom: 1px solid  #d3c3c3;
+      border-top: none;
+      top: -50%;
+      height: 100%;
+    }
+
+
+    & .temp-line{
+      display: inline-block;
+      content: "";
+      position: absolute;
+      height: 150%;
+      right: -30px;
+      width: 30px;
+      top: -100%;
+      border-right: 1px solid #d3c3c3;
+    }
+
+    & .before-temp-line{
+      display: inline-block;
+      position: absolute;
+      height: 150%;
+      left: -10px;
+      width: 10px;
+      top: -100%;
+      border-left: 1px solid #d3c3c3;
+    }
+  }
+
+  .tree-steps-children .tree-steps-item.first.multle{
+    &::after{
+      border-right: 1px solid  #d3c3c3;
+      border-top: 1px solid  #d3c3c3;
+      height: 100%;
+    }
+
+    &::before{
+      border-left: 1px solid  #d3c3c3;
+      border-top: 1px solid  #d3c3c3;
+      height: 100%;
+    }
+
+    & .temp-line{
+      display: inline-block;
+      content: "";
+      position: absolute;
+      height:50%;
+      right: -30px;
+      width: 30px;
+      top: 50%;
+      border-right: 1px solid  #d3c3c3;
+    }
+
+    & .before-temp-line{
+      display: inline-block;
+      position: absolute;
+      height:150%;
+      left: -10px;
+      width: 10px;
+      top: 50%;
+      border-left: 1px solid  #d3c3c3;
+    }
+  }
+
+
+  .tree-steps-group .tree-steps-group-content .tree-steps-item:first-child {
+    & .before-temp-line{
+      display: inline-block;
+      position: absolute;
+      height:150%;
+      left: -10px;
+      width: 10px;
+      top: 50%;
+      border-left: none;
+    }
+  }
+
+  .tree-steps-item {
+    &::after {
+      display: inline-block;
+      content: "";
+      position: absolute;
+      right: -10px;
+      border-top: 1px solid  #d3c3c3;
+      height: 50%;
+      width: 10px;
+      top: 50%;
+    }
+
+    &::before {
+      display: inline-block;
+      content: "";
+      position: absolute;
+      left: -10px;
+      border-top: 1px solid  #d3c3c3;
+      height: 50%;
+      width: 10px;
+      top: 50%;
+    }
+    &.laster{
+      &::after{
+        right: -80px;
+        width: 80px;
+      }
+    }
+  }
+
+  .tree-steps-group.tree-steps-lastitem .tree-steps-group-content .tree-steps-item:first-child{
+    &::before{
+      left: -52px;
+      width: 52px;
+    }
+  }
+
+  .tree-steps-group{
+    position: relative;
+  }
+
+  .group-title{
+    position: absolute;
+    top: 0px;
+    left: -5px;
+    color: rgba(0, 0, 0, 0.85);
+    
+    & span {
+      text-decoration:underline ;
+    }
+  }
+
+  .line-to-title {
+    position: absolute;
+    right: -55px;
+    font-size: 12px;
+    top: 35%;
+  }
+}

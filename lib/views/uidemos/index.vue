@@ -31,7 +31,6 @@
     <test-contaner>
       <test-table3 :row-class-name="(record, index) => (index % 2 === 1 ? 'table-striped' : null)"></test-table3>
     </test-contaner>
-
     <div style="background: gainsboro;padding: 10px 10px; margin: 10px 0px;">5.表格Tree</div>
     <br />
     <test-contaner>
