@@ -5,10 +5,28 @@ import {DownOutlined} from '@ant-design/icons-vue'
 import UI, {Treesteps} from '@lib/components/ui'
 import designElemets from './components'
 
+/**
+ * 设计元素定义规范
+ * 
+ * def: 组件定义
+ * title:组件标题
+ * exportName: 组件导出名称
+ * exportDefault:  是否是默认导出
+ * importForm: 依赖项目名称或者路径
+ * defaultProps: 默认属性
+ * design: 添加设计节点的默认属性
+ * 
+ */
 const antvComps = {}
 antdv.install({use: function(cmp){
   if (cmp && cmp.name){
-    antvComps[cmp.name.toLocaleLowerCase()] = {def: cmp, title: cmp.name, exportName: cmp.name.slice(1), defaultProps: {}}
+    antvComps[cmp.name.toLocaleLowerCase()] = {
+      def: cmp, 
+      title: cmp.name,
+      exportDefault: false,
+      exportName: cmp.name.slice(1), 
+      importForm: 'ant-design-vue', 
+      defaultProps: {}}
     antvComps[cmp.name] = antvComps[cmp.name.toLocaleLowerCase()]
   }
 }, config: {globalProperties: {}}})
@@ -89,17 +107,21 @@ antvComps['span'] = antvComps['SPAN'] = antvComps['Span'] = {
 
 //按钮
 antvComps['abutton'] = {
-  exportName: 'Button',
   def: UI.component.generate({component: antdv.Button}),
   title: designElemets.abutton.title,
+  exportDefault: false,
+  exportName: 'Button', 
+  importForm: 'ant-design-vue', 
   design: designElemets.abutton.design
 }
 
 //卡片
 antvComps['acard'] = {
-  exportName: 'Card',
   def: UI.component.generate({component: antdv.Card}),
   title: designElemets.acard.title,
+  exportDefault: false,
+  exportName: 'Card',
+  importForm: 'ant-design-vue', 
   design: designElemets.acard.design
 }
 
@@ -107,21 +129,28 @@ antvComps['acard'] = {
 antvComps['contaner'] = antvComps['CONTANER'] = antvComps['Contaner'] = {
   def: UI.contaner.generate({}),
   title: designElemets.contaner.title,
+  exportDefault: true,
+  exportName: 'UI', 
+  importForm: '@lib/components/ui', 
   design: designElemets.contaner.design
 }
 
 // 下来按钮
 antvComps['adropdown'] = {
-  exportName: 'Dropdown',
   def: UI.component.generate({component: antdv.Dropdown}),
+  exportDefault: false,
+  exportName: 'Dropdown', 
+  importForm: 'ant-design-vue', 
   title: designElemets.adropdown.title,
   design: designElemets.adropdown.design
 }
 
 // Form
 antvComps['aform']  = {
-  exportName: 'Form',
   def: UI.component.generate({component: antdv.Form}),
+  exportDefault: false,
+  exportName: 'Form', 
+  importForm: 'ant-design-vue', 
   title: designElemets.aform.title,
   design: designElemets.aform.design
 }
@@ -163,14 +192,19 @@ antvComps['input'] = {
       return <Cmp {...allProps}>{children}</Cmp>
     }
   }),
+  exportDefault: true,
+  exportName: 'UI', 
+  importForm: '@lib/components/ui', 
   title: designElemets.input.title,
   design: designElemets.input.design
 }
 
 // 对话框
 antvComps['amodal']  = {
-  exportName: 'Modal',
   def: UI.component.generate({component: antdv.Modal}),
+  exportDefault: false,
+  exportName: 'Modal', 
+  importForm: 'ant-design-vue', 
   title: designElemets.amodal.title,
   design: designElemets.amodal.design
 }
@@ -200,6 +234,9 @@ antvComps['select'] = {
       return <Cmp {...allProps}>{children}</Cmp>
     }
   }),
+  exportDefault: true,
+  exportName: 'UI', 
+  importForm: '@lib/components/ui', 
   title: designElemets.select.title,
   design: designElemets.select.design
 }
@@ -223,6 +260,9 @@ antvComps['treeselect'] = {
       return <Cmp {...allProps}>{children}</Cmp>
     }
   }),
+  exportDefault: true,
+  exportName: 'UI', 
+  importForm: '@lib/components/ui', 
   title: designElemets.treeselect.title,
   design: designElemets.treeselect.design
 }
@@ -230,6 +270,9 @@ antvComps['treeselect'] = {
 // 表格
 antvComps['atable'] = {
   def: UI.datatable.generate({}),
+  exportDefault: true,
+  exportName: 'UI', 
+  importForm: '@lib/components/ui', 
   title: designElemets.atable.title,
   design: designElemets.atable.design
 }
@@ -237,20 +280,24 @@ antvComps['atable'] = {
 // 标签页
 
 antvComps['atabs'] = {
-  exportName: 'Tabs',
   def: UI.component.generate({
     component: antdv.Tabs
   }),
+  exportDefault: false,
+  exportName: 'Tabs', 
+  importForm: 'ant-design-vue', 
   title: designElemets.atabs.title,
   design: designElemets.atabs.design
 }
 
 // 树
 antvComps['atree'] = {
-  exportName: 'Tree',
   def: UI.component.generate({
     component: antdv.Tree
   }),
+  exportDefault: false,
+  exportName: 'Tree', 
+  importForm: 'ant-design-vue', 
   title: designElemets.atree.title,
   design: designElemets.atree.design
 }
@@ -258,57 +305,57 @@ antvComps['atree'] = {
 // 上传附件
 antvComps['aupload'] = {
   def: UI.form.upload.generate({}),
+  exportDefault: true,
+  exportName: 'UI', 
+  importForm: '@lib/components/ui', 
   title: designElemets.aupload.title,
   design: designElemets.aupload.design
 }
 
 //详情列表
 antvComps['adescriptions'] = {
-  exportName: 'Descriptions',
   def: UI.component.generate({
     component: antdv.Descriptions
   }),
-  title: designElemets.adescriptions.title,
-  design: designElemets.adescriptions.design
-}
-
-
-//详情列表
-antvComps['adescriptions'] = {
-  exportName: 'Descriptions',
-  def: UI.component.generate({
-    component: antdv.Descriptions
-  }),
+  exportDefault: false,
+  exportName: 'Descriptions', 
+  importForm: 'ant-design-vue', 
   title: designElemets.adescriptions.title,
   design: designElemets.adescriptions.design
 }
 
 // 步骤条
 antvComps['asteps'] = {
-  exportName: 'Descriptions',
   def: UI.component.generate({
     component: antdv.Steps
   }),
+  exportDefault: false,
+  exportName: 'Steps', 
+  importForm: 'ant-design-vue',
   title: designElemets.asteps.title,
   design: designElemets.asteps.design
 }
 
 // 复选框
 antvComps['acheckboxGroup'] = {
-  exportName: 'Checkbox.Group',
   def: UI.component.generate({
     component: antdv.Checkbox.Group
   }),
+  exportDefault: false,
+  exportName: 'Checkbox.Group',
+  importForm: 'ant-design-vue',
   title: designElemets.acheckboxGroup.title,
   design: designElemets.acheckboxGroup.design
 }
 
 // 进度条
 antvComps['aprogress'] = {
-  exportName: 'Progress',
   def: UI.component.generate({
     component: antdv.Progress
   }),
+  exportDefault: false,
+  exportName: 'Progress', 
+  importForm: 'ant-design-vue', 
   title: designElemets.aprogress.title,
   design: designElemets.aprogress.design
 }
@@ -319,6 +366,9 @@ antvComps['treesteps'] = {
   def: UI.component.generate({
     component: Treesteps
   }),
+  exportDefault: false,
+  exportName: 'Treesteps', 
+  importForm: '@lib/components/ui', 
   title: designElemets.treesteps.title,
   design: designElemets.treesteps.design
 }

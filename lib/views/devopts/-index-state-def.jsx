@@ -40,7 +40,7 @@ const MudoleMenuCard = UI.component.generate({
       const isDelete = hostComp.checkedKeys && hostComp.checkedKeys.length > 0
       return (
         <>
-           <Tooltip title="批量生产工程代码"><Button onClick={() => hostComp.genCodes()} type="link" disabled={(!isDelete)}><CodeOutlined />批量生产工程代码</Button></Tooltip>
+           <Tooltip title="批量生产工程代码"><Button loading={hostComp.codeGenLoading} onClick={() => hostComp.genCodes()} type="link" disabled={(!isDelete)}>{hostComp.codeGenLoading ? null : (<CodeOutlined />)}{hostComp.codeGenLoading === true ? '正在生成....' : '批量生产工程代码'}</Button></Tooltip>
         </>
       )
     },

@@ -53,6 +53,8 @@ import composition from '@lib/api/composition'
 import { ref, reactive, toRaw } from 'vue'
 import { UIConfig } from '@lib/components/ui'
 import { confirm, warning } from '@lib/api/tools/message'
+import { success, error } from '../../api/tools/message.jsx'
+import codeGen from './_design/code-gen'
 
 const DEFAULT_PROPS = {
   cmtterDSProtocolStr: JSON.stringify([{ tag: 'div', tagText: '页面', dsKey: 99999999, children: [] }], null, ' ').replace(/"([^\\"]*)":/g, '$1:'),
@@ -79,6 +81,7 @@ export default {
     const treeData = ref([])
     const selectedKeys = ref([])
     const checkedKeys = ref([])
+    const codeGenLoading = ref(false)
     const { http } = composition.useHttp()
     const loadTreeData = async () => {
       const { response } = await http('/mock/design/getDesigns', {}).get()
@@ -92,9 +95,15 @@ export default {
       checkedKeys.value = v
     }
 
+    const updateCodeGenLoading = (v) => {
+      codeGenLoading.value = v
+    }
+
     // 加载数据
     loadTreeData()
     return {
+      updateCodeGenLoading,
+      codeGenLoading,
       treeData,
       loadTreeData,
       state,
@@ -107,7 +116,73 @@ export default {
   },
   methods: {
     async genCodes() {
-      alert('待实现')
+      this.updateCodeGenLoading(true)
+      try {
+        if (this.checkedKeys && this.checkedKeys.length > 0) {
+          for (let i = 0; i < this.checkedKeys.length; i++) {
+            const k = this.checkedKeys[i];
+            if (!k) {
+              continue
+            }
+            const { response } = await this.http('/mock/design/getDesigns?id=' + k).get()
+            const data = response.data[0]
+            if (data.cmtterDSProtocolStr) {
+              const sfc = {
+                // 状态
+                states: [],
+                // 方法
+                methods: [],
+                // 模板
+                templates: []
+              }
+
+              // 组件定义
+              const defs = {
+                // 导出名称
+                exports: {},
+                // 依赖
+                imports: {
+                  // 默认引入@lib/components/ui
+                  '@lib/components/ui': { defaultNames: 'UI', exportNames: [] }
+                },
+                // 依赖
+                importConsts: [],
+                // 定义
+                consts: []
+              }
+
+              let protcols = ''
+              try {
+                protcols = new Function(`return ${data.cmtterDSProtocolStr}`)()
+              } catch (e) {
+                console.log('可视化界面: 协议反序列化错误');
+              }
+              if (protcols) {
+                codeGen(protcols, sfc, defs)
+                console.log('--------------------------------');
+                console.log('--------------------------------');
+                console.log('--------------------------------');
+                console.log('--------------------------------');
+                const { err } = await this.http('/mock/design/codeGen', {
+                  id: k,
+                  sfc,
+                  defs
+                }).post()
+
+                if (err) {
+                  throw err
+                }
+              }
+            }
+          }
+        }
+        this.updateCodeGenLoading(false)
+        success({ content: '代码生成完成' })
+      } catch (err) {
+        this.updateCodeGenLoading(false)
+        error({ content: '代码生成失败[' + err + ']' })
+      }
+
     },
     //复制
     async copyModule() {
