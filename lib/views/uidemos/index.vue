@@ -448,15 +448,15 @@ export default {
         this.aloading = false
       }, 1000);
     },
-    testHandler() {
-      //测试利用ui修改testInput属性
+
+    async testHandler() {
       this.applyUI('testinputui', {
         disabled: this.disabled
       })
       this.disabled = !this.disabled
     },
+
     async testActionHander() {
-      console.log('--------------');
       return new Promise((resolve) => {
         setTimeout(resolve, 2000);
       })
