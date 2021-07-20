@@ -180,6 +180,7 @@ export default {
         success({ content: '代码生成完成' })
       } catch (err) {
         this.updateCodeGenLoading(false)
+        console.log('----------------', err)
         error({ content: '代码生成失败[' + err + ']' })
       }
 
