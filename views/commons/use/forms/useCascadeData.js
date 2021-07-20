@@ -4,7 +4,9 @@ import debounce from 'lodash-es/debounce'
 import objectProperty from '@lib/api/tools/object-property'
 /**
  * 
- * const { dataList, states } = useCascadeData([['prodType', 'prodType1'], ['user', 'user1'], ['prod', 'prod1']], [
+ * setup() {
+    const { http } = composition.useHttp();
+    const { dataList, states } = useCascadeData([['prodType', 'prodType1'], ['user', 'user1'], ['prod', 'prod1']], [
       ['post', '/mock/ui/getSelectList', 'datas'],
       ['post', '/mock/ui/getSelectList', 'datas'],
       ['post', '/mock/ui/getSelectList', 'datas']
@@ -18,6 +20,18 @@ import objectProperty from '@lib/api/tools/object-property'
       }
     })
     const formDataList = dataList
+
+    return {
+      http,
+      confirm,
+      warning,
+      error,
+      success,
+      formStates,
+      formDataList,
+      states
+    };
+    }
  * 
  * @param {*} http 
  * @param {*} defauParams 

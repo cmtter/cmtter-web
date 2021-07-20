@@ -84,7 +84,7 @@ function generate(options){
         }
         _datas = _datas || []
         const d = (typeof props.transform === 'function' &&  props.transform !== NULL_FUNCTION) ? (props.transform(_datas) || []) : _datas
-        mergeDatas.value = d.map(r => {
+        mergeDatas.value = (d || []).map(r => {
           if (props.fields && props.fields.length > 0){
             return {
               ...r,
@@ -121,7 +121,6 @@ function generate(options){
       const valueList = computed(() => {
         const v = props.value || []
         return Array.isArray(v) ? v : [v]
-
       })
 
       // onSelect
@@ -151,12 +150,16 @@ function generate(options){
         loadDatas(props.params)
       }
       
-      watch(props.params, () => {
+      watch(() => props.params, () => {
         if (!hasLoadDatasAsync.value){
           loadDatas(props.params)
         } else {
           onSearch.value()
         }
+      })
+
+      watch(() => props.datas, () => {
+        mergeDatas.value = toRaw(props.datas)
       })
 
       const dyncProps = shallowRef({})
