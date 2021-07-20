@@ -159,10 +159,6 @@ export default {
               }
               if (protcols) {
                 codeGen(protcols, sfc, defs)
-                console.log('--------------------------------');
-                console.log('--------------------------------');
-                console.log('--------------------------------');
-                console.log('--------------------------------');
                 const { err } = await this.http('/mock/design/codeGen', {
                   id: k,
                   sfc,
