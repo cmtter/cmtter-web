@@ -20,7 +20,7 @@ function generate(options){
      * 数据中包括total、pageSize 会自动启用分页
      */
      datasource: VueTypes.oneOfType([VueTypes.object, VueTypes.array]),
-
+     rowKey: VueTypes.any.def('key'),
     slots: VueTypes.object.def({}),
     loading: VueTypes.bool.def(false),
     ...(uimixins.props),
@@ -126,7 +126,7 @@ function generate(options){
           ...(omit(allProps, ['slots'])),
           columns: columnsCfg,
           ...paginationCfg,
-          ...(dataSourceCfg && dataSourceCfg.datas ? {dataSource: dataSourceCfg.datas} : {dataSource: dataSourceCfg}),
+          ...(dataSourceCfg && dataSourceCfg.datas ? {dataSource: (dataSourceCfg.datas || [])} : {dataSource: dataSourceCfg}),
           onChange: this.onChange,
           bordered:true
       }
