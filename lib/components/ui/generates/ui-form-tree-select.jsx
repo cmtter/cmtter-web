@@ -176,6 +176,10 @@ function generate(options){
         }
       })
 
+      watch(() => props.datas, () => {
+        mergeDatas.value = toRaw(props.datas)
+      })
+
       //初始化数据
       if (hasLoadDatasAsync.value){
         onLoadData()
