@@ -177,7 +177,7 @@ function generate(options){
       })
 
       watch(() => props.datas, () => {
-        mergeDatas.value = toRaw(props.datas)
+        loadDatas()
       })
 
       //初始化数据

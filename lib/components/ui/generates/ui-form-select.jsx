@@ -159,7 +159,7 @@ function generate(options){
       })
 
       watch(() => props.datas, () => {
-        mergeDatas.value = toRaw(props.datas)
+        loadDatas(props.params)
       })
 
       const dyncProps = shallowRef({})
