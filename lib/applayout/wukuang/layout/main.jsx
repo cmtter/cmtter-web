@@ -30,30 +30,32 @@ export default defineComponent({
     const menusS = hook.useState('menus')
     //const headerS = useState('header')
     const store = hook.useStore()
-
     const topMenus = computed(() => menusS.topMenus)
     const subMenus = computed(() => menusS.subMenus)
+    const isMenuInited = computed(() => menusS.inited)
     return {
       topMenus,
       subMenus,
-      store
+      store,
+      isMenuInited
     };
   },
   
-  created(){
+  async created(){
     // 请求菜单
-    this.store.dispatch('menus/loadMenus')
-    this.$appconfig.getMenus()
+    //this.store.dispatch('menus/loadMenus')
+    const menus = await this.$appconfig.getMenus()
+    this.$store.commit('menus/topMenus', menus.$childrens)
+    this.$store.commit('menus/menusMap', menus.idMenusMap)
   },
 
-  methods: {
-   
-  },
+  methods: {},
   render() {
     let props = { ...getOptionProps(this), ...this.$attrs };
     props = omit(props, ['class'])
     const topMenus = this.topMenus
     const subMenus = this.subMenus || []
+    //const isMenuInited = this.isMenuInited 
     const loading = (
       <div style="display: flex;flex-direction: column;height: 100%;align-items: center;justify-content: center;">
         <Spin tip="加载数据...."></Spin>
@@ -61,7 +63,7 @@ export default defineComponent({
     )
 
     return (
-      topMenus === null ? loading : (
+      (topMenus === null)? loading : (
       <ALayout {...props} class={_classes}>
         <LayoutHeader topMenus={topMenus}></LayoutHeader>
         <ALayout style={{marginTop: '64px'}}>

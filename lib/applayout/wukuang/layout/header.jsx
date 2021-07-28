@@ -56,9 +56,9 @@ export default defineComponent({
   render() {
     let props = { ...getOptionProps(this), ...this.$attrs };
     const menuItems = (this.topMenus || []).map(item => (
-      <AmenuItem key={item.id} style={{verticalAlign: 'middle'}}>
+      <AmenuItem key={item.router.name} style={{verticalAlign: 'middle'}}>
          {
-           (item.router.path) ? (<RouterLink to={{path: item.router.path}}> {(item.router.meta.title || '首页')}</RouterLink>) : (item.router.meta.title || '首页')
+           (item.router.url) ? (<RouterLink to={item.router.url}> {item.router.title}</RouterLink>) : (item.router.title || '首页')
          }
        
       </AmenuItem>

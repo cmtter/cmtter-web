@@ -1,15 +1,16 @@
 <template>
   <div style="height: 1000px;">
-    首页
-
+    用户管理
+    <Input></Input>
   </div>
 
 </template>
 
 <script>
 /**
- * @router: {title: '工作台'}
+ * @router: {title: '设计'}
  */
+import { Input } from 'ant-design-vue'
 export default {
   data() {
     return {
@@ -17,10 +18,13 @@ export default {
     }
   },
   components: {
+    Input
   },
   mixins: [],
   setup() {
 
+  },
+  created() {
   },
   methods: {
 

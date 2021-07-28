@@ -1,0 +1,1604 @@
+[
+  {
+    "id": "MYMENU_00104",
+    "title": "流程工作台",
+    "icon": "jyicon-wflboard",
+    "spread": false,
+    "url": "/pub/board/wflboard/PubWflBoard001/init",
+    "pageId": "PubWflBoard001",
+    "order": 10
+  },
+  {
+    "id": "MYMENU_00103",
+    "title": "项目管理(流程发起)",
+    "icon": "jyicon-startflow",
+    "spread": false,
+    "url": "/proj/ProjMgmt001/init",
+    "pageId": "ProjMgmt001",
+    "order": 2
+  },
+  {
+    "id": "MYMENU_001",
+    "title": "我的菜单",
+    "icon": "jyicon-mymenu",
+    "spread": false,
+    "order": 3,
+    "children": [
+      {
+        "id": "MYMENU_00101",
+        "title": "个性化菜单管理",
+        "icon": "",
+        "spread": false,
+        "url": "/pub/PubUsermenu001/init",
+        "pageId": "PubUsermenu001",
+        "order": 1
+      },
+      {
+        "id": "MY_BASICMANAGE_001_001",
+        "title": "开户机构设置",
+        "icon": "",
+        "spread": false,
+        "url": "/pub/PubBankAgency001/init",
+        "pageId": "PubBankAgency001",
+        "order": 1
+      },
+      {
+        "id": "MY_ASSETMANAGE_001_003",
+        "title": "放款审查管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/deal/AstLoanAudit001/init",
+        "pageId": "AstLoanAudit001",
+        "order": 1
+      },
+      {
+        "id": "MY_CAPITALMANAGE_001_001",
+        "title": "受益人看板",
+        "icon": "",
+        "spread": false,
+        "url": "/bnftserv/bnft/bnftinfo/BnrBnftKanban001/init",
+        "pageId": "BnrBnftKanban001",
+        "order": 1
+      },
+      {
+        "id": "MY_PRODUCTMANAGEMENT_001_001",
+        "title": "推介/成立流程管理",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/wflmgmt/mgmt/PrdWflMgmt001/init",
+        "pageId": "PrdWflMgmt001",
+        "order": 1
+      },
+      {
+        "id": "MY_OPRERMANAGE_001_008",
+        "title": "干系人管理",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/stakeholder/Stakeholder001/init",
+        "pageId": "Stakeholder001",
+        "order": 1
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_012",
+        "title": "产品规模变动管理",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/deal/PrdBnftChge001/init",
+        "pageId": "PrdBnftChge001",
+        "order": 1
+      },
+      {
+        "id": "MY_ASSETMANAGE_001_001",
+        "title": "同业存款管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/ibdeposit/AstInterbankDeposit001/init",
+        "pageId": "AstInterbankDeposit001",
+        "order": 2
+      },
+      {
+        "id": "MY_CAPITALMANAGE_001_002",
+        "title": "产品受益权信息统计",
+        "icon": "",
+        "spread": false,
+        "url": "/bnftserv/bnft/prodbnft/BnrProdBnftStatistical001/init",
+        "pageId": "BnrProdBnftStatistical001",
+        "order": 2
+      },
+      {
+        "id": "MY_PRODUCTMANAGEMENT_001_002",
+        "title": "产品查询",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/prodmgmt/ProductControl001/init",
+        "pageId": "ProductControl001",
+        "order": 2
+      },
+      {
+        "id": "MY_OPRERMANAGE_001_009",
+        "title": "干系人管理-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/stakeholder/StakeholderCheck001/init",
+        "pageId": "StakeholderCheck001",
+        "order": 2
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_013",
+        "title": "产品规模变动管理-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/deal/PrdBnftChge006/init",
+        "pageId": "PrdBnftChge006",
+        "order": 2
+      },
+      {
+        "id": "MY_ASSETMANAGE_001_002",
+        "title": "同业存款到期管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/ibdeposit/AstInterbankDepositEnd001/init",
+        "pageId": "AstInterbankDepositEnd001",
+        "order": 3
+      },
+      {
+        "id": "MY_CAPITALMANAGE_001_003",
+        "title": "集合信托",
+        "icon": "",
+        "spread": false,
+        "order": 3,
+        "children": [
+          {
+            "id": "MY_CAPITALMANAGE_001_003_001",
+            "title": "收益分配表单(TA)",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftyieldalloc/BnrCollectBnftYieldAlloc001/init",
+            "pageId": "BnrCollectBnftYieldAlloc001",
+            "order": 1
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_003_003",
+            "title": "收益分配作废",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftyieldallocrev/BnrCollectBnftYieldAllocRev001/init",
+            "pageId": "BnrCollectBnftYieldAllocRev001",
+            "order": 2
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_003_002",
+            "title": "赎回对账单",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftredm/BnrCollectBnftRedm001/init",
+            "pageId": "BnrCollectBnftRedm001",
+            "order": 3
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_003_004",
+            "title": "集合受益权转让流程",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnfttransfer/BnrCollectTransfer001/init",
+            "pageId": "BnrCollectTransfer001",
+            "order": 4
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_003_005",
+            "title": "集合受益权账户变更流程",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftacctchge/BnrCollectAcctChge001/init",
+            "pageId": "BnrCollectAcctChge001",
+            "order": 5
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_003_006",
+            "title": "开放期管理流程",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftopendate/BnrCollectOpenDate001/init",
+            "pageId": "BnrCollectOpenDate001",
+            "order": 6
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_003_007",
+            "title": "集合收益分配台账",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftstandingbook/BnrCollectStandingBook001/init",
+            "pageId": "BnrCollectStandingBook001",
+            "order": 7
+          }
+        ]
+      },
+      {
+        "id": "MY_OPRERMANAGE_001_003",
+        "title": "产品归属部门调整",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/proddept/ProdDept001/init",
+        "pageId": "ProdDept001",
+        "order": 3
+      },
+      {
+        "id": "MY_BASICMANAGE_001_004",
+        "title": "银行流水获取",
+        "icon": "",
+        "spread": false,
+        "url": "/pub/PubBankcflTask001/init",
+        "pageId": "PubBankcflTask001",
+        "order": 4
+      },
+      {
+        "id": "MY_ASSETMANAGE_001_004",
+        "title": "标品估值表查询",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/object/AstObjectnav001/init",
+        "pageId": "AstObjectnav001",
+        "order": 4
+      },
+      {
+        "id": "MY_CAPITALMANAGE_001_004",
+        "title": "单一信托",
+        "icon": "",
+        "spread": false,
+        "order": 4,
+        "children": [
+          {
+            "id": "MY_CAPITALMANAGE_001_004_001",
+            "title": "合同查询",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/bnft/cnct/BnrBnftCnct001/init",
+            "pageId": "BnrBnftCnct001",
+            "order": 4
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_002",
+            "title": "账户变更",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/bnft/acctchange/BnrBnftAcctChge001/init",
+            "pageId": "BnrBnftAcctChge001",
+            "order": 5
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_003",
+            "title": "账户变更-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/bnft/acctchange/BnrBnftAcctChgeAudit001/init",
+            "pageId": "BnrBnftAcctChgeAudit001",
+            "order": 6
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_004",
+            "title": "冻结交易管理",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/freeze/BnrBnftFreeze001/init",
+            "pageId": "BnrBnftFreeze001",
+            "order": 7
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_005",
+            "title": "冻结交易-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/freeze/BnrBnftFreezeAudit001/init",
+            "pageId": "BnrBnftFreezeAudit001",
+            "order": 8
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_006",
+            "title": "质押交易管理",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/pledge/BnrBnftPledge001/init",
+            "pageId": "BnrBnftPledge001",
+            "order": 9
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_007",
+            "title": "质押交易-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/pledge/BnrBnftPledgeAudit001/init",
+            "pageId": "BnrBnftPledgeAudit001",
+            "order": 10
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_008",
+            "title": "受益权转让",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/transfer/BnrBnftTransfer001/init",
+            "pageId": "BnrBnftTransfer001",
+            "order": 11
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_010",
+            "title": "非交易过户",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/notrdtransfer/BnrBnftAssigned001/init",
+            "pageId": "BnrBnftAssigned001",
+            "order": 13
+          },
+          {
+            "id": "MY_CAPITALMANAGE_001_004_011",
+            "title": "非交易过户-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/notrdtransfer/BnrBnftAssignedAudit001/init",
+            "pageId": "BnrBnftAssignedAudit001",
+            "order": 14
+          }
+        ]
+      },
+      {
+        "id": "MY_OPRERMANAGE_001_004",
+        "title": "产品归属部门调整-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/proddept/ProdDeptCheck001/init",
+        "pageId": "ProdDeptCheck001",
+        "order": 4
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_001",
+        "title": "资金清算管理",
+        "icon": "",
+        "spread": false,
+        "order": 4,
+        "children": [
+          {
+            "id": "MY_SETTLEMANAGE_001_001_001",
+            "title": "还本收息资金清算管理",
+            "icon": "",
+            "spread": false,
+            "url": "/assetserv/stmt/AstIvstcnctFormula001/init",
+            "pageId": "AstIvstcnctFormula001",
+            "order": 1
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_001_002",
+            "title": "还本收息资金清算管理-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/assetserv/stmt/AstIvstcnctFormulaAudit001/init",
+            "pageId": "AstIvstcnctFormulaAudit001",
+            "order": 3
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_001_003",
+            "title": "费用资金清算管理",
+            "icon": "",
+            "spread": false,
+            "url": "/test/FeesFormula001/init",
+            "pageId": "FeesFormula001",
+            "order": 4
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_001_004",
+            "title": "费用资金清算管理-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/test/FeesStmtAudit001/init",
+            "pageId": "FeesStmtAudit001",
+            "order": 6
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_001_005",
+            "title": "单一收益分配清算管理",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/actformula/BnrBnftActFormula001/init",
+            "pageId": "BnrBnftActFormula001",
+            "order": 7
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_001_006",
+            "title": "单一收益分配清算管理-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/actformula/BnrBnftActFormulaAudit001/init",
+            "pageId": "BnrBnftActFormulaAudit001",
+            "order": 9
+          }
+        ]
+      },
+      {
+        "id": "MY_ASSETMANAGE_001_005",
+        "title": "基金信息查询",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/fund/AstPortfolio001/init",
+        "pageId": "AstPortfolio001",
+        "order": 5
+      },
+      {
+        "id": "MY_OPRERMANAGE_001_005",
+        "title": "产品期次展期管理",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/extterm/ProdExtterm001/init",
+        "pageId": "ProdExtterm001",
+        "order": 5
+      },
+      {
+        "id": "MY_ASSETMANAGE_001_006",
+        "title": "证券类产品净值查询",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/bondprod/AstBondprodNav001/init",
+        "pageId": "AstBondprodNav001",
+        "order": 6
+      },
+      {
+        "id": "MY_OPRERMANAGE_001_007",
+        "title": "产品期次展期管理-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/extterm/ProdExttermCheck001/init",
+        "pageId": "ProdExttermCheck001",
+        "order": 6
+      },
+      {
+        "id": "MY_OPRERMANAGE_001_001",
+        "title": "他证台账",
+        "icon": "",
+        "spread": false,
+        "url": "/opr/OprOthercertLedger001/init",
+        "pageId": "OprOthercertLedger001",
+        "order": 7
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_004",
+        "title": "收款管理",
+        "icon": "",
+        "spread": false,
+        "order": 7,
+        "children": [
+          {
+            "id": "MY_SETTLEMANAGE_001_004_002",
+            "title": "收款单管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/recv/BokRecvManage001/init",
+            "pageId": "BokRecvManage001",
+            "order": 1
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_004_001",
+            "title": "收款明细管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/recv/BokRecvPamtDtlGet001/init",
+            "pageId": "BokRecvPamtDtlGet001",
+            "order": 2
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_004_003",
+            "title": "收据管理",
+            "icon": "",
+            "spread": false,
+            "url": "/recv/BokReceiptManage001/init",
+            "pageId": "BokReceiptManage001",
+            "order": 3
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_004_004",
+            "title": "已开立回执明细",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/recv/BokRecvManage013/init",
+            "pageId": "BokRecvManage013",
+            "order": 4
+          }
+        ]
+      },
+      {
+        "id": "MY_OPRERMANAGE_001_002",
+        "title": "档案管理",
+        "icon": "",
+        "spread": false,
+        "order": 8,
+        "children": [
+          {
+            "id": "MY_OPRERMANAGE_001_002_001",
+            "title": "运营归档人",
+            "icon": "",
+            "spread": false,
+            "url": "/otherserv/document/AftArcuser001/init",
+            "pageId": "AftArcuser001",
+            "order": 1
+          },
+          {
+            "id": "MY_OPRERMANAGE_001_002_002",
+            "title": "放款材料监控台账",
+            "icon": "",
+            "spread": false,
+            "url": "/otherserv/document/AftLoanDoc001/init",
+            "pageId": "AftLoanDoc001",
+            "order": 2
+          },
+          {
+            "id": "MY_OPRERMANAGE_001_002_003",
+            "title": "中后期监控台账",
+            "icon": "",
+            "spread": false,
+            "url": "/otherserv/document/AftDoc001/init",
+            "pageId": "AftDoc001",
+            "order": 3
+          }
+        ]
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_005",
+        "title": "付款管理",
+        "icon": "",
+        "spread": false,
+        "order": 8,
+        "children": [
+          {
+            "id": "MY_SETTLEMANAGE_001_005_003",
+            "title": "付款单管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accounting/payment/BokPayment001/init",
+            "pageId": "BokPayment001",
+            "order": 1
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_005_002",
+            "title": "付款明细管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/payment/BokPaymentFeeDtl001/init",
+            "pageId": "BokPaymentFeeDtl001",
+            "order": 2
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_005_001",
+            "title": "收益分配明细管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/payment/BokPaymentBnfDtl001/init",
+            "pageId": "BokPaymentBnfDtl001",
+            "order": 3
+          }
+        ]
+      },
+      {
+        "id": "MY_PRODUCTMANAGEMENT_001_007",
+        "title": "信息披露",
+        "icon": "",
+        "spread": false,
+        "order": 10,
+        "children": [
+          {
+            "id": "MY_PRODUCTMANAGEMENT_001_007_002",
+            "title": "中期管理报告台账",
+            "icon": "",
+            "spread": false,
+            "url": "/prod/disclosure/MgmtLedger001/init",
+            "pageId": "MgmtLedger001",
+            "order": 2
+          },
+          {
+            "id": "MY_PRODUCTMANAGEMENT_001_007_003",
+            "title": "公告管理",
+            "icon": "",
+            "spread": false,
+            "url": "/prod/disclosure/ProdAnnounce001/init",
+            "pageId": "ProdAnnounce001",
+            "order": 4
+          }
+        ]
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_007",
+        "title": "划款指令管理",
+        "icon": "",
+        "spread": false,
+        "order": 10,
+        "children": [
+          {
+            "id": "MY_SETTLEMANAGE_001_007_001",
+            "title": "套打指令管理",
+            "icon": "",
+            "spread": false,
+            "url": "/delivery/PaperInstruct001/init",
+            "pageId": "PaperInstruct001",
+            "order": 1
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_007_002",
+            "title": "套打指令模板配置",
+            "icon": "",
+            "spread": false,
+            "url": "/delivery/MaintainPaperTemplate001/init",
+            "pageId": "MaintainPaperTemplate001",
+            "order": 2
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_007_004",
+            "title": "产品套打指令模板关联设置",
+            "icon": "",
+            "spread": false,
+            "url": "/delivery/PrdPayTempSet001/init",
+            "pageId": "PrdPayTempSet001",
+            "order": 4
+          }
+        ]
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_009",
+        "title": "核算管理",
+        "icon": "",
+        "spread": false,
+        "order": 11,
+        "children": [
+          {
+            "id": "MY_SETTLEMANAGE_001_009_001",
+            "title": "会计处理",
+            "icon": "",
+            "spread": false,
+            "url": "/AccountingHandle001/AccountingHandle001/init",
+            "pageId": "AccountingHandle001",
+            "order": 1
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_009_003",
+            "title": "项目信托财产情况统计",
+            "icon": "",
+            "spread": false,
+            "url": "/ProjCountHandle001/ProjCountHandle001/init",
+            "pageId": "ProjCountHandle001",
+            "order": 3
+          }
+        ]
+      },
+      {
+        "id": "MY_PRODUCTMANAGEMENT_001_010",
+        "title": "合同管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/contract/prerecord/AstContractPrerecord001/init",
+        "pageId": "AstContractPrerecord001",
+        "order": 12
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_010",
+        "title": "账户管理",
+        "icon": "",
+        "spread": false,
+        "order": 12,
+        "children": [
+          {
+            "id": "MY_SETTLEMANAGE_001_010_002",
+            "title": "账户管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountmanagement/AccountManage001/init",
+            "pageId": "AccountManage001",
+            "order": 2
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_010_003",
+            "title": "账户管理-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/accountmanagement/AccountManageCheck001/init",
+            "pageId": "AccountManageCheck001",
+            "order": 3
+          },
+          {
+            "id": "MY_SETTLEMANAGE_001_010_005",
+            "title": "银行流水管理",
+            "icon": "",
+            "spread": false,
+            "url": "/pub/acct/BokBankcfl001/init",
+            "pageId": "BankStatementManage001",
+            "order": 5
+          }
+        ]
+      },
+      {
+        "id": "MY_SETTLEMANAGE_001_011",
+        "title": "已导出结算单查询",
+        "icon": "",
+        "spread": false,
+        "url": "/export/settle/bokLastdataExport001/init",
+        "pageId": "BokLastdataExport001",
+        "order": 13
+      },
+      {
+        "id": "MY_PRODUCTMANAGEMENT_001_011",
+        "title": "合同管理-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/contract/prerecord/AstContractPrerecordAudit001/init",
+        "pageId": "AstContractPrerecordAudit001",
+        "order": 14
+      },
+      {
+        "id": "MY_BASICMANAGE_001_015",
+        "title": "资金用途管理",
+        "icon": "",
+        "spread": false,
+        "url": "/accountingserv/stmt/bok/BokFundusage001/init",
+        "pageId": "BokFundusage001",
+        "order": 15
+      },
+      {
+        "id": "MY_PRODUCTMANAGEMENT_001_012",
+        "title": "合同补录管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/contract/record/AstContractRecord001/init",
+        "pageId": "AstContractRecord001",
+        "order": 15
+      }
+    ]
+  },
+  {
+    "id": "PRODUCTMANAGEMENT_001",
+    "title": "项目产品管理",
+    "icon": "icon-chanpinguanli",
+    "spread": false,
+    "order": 11,
+    "children": [
+      {
+        "id": "PRODUCTMANAGEMENT_001_001",
+        "title": "推介/成立流程管理",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/wflmgmt/mgmt/PrdWflMgmt001/init",
+        "pageId": "PrdWflMgmt001",
+        "order": 1
+      },
+      {
+        "id": "PRODUCTMANAGEMENT_001_002",
+        "title": "产品查询",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/prodmgmt/ProductControl001/init",
+        "pageId": "ProductControl001",
+        "order": 2
+      },
+      {
+        "id": "PRODUCTMANAGEMENT_001_007",
+        "title": "信息披露",
+        "icon": "",
+        "spread": false,
+        "order": 10,
+        "children": [
+          {
+            "id": "PRODUCTMANAGEMENT_001_007_002",
+            "title": "中期管理报告台账",
+            "icon": "",
+            "spread": false,
+            "url": "/prod/disclosure/MgmtLedger001/init",
+            "pageId": "MgmtLedger001",
+            "order": 2
+          },
+          {
+            "id": "PRODUCTMANAGEMENT_001_007_003",
+            "title": "公告管理",
+            "icon": "",
+            "spread": false,
+            "url": "/prod/disclosure/ProdAnnounce001/init",
+            "pageId": "ProdAnnounce001",
+            "order": 4
+          }
+        ]
+      },
+      {
+        "id": "PRODUCTMANAGEMENT_001_010",
+        "title": "合同管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/contract/prerecord/AstContractPrerecord001/init",
+        "pageId": "AstContractPrerecord001",
+        "order": 12
+      },
+      {
+        "id": "PRODUCTMANAGEMENT_001_011",
+        "title": "合同管理-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/contract/prerecord/AstContractPrerecordAudit001/init",
+        "pageId": "AstContractPrerecordAudit001",
+        "order": 14
+      },
+      {
+        "id": "PRODUCTMANAGEMENT_001_012",
+        "title": "合同补录管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/contract/record/AstContractRecord001/init",
+        "pageId": "AstContractRecord001",
+        "order": 15
+      },
+      {
+        "id": "PRODUCTMANAGEMENT_001_026",
+        "title": "TOT合同匹配管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/contract/record/matchcnct/AstTOTMatchTACnct001/init",
+        "pageId": "AstTOTMatchTACnct001",
+        "order": 33
+      }
+    ]
+  },
+  {
+    "id": "ASSETMANAGE_001",
+    "title": "资产管理",
+    "icon": "icon-zichanguanli",
+    "spread": false,
+    "order": 12,
+    "children": [
+      {
+        "id": "ASSETMANAGE_001_003",
+        "title": "放款审查管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/deal/AstLoanAudit001/init",
+        "pageId": "AstLoanAudit001",
+        "order": 1
+      },
+      {
+        "id": "ASSETMANAGE_001_001",
+        "title": "同业存款管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/ibdeposit/AstInterbankDeposit001/init",
+        "pageId": "AstInterbankDeposit001",
+        "order": 2
+      },
+      {
+        "id": "ASSETMANAGE_001_002",
+        "title": "同业存款到期管理",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/ibdeposit/AstInterbankDepositEnd001/init",
+        "pageId": "AstInterbankDepositEnd001",
+        "order": 3
+      },
+      {
+        "id": "ASSETMANAGE_001_004",
+        "title": "标品估值表查询",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/object/AstObjectnav001/init",
+        "pageId": "AstObjectnav001",
+        "order": 4
+      },
+      {
+        "id": "ASSETMANAGE_001_005",
+        "title": "基金信息查询",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/fund/AstPortfolio001/init",
+        "pageId": "AstPortfolio001",
+        "order": 5
+      },
+      {
+        "id": "ASSETMANAGE_001_006",
+        "title": "证券类产品净值查询",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/bondprod/AstBondprodNav001/init",
+        "pageId": "AstBondprodNav001",
+        "order": 6
+      },
+      {
+        "id": "ASSETMANAGE_001_010",
+        "title": "现金类产品净值查询",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/cashprod/AstCashprodNav001/init",
+        "pageId": "AstCashprodNav001",
+        "order": 7
+      },
+      {
+        "id": "ASSETMANAGE_001_009",
+        "title": "产品银行期次侧编码查询",
+        "icon": "",
+        "spread": false,
+        "url": "/assetserv/accountid/ProdBankAccountId001/init",
+        "pageId": "ProdBankAccountId001",
+        "order": 8
+      },
+      {
+        "id": "ASSETMANAGE_001_007",
+        "title": "邮件管理",
+        "icon": "",
+        "spread": false,
+        "order": 9,
+        "children": [
+          {
+            "id": "ASSETMANAGE_001_007_001",
+            "title": "邮件配置信息",
+            "icon": "",
+            "spread": false,
+            "url": "/assetserv/mail/AstMailConfiguration001/init",
+            "pageId": "AstMailConfiguration001",
+            "order": 1
+          },
+          {
+            "id": "ASSETMANAGE_001_007_002",
+            "title": "邮件发送信息",
+            "icon": "",
+            "spread": false,
+            "url": "/assetserv/mail/AstMailRecording001/init",
+            "pageId": "AstMailRecording001",
+            "order": 2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "CAPITALMANAGE_001",
+    "title": "资金管理",
+    "icon": "icon-zijiguanli",
+    "spread": false,
+    "order": 13,
+    "children": [
+      {
+        "id": "CAPITALMANAGE_001_001",
+        "title": "受益人看板",
+        "icon": "",
+        "spread": false,
+        "url": "/bnftserv/bnft/bnftinfo/BnrBnftKanban001/init",
+        "pageId": "BnrBnftKanban001",
+        "order": 1
+      },
+      {
+        "id": "CAPITALMANAGE_001_002",
+        "title": "产品受益权信息统计",
+        "icon": "",
+        "spread": false,
+        "url": "/bnftserv/bnft/prodbnft/BnrProdBnftStatistical001/init",
+        "pageId": "BnrProdBnftStatistical001",
+        "order": 2
+      },
+      {
+        "id": "CAPITALMANAGE_001_003",
+        "title": "集合信托",
+        "icon": "",
+        "spread": false,
+        "order": 3,
+        "children": [
+          {
+            "id": "CAPITALMANAGE_001_003_001",
+            "title": "收益分配表单(TA)",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftyieldalloc/BnrCollectBnftYieldAlloc001/init",
+            "pageId": "BnrCollectBnftYieldAlloc001",
+            "order": 1
+          },
+          {
+            "id": "CAPITALMANAGE_001_003_003",
+            "title": "收益分配作废",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftyieldallocrev/BnrCollectBnftYieldAllocRev001/init",
+            "pageId": "BnrCollectBnftYieldAllocRev001",
+            "order": 2
+          },
+          {
+            "id": "CAPITALMANAGE_001_003_002",
+            "title": "赎回对账单",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftredm/BnrCollectBnftRedm001/init",
+            "pageId": "BnrCollectBnftRedm001",
+            "order": 3
+          },
+          {
+            "id": "CAPITALMANAGE_001_003_004",
+            "title": "集合受益权转让流程",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnfttransfer/BnrCollectTransfer001/init",
+            "pageId": "BnrCollectTransfer001",
+            "order": 4
+          },
+          {
+            "id": "CAPITALMANAGE_001_003_005",
+            "title": "集合受益权账户变更流程",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftacctchge/BnrCollectAcctChge001/init",
+            "pageId": "BnrCollectAcctChge001",
+            "order": 5
+          },
+          {
+            "id": "CAPITALMANAGE_001_003_006",
+            "title": "开放期管理流程",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftopendate/BnrCollectOpenDate001/init",
+            "pageId": "BnrCollectOpenDate001",
+            "order": 6
+          },
+          {
+            "id": "CAPITALMANAGE_001_003_007",
+            "title": "集合收益分配台账",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/collectbnftstandingbook/BnrCollectStandingBook001/init",
+            "pageId": "BnrCollectStandingBook001",
+            "order": 7
+          }
+        ]
+      },
+      {
+        "id": "CAPITALMANAGE_001_004",
+        "title": "单一信托",
+        "icon": "",
+        "spread": false,
+        "order": 4,
+        "children": [
+          {
+            "id": "CAPITALMANAGE_001_004_001",
+            "title": "合同查询",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/bnft/cnct/BnrBnftCnct001/init",
+            "pageId": "BnrBnftCnct001",
+            "order": 4
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_002",
+            "title": "账户变更",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/bnft/acctchange/BnrBnftAcctChge001/init",
+            "pageId": "BnrBnftAcctChge001",
+            "order": 5
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_003",
+            "title": "账户变更-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/bnft/acctchange/BnrBnftAcctChgeAudit001/init",
+            "pageId": "BnrBnftAcctChgeAudit001",
+            "order": 6
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_004",
+            "title": "冻结交易管理",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/freeze/BnrBnftFreeze001/init",
+            "pageId": "BnrBnftFreeze001",
+            "order": 7
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_005",
+            "title": "冻结交易-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/freeze/BnrBnftFreezeAudit001/init",
+            "pageId": "BnrBnftFreezeAudit001",
+            "order": 8
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_006",
+            "title": "质押交易管理",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/pledge/BnrBnftPledge001/init",
+            "pageId": "BnrBnftPledge001",
+            "order": 9
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_007",
+            "title": "质押交易-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/pledge/BnrBnftPledgeAudit001/init",
+            "pageId": "BnrBnftPledgeAudit001",
+            "order": 10
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_008",
+            "title": "受益权转让",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/transfer/BnrBnftTransfer001/init",
+            "pageId": "BnrBnftTransfer001",
+            "order": 11
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_010",
+            "title": "非交易过户",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/notrdtransfer/BnrBnftAssigned001/init",
+            "pageId": "BnrBnftAssigned001",
+            "order": 13
+          },
+          {
+            "id": "CAPITALMANAGE_001_004_011",
+            "title": "非交易过户-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/deal/notrdtransfer/BnrBnftAssignedAudit001/init",
+            "pageId": "BnrBnftAssignedAudit001",
+            "order": 14
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "SETTLEMANAGE_001",
+    "title": "清结算管理",
+    "icon": "icon-xinziguanli",
+    "spread": false,
+    "order": 14,
+    "children": [
+      {
+        "id": "SETTLEMANAGE_001_012",
+        "title": "产品规模变动管理",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/deal/PrdBnftChge001/init",
+        "pageId": "PrdBnftChge001",
+        "order": 1
+      },
+      {
+        "id": "SETTLEMANAGE_001_013",
+        "title": "产品规模变动管理-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/deal/PrdBnftChge006/init",
+        "pageId": "PrdBnftChge006",
+        "order": 2
+      },
+      {
+        "id": "SETTLEMANAGE_001_001",
+        "title": "资金清算管理",
+        "icon": "",
+        "spread": false,
+        "order": 4,
+        "children": [
+          {
+            "id": "SETTLEMANAGE_001_001_001",
+            "title": "还本收息资金清算管理",
+            "icon": "",
+            "spread": false,
+            "url": "/assetserv/stmt/AstIvstcnctFormula001/init",
+            "pageId": "AstIvstcnctFormula001",
+            "order": 1
+          },
+          {
+            "id": "SETTLEMANAGE_001_001_002",
+            "title": "还本收息资金清算管理-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/assetserv/stmt/AstIvstcnctFormulaAudit001/init",
+            "pageId": "AstIvstcnctFormulaAudit001",
+            "order": 3
+          },
+          {
+            "id": "SETTLEMANAGE_001_001_003",
+            "title": "费用资金清算管理",
+            "icon": "",
+            "spread": false,
+            "url": "/test/FeesFormula001/init",
+            "pageId": "FeesFormula001",
+            "order": 4
+          },
+          {
+            "id": "SETTLEMANAGE_001_001_004",
+            "title": "费用资金清算管理-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/test/FeesStmtAudit001/init",
+            "pageId": "FeesStmtAudit001",
+            "order": 6
+          },
+          {
+            "id": "SETTLEMANAGE_001_001_005",
+            "title": "单一收益分配清算管理",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/actformula/BnrBnftActFormula001/init",
+            "pageId": "BnrBnftActFormula001",
+            "order": 7
+          },
+          {
+            "id": "SETTLEMANAGE_001_001_006",
+            "title": "单一收益分配清算管理-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/bnftserv/stmt/actformula/BnrBnftActFormulaAudit001/init",
+            "pageId": "BnrBnftActFormulaAudit001",
+            "order": 9
+          }
+        ]
+      },
+      {
+        "id": "SETTLEMANAGE_001_004",
+        "title": "收款管理",
+        "icon": "",
+        "spread": false,
+        "order": 7,
+        "children": [
+          {
+            "id": "SETTLEMANAGE_001_004_002",
+            "title": "收款单管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/recv/BokRecvManage001/init",
+            "pageId": "BokRecvManage001",
+            "order": 1
+          },
+          {
+            "id": "SETTLEMANAGE_001_004_001",
+            "title": "收款明细管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/recv/BokRecvPamtDtlGet001/init",
+            "pageId": "BokRecvPamtDtlGet001",
+            "order": 2
+          },
+          {
+            "id": "SETTLEMANAGE_001_004_003",
+            "title": "收据管理",
+            "icon": "",
+            "spread": false,
+            "url": "/recv/BokReceiptManage001/init",
+            "pageId": "BokReceiptManage001",
+            "order": 3
+          },
+          {
+            "id": "SETTLEMANAGE_001_004_004",
+            "title": "已开立回执明细",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/recv/BokRecvManage013/init",
+            "pageId": "BokRecvManage013",
+            "order": 4
+          }
+        ]
+      },
+      {
+        "id": "SETTLEMANAGE_001_005",
+        "title": "付款管理",
+        "icon": "",
+        "spread": false,
+        "order": 8,
+        "children": [
+          {
+            "id": "SETTLEMANAGE_001_005_003",
+            "title": "付款单管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accounting/payment/BokPayment001/init",
+            "pageId": "BokPayment001",
+            "order": 1
+          },
+          {
+            "id": "SETTLEMANAGE_001_005_002",
+            "title": "付款明细管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/payment/BokPaymentFeeDtl001/init",
+            "pageId": "BokPaymentFeeDtl001",
+            "order": 2
+          },
+          {
+            "id": "SETTLEMANAGE_001_005_001",
+            "title": "收益分配明细管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountingserv/payment/BokPaymentBnfDtl001/init",
+            "pageId": "BokPaymentBnfDtl001",
+            "order": 3
+          }
+        ]
+      },
+      {
+        "id": "SETTLEMANAGE_001_007",
+        "title": "划款指令管理",
+        "icon": "",
+        "spread": false,
+        "order": 10,
+        "children": [
+          {
+            "id": "SETTLEMANAGE_001_007_001",
+            "title": "套打指令管理",
+            "icon": "",
+            "spread": false,
+            "url": "/delivery/PaperInstruct001/init",
+            "pageId": "PaperInstruct001",
+            "order": 1
+          },
+          {
+            "id": "SETTLEMANAGE_001_007_002",
+            "title": "套打指令模板配置",
+            "icon": "",
+            "spread": false,
+            "url": "/delivery/MaintainPaperTemplate001/init",
+            "pageId": "MaintainPaperTemplate001",
+            "order": 2
+          },
+          {
+            "id": "SETTLEMANAGE_001_007_004",
+            "title": "产品套打指令模板关联设置",
+            "icon": "",
+            "spread": false,
+            "url": "/delivery/PrdPayTempSet001/init",
+            "pageId": "PrdPayTempSet001",
+            "order": 4
+          }
+        ]
+      },
+      {
+        "id": "SETTLEMANAGE_001_009",
+        "title": "核算管理",
+        "icon": "",
+        "spread": false,
+        "order": 11,
+        "children": [
+          {
+            "id": "SETTLEMANAGE_001_009_001",
+            "title": "会计处理",
+            "icon": "",
+            "spread": false,
+            "url": "/AccountingHandle001/AccountingHandle001/init",
+            "pageId": "AccountingHandle001",
+            "order": 1
+          },
+          {
+            "id": "SETTLEMANAGE_001_009_003",
+            "title": "项目信托财产情况统计",
+            "icon": "",
+            "spread": false,
+            "url": "/ProjCountHandle001/ProjCountHandle001/init",
+            "pageId": "ProjCountHandle001",
+            "order": 3
+          }
+        ]
+      },
+      {
+        "id": "SETTLEMANAGE_001_010",
+        "title": "账户管理",
+        "icon": "",
+        "spread": false,
+        "order": 12,
+        "children": [
+          {
+            "id": "SETTLEMANAGE_001_010_002",
+            "title": "账户管理",
+            "icon": "",
+            "spread": false,
+            "url": "/accountmanagement/AccountManage001/init",
+            "pageId": "AccountManage001",
+            "order": 2
+          },
+          {
+            "id": "SETTLEMANAGE_001_010_003",
+            "title": "账户管理-复核",
+            "icon": "",
+            "spread": false,
+            "url": "/accountmanagement/AccountManageCheck001/init",
+            "pageId": "AccountManageCheck001",
+            "order": 3
+          },
+          {
+            "id": "SETTLEMANAGE_001_010_005",
+            "title": "银行流水管理",
+            "icon": "",
+            "spread": false,
+            "url": "/pub/acct/BokBankcfl001/init",
+            "pageId": "BankStatementManage001",
+            "order": 5
+          }
+        ]
+      },
+      {
+        "id": "SETTLEMANAGE_001_011",
+        "title": "已导出结算单查询",
+        "icon": "",
+        "spread": false,
+        "url": "/export/settle/bokLastdataExport001/init",
+        "pageId": "BokLastdataExport001",
+        "order": 13
+      }
+    ]
+  },
+  {
+    "id": "NEWTPFUND_001",
+    "title": "保障基金管理",
+    "icon": "icon-drxx75",
+    "spread": false,
+    "order": 16,
+    "children": [
+      {
+        "id": "NEWTPFUND_001_001",
+        "title": "收款单管理",
+        "icon": "",
+        "spread": false,
+        "url": "/newtpfund/recv/TpfFundRecv001/init",
+        "pageId": "TpfFundRecv001",
+        "order": 1
+      },
+      {
+        "id": "NEWTPFUND_001_002",
+        "title": "赎回暨付款管理",
+        "icon": "",
+        "spread": false,
+        "url": "/newtpfund/payment/TpfFundPamt001/init",
+        "pageId": "TpfFundPamt001",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "id": "OPRERMANAGE_001",
+    "title": "后期管理",
+    "icon": "icon-qudaoguanli",
+    "spread": false,
+    "order": 17,
+    "children": [
+      {
+        "id": "OPRERMANAGE_001_008",
+        "title": "干系人管理",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/stakeholder/Stakeholder001/init",
+        "pageId": "Stakeholder001",
+        "order": 1
+      },
+      {
+        "id": "OPRERMANAGE_001_009",
+        "title": "干系人管理-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/stakeholder/StakeholderCheck001/init",
+        "pageId": "StakeholderCheck001",
+        "order": 2
+      },
+      {
+        "id": "OPRERMANAGE_001_003",
+        "title": "产品归属部门调整",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/proddept/ProdDept001/init",
+        "pageId": "ProdDept001",
+        "order": 3
+      },
+      {
+        "id": "OPRERMANAGE_001_004",
+        "title": "产品归属部门调整-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/info/proddept/ProdDeptCheck001/init",
+        "pageId": "ProdDeptCheck001",
+        "order": 4
+      },
+      {
+        "id": "OPRERMANAGE_001_005",
+        "title": "产品期次展期管理",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/extterm/ProdExtterm001/init",
+        "pageId": "ProdExtterm001",
+        "order": 5
+      },
+      {
+        "id": "OPRERMANAGE_001_007",
+        "title": "产品期次展期管理-复核",
+        "icon": "",
+        "spread": false,
+        "url": "/prod/extterm/ProdExttermCheck001/init",
+        "pageId": "ProdExttermCheck001",
+        "order": 6
+      },
+      {
+        "id": "OPRERMANAGE_001_001",
+        "title": "他证台账",
+        "icon": "",
+        "spread": false,
+        "url": "/opr/OprOthercertLedger001/init",
+        "pageId": "OprOthercertLedger001",
+        "order": 7
+      },
+      {
+        "id": "OPRERMANAGE_001_002",
+        "title": "档案管理",
+        "icon": "",
+        "spread": false,
+        "order": 8,
+        "children": [
+          {
+            "id": "OPRERMANAGE_001_002_001",
+            "title": "运营归档人",
+            "icon": "",
+            "spread": false,
+            "url": "/otherserv/document/AftArcuser001/init",
+            "pageId": "AftArcuser001",
+            "order": 1
+          },
+          {
+            "id": "OPRERMANAGE_001_002_002",
+            "title": "放款材料监控台账",
+            "icon": "",
+            "spread": false,
+            "url": "/otherserv/document/AftLoanDoc001/init",
+            "pageId": "AftLoanDoc001",
+            "order": 2
+          },
+          {
+            "id": "OPRERMANAGE_001_002_003",
+            "title": "中后期监控台账",
+            "icon": "",
+            "spread": false,
+            "url": "/otherserv/document/AftDoc001/init",
+            "pageId": "AftDoc001",
+            "order": 3
+          }
+        ]
+      },
+      {
+        "id": "OPRERMANAGE_001_010",
+        "title": "关键风险控制措施监控台账",
+        "icon": "",
+        "spread": false,
+        "url": "/otherserv/riskcontrol/AftRiskControl001/init",
+        "pageId": "AftRiskControl001",
+        "order": 9
+      }
+    ]
+  },
+  {
+    "id": "BASICMANAGE_001",
+    "title": "基础设置",
+    "icon": "icon-jichushezhi",
+    "spread": false,
+    "order": 30,
+    "children": [
+      {
+        "id": "BASICMANAGE_001_001",
+        "title": "开户机构设置",
+        "icon": "",
+        "spread": false,
+        "url": "/pub/PubBankAgency001/init",
+        "pageId": "PubBankAgency001",
+        "order": 1
+      },
+      {
+        "id": "BASICMANAGE_001_004",
+        "title": "银行流水获取",
+        "icon": "",
+        "spread": false,
+        "url": "/pub/PubBankcflTask001/init",
+        "pageId": "PubBankcflTask001",
+        "order": 4
+      },
+      {
+        "id": "BASICMANAGE_001_015",
+        "title": "资金用途管理",
+        "icon": "",
+        "spread": false,
+        "url": "/accountingserv/stmt/bok/BokFundusage001/init",
+        "pageId": "BokFundusage001",
+        "order": 15
+      }
+    ]
+  }
+]

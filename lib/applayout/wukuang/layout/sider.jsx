@@ -37,8 +37,8 @@ export default defineComponent({
     },
     rendMenus(menus, isRoot){
       return menus.map(item => {
-        if (!item.router.path){
-          if (item.childrens.length === 0){
+        if (!item.router.url){
+          if (!item.$childrens || item.$childrens.length === 0){
             return null
           }
           return (<AsubMenu
@@ -48,21 +48,21 @@ export default defineComponent({
                   <span>
                     {isRoot && <MailOutlined/>}
                     <sapn class="submenu-title-text">
-                    {item.router.meta.title}
+                    {item.router.title}
                     </sapn>
                   </span>
               )
             }}
           >
             {
-              this.rendMenus(item.childrens, false)
+              this.rendMenus(item.$childrens, false)
             }
           </AsubMenu>)
         } else {
           return (
             <AmenuItem>
               {isRoot && <MailOutlined/>}
-              <span><RouterLink to={{path: item.router.path}}>{item.router.meta.title}</RouterLink></span>
+              <span><RouterLink to={item.router.url}>{item.router.title}</RouterLink></span>
             </AmenuItem>
           )
         }
