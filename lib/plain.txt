@@ -1,0 +1,66 @@
+框架优化
+1. 节点复制、粘贴
+2. 优化对话框新增的时候 
+3. 新增 formItem 单个、分组
+4. 设计新增 组件时的默认状态、方法
+5. 新增富文本编辑器
+6. 新增卡片默认折叠
+7. 优化所有控件 
+
+
+
+
+
+特性
+1. 支持Vue2  
+2. 支持Vue3
+3. 支持任意颗粒度的app拆分
+4. 0配置
+目录规范
+
+lib 构建  包含全局业务交互逻辑、权限校验 
+apps
+   user-- apps下的一级目录将会独立打包生一个bundjs（静态路由）
+     mock-* 代表moc数据，默认会加上/mock前缀
+commons
+  -- 定义通用依赖，将会独立打包
+//配置文件：端口号，代理
+-cmtterrc.js
+
+dist构建目录
+   public
+    全局静态资源 来自于全局交互的资源
+   static
+     -- common
+     -- user // user应用下的所有的资源，同时也会导出路由
+   index.html 首页
+   app.js 加载页面
+
+// cli
+cmtter-web dev prod 
+cmtter-web ui 会启动一个可视化的 app管理页面, 内置slit数据库
+   1. 用于床架应用
+   2. 用于页面设计
+
+调研方向
+1. 阅读webpack源码
+2. 阅读umijs源码
+3. 阅读vue-cli源码
+
+
+// Module._resolveFilename定义从哪个目录加载js文件
+F:\all-projects\webpack-master\webpack-master\node_modules\resolve-from\index.js  29行
+是否可以通过通过这个方法循环的网上查找
+
+
+
+
+// 开发用例 
+
+const formData = new FormData()
+this.fileList.forEach(element => {
+  formData.append("fineName[]", element.originFileObj);
+});
+formData.append("user", 'xiufu');
+formData.append("age", '1234');
+this.http('/mock/updsate', formData).postMultiForm()
