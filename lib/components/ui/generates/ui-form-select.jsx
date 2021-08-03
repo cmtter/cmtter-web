@@ -205,6 +205,7 @@ function generate(options){
         allowClear: true,
         labelInValue: true,
         options: mergeDatas,
+        size: allProps.size,
         ...(hasLoadDatasAsync ? {filterOption: false} : {filterOption: filterOption} ),
         value: valueList,
         'onUpdate:value': onSelect,

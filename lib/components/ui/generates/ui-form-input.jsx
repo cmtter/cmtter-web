@@ -166,7 +166,7 @@ function generate(options){
           onInput:  this.handerInputing,
           'onUpdate:value': this.parserValue
         }
-        return <Input {...inputProps} ></Input>
+        return <Input {...inputProps} v-slots={this.$slots}></Input>
       },
       renderDateInput(props){
         const dateProps = {
@@ -218,6 +218,7 @@ function generate(options){
     },
 
     render(){
+      console.log('当前表单插槽: ', this.$slots);
       const allProps =  { ...getOptionProps(this), ...this.$attrs, ...this.dyncProps };
       //根据rule注入host宿主组件
       const rules = allProps.rules.map(m => ({...m, host: this.hostComp}))

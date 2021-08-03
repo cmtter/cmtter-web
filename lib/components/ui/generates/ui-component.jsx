@@ -42,7 +42,7 @@ function generate(options){
   const props = {
     props: VueTypes.object.def({}),
     slots: VueTypes.object.def({}),
-    ...(uimixins.props),
+    ...(defalutProps(uimixins.props, options.props))
   }
 
   //定义组件
@@ -82,6 +82,10 @@ function generate(options){
       const slots = {
         ...(props.slots || {}),
         ...(this.$slots || {})
+      }
+
+      if (options.props.ui === 'asteps'){
+        debugger
       }
 
       //绑定宿主环境作用域
