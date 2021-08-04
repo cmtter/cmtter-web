@@ -231,7 +231,7 @@ antvComps['select'] = {
           Cmp = UI.form.select.generate({})
       }
 
-      return <Cmp {...allProps}>{children}</Cmp>
+      return <Cmp {...allProps} v-slots={this.$slots}>{children}</Cmp>
     }
   }),
   exportDefault: true,
