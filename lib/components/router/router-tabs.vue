@@ -131,22 +131,24 @@ export default {
   flex-direction: column;
   min-height: 95%;
   box-sizing: border-box;
-  margin: 10px;
 
   .joyin-router-headers {
+    padding: 0 10px 1px 10px;
     .ant-tabs-nav .ant-tabs-tab-active {
-      font-weight: normal;
+      font-weight: 700;
     }
     .ant-affix > .ant-tabs-card {
       background: #fff;
     }
     .ant-tabs-bar {
-      margin: 0 0 10px 0;
+      margin: 0px;
     }
   }
 
   .joyin-router-container {
     flex: 1 1 auto;
+    padding: 10px;
+    background-color: rgba(250, 250, 250, 1);
   }
 }
 </style>

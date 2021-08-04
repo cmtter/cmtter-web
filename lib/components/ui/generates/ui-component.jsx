@@ -84,10 +84,6 @@ function generate(options){
         ...(this.$slots || {})
       }
 
-      if (options.props.ui === 'asteps'){
-        debugger
-      }
-
       //绑定宿主环境作用域
       Object.keys(slots).forEach(r => {
         if(typeof slots[r] === 'function'){
